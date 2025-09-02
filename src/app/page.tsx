@@ -6,10 +6,6 @@ import {
   Truck,
   Clock,
   Calculator,
-  CheckCircle,
-  Home,
-  Briefcase,
-  Plus,
 } from "lucide-react";
 import {
   calcPrice,
@@ -17,6 +13,7 @@ import {
   DumpsterSize,
 } from "@/utils/pricing";
 import { handleOrder as processOrder } from "@/lib/orders";
+import { isBusinessOpen } from "@/utils/business-hours";
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
@@ -55,18 +52,14 @@ export default function PresidentialDumpsters() {
             Roll‑off dumpsters • 7‑day rental • Same/Next‑day delivery
           </p>
 
-          {/* Open for Business Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-bold text-lg shadow-md mb-10">
-            <CheckCircle className="w-5 h-5" /> OPEN FOR BUSINESS
-          </div>
-
-          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300">
+          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300 mb-10">
             <span className="inline-flex items-center gap-2">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <Truck className="w-4 h-4" /> Local Drivers Ready
             </span>
             <span className="inline-flex items-center gap-2">
-              <Clock className="w-4 h-4" /> Sun–Fri 6AM–6PM
+              <span className={`w-2 h-2 rounded-full ${isBusinessOpen() ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
+              <Clock className="w-4 h-4" /> {isBusinessOpen() ? 'Open' : 'Closed'} • Sun–Fri 6AM–6PM
             </span>
           </div>
         </div>
