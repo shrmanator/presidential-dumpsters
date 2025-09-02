@@ -12,6 +12,7 @@ import {
 } from "@/utils/pricing";
 import { handleOrder as processOrder } from "@/lib/orders";
 import { isBusinessOpen } from "@/utils/business-hours";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
@@ -65,7 +66,7 @@ export default function PresidentialDumpsters() {
         <div className="mt-12 max-w-xl mx-auto bg-[#11255a] border border-green-600 rounded-2xl p-6 shadow-md">
           <div className="flex items-start justify-between mb-4">
             <h2 className="text-xl font-semibold text-green-400">
-              Instant Quote
+              Place Order
             </h2>
             <div className="text-2xl font-bold text-yellow-300">
               ${basePrice}
@@ -92,12 +93,10 @@ export default function PresidentialDumpsters() {
 
           {/* Booking basics */}
           <div className="grid gap-3 mb-5">
-            <input
-              type="text"
-              placeholder="Delivery address"
+            <AddressAutocomplete
               value={booking.address}
-              onChange={(e) => setBooking({ ...booking, address: e.target.value })}
-              autoComplete="address-line1"
+              onChange={(address) => setBooking({ ...booking, address })}
+              placeholder="Delivery address"
               className="px-3 py-2 rounded-lg border border-gray-600 bg-[#0B1C46] text-white focus:border-green-500 focus:outline-none"
             />
             <input
