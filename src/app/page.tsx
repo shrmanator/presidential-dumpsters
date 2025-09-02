@@ -37,10 +37,10 @@ export default function PresidentialDumpsters() {
             Presidential Dumpsters
           </div>
           <a
-            href="tel:1-800-386-7787"
+            href="tel:+1-347-299-0482"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-500"
           >
-            <Phone className="w-4 h-4" /> 1-800-DUMPSTR
+            <Phone className="w-4 h-4" /> (347) 299-0482
           </a>
         </div>
       </nav>
@@ -68,15 +68,6 @@ export default function PresidentialDumpsters() {
             <span className="inline-flex items-center gap-2">
               <Clock className="w-4 h-4" /> Sun–Fri 6AM–6PM
             </span>
-            <span className="inline-flex items-center gap-2">
-              <Home className="w-4 h-4" /> Residential
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Briefcase className="w-4 h-4" /> Commercial
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Plus className="w-4 h-4" /> Loading Available (extra)
-            </span>
           </div>
         </div>
 
@@ -86,8 +77,8 @@ export default function PresidentialDumpsters() {
             <h2 className="text-xl font-semibold text-green-400">
               Instant Quote
             </h2>
-            <div className="text-4xl font-bold text-yellow-300">
-              Starting at ${basePrice}
+            <div className="text-2xl font-bold text-yellow-300">
+              ${basePrice}
             </div>
           </div>
 
@@ -142,15 +133,11 @@ export default function PresidentialDumpsters() {
           </div>
 
           {/* Pricing info */}
-          <div className="rounded-lg border border-green-600 p-4 bg-[#0B1C46]">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-300">Base Price</span>
-              <span className="text-2xl font-bold text-yellow-300">
-                ${basePrice}
-              </span>
-            </div>
-            <div className="text-xs text-gray-400 mt-2">
-              Final price includes delivery, tax, and any additional fees based on location and materials.
+          <div className="rounded-lg border border-green-600 p-4 bg-[#0B1C46] text-center">
+            <div className="text-sm text-gray-400 mb-1">7-day rental</div>
+            <div className="text-3xl font-bold text-yellow-300 mb-2">${basePrice}</div>
+            <div className="text-xs text-gray-400">
+              Includes delivery up to 15 miles
             </div>
           </div>
 
@@ -167,7 +154,7 @@ export default function PresidentialDumpsters() {
       <footer className="px-6 py-10 border-t border-green-600 bg-[#0B1C46]">
         <div className="max-w-7xl mx-auto text-center text-gray-300">
           <div className="text-2xl font-bold text-yellow-300 mb-2">
-            1-800-DUMPSTR
+            (347) 299-0482
           </div>
           <div>Presidential Dumpsters • 7-Day Rentals • Licensed & Insured</div>
         </div>
