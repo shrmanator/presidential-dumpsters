@@ -3,12 +3,10 @@
 import React, { useState } from "react";
 import {
   Phone,
-  Truck,
   Clock,
   Calculator,
 } from "lucide-react";
 import {
-  calcPrice,
   dumpsters,
   DumpsterSize,
 } from "@/utils/pricing";
@@ -22,7 +20,7 @@ export default function PresidentialDumpsters() {
   const basePrice = dumpsters[selectedSize].base;
 
   const handleOrder = () => {
-    processOrder(selectedSize, 0, booking); // No distance calculation
+    processOrder(selectedSize, booking);
   };
 
   return (
@@ -52,14 +50,13 @@ export default function PresidentialDumpsters() {
             Roll‑off dumpsters • 7‑day rental • Same/Next‑day delivery
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300 mb-10">
-            <span className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <Truck className="w-4 h-4" /> Local Drivers Ready
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <span className={`w-2 h-2 rounded-full ${isBusinessOpen() ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
-              <Clock className="w-4 h-4" /> {isBusinessOpen() ? 'Open' : 'Closed'} • Sun–Fri 6AM–6PM
+          <div className="flex justify-center mb-10">
+            <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-gray-800 text-sm border border-gray-600">
+              <span className={isBusinessOpen() ? 'text-green-400' : 'text-red-400'}>
+                {isBusinessOpen() ? 'Open' : 'Closed'}
+              </span>
+              <Clock className="w-4 h-4 text-gray-400" /> 
+              <span className="text-gray-400">Sun–Fri 6AM–6PM</span>
             </span>
           </div>
         </div>
