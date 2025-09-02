@@ -53,9 +53,12 @@ export default function AddressAutocomplete({
       type="text"
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
+      placeholder={isLoaded ? placeholder : "Loading address lookup..."}
       className={className}
       disabled={!isLoaded}
+      style={{
+        opacity: isLoaded ? 1 : 0.7,
+      }}
     />
   );
 }
