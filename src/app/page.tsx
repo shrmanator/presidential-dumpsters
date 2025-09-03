@@ -10,10 +10,10 @@ import {
   dumpsters,
   DumpsterSize,
 } from "@/utils/pricing";
-import { submitOrder } from "@/actions/orders";
 import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-import { orderSchema, formatPhoneNumber } from "@/utils/validation";
+import { formatPhoneNumber } from "@/utils/validation";
+import { handleOrderSubmission } from "@/utils/order-handler";
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
@@ -23,33 +23,8 @@ export default function PresidentialDumpsters() {
   const basePrice = dumpsters[selectedSize].base;
 
   const handleOrder = async () => {
-    setErrors({});
-    
-    try {
-      const validatedData = orderSchema.parse(booking);
-      
-      const result = await submitOrder({
-        selectedSize,
-        address: validatedData.address,
-        phone: validatedData.phone,
-        email: validatedData.email || '',
-      });
-      
-      alert(result.message);
-    } catch (error) {
-      if (error instanceof Error && 'issues' in error) {
-        const zodError = error as any;
-        const fieldErrors: Record<string, string> = {};
-        zodError.issues.forEach((issue: any) => {
-          const fieldName = issue.path[0];
-          fieldErrors[fieldName] = issue.message;
-        });
-        setErrors(fieldErrors);
-      } else {
-        console.error('Order submission failed:', error);
-        alert('Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.');
-      }
-    }
+    const result = await handleOrderSubmission(booking, selectedSize, setErrors);
+    alert(result.message);
   };
 
   return (
