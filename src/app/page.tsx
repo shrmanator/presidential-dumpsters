@@ -13,31 +13,42 @@ import {
 import { submitOrder } from "@/actions/orders";
 import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
+import { orderSchema, formatPhoneNumber } from "@/utils/validation";
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
   const [booking, setBooking] = useState({ address: "", phone: "", email: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const basePrice = dumpsters[selectedSize].base;
 
   const handleOrder = async () => {
-    if (!booking.address || !booking.phone) {
-      alert('Please add delivery address and phone number');
-      return;
-    }
-
+    setErrors({});
+    
     try {
+      const validatedData = orderSchema.parse(booking);
+      
       const result = await submitOrder({
         selectedSize,
-        address: booking.address,
-        phone: booking.phone,
-        email: booking.email,
+        address: validatedData.address,
+        phone: validatedData.phone,
+        email: validatedData.email || '',
       });
       
       alert(result.message);
     } catch (error) {
-      console.error('Order submission failed:', error);
-      alert('Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.');
+      if (error instanceof Error && 'issues' in error) {
+        const zodError = error as any;
+        const fieldErrors: Record<string, string> = {};
+        zodError.issues.forEach((issue: any) => {
+          const fieldName = issue.path[0];
+          fieldErrors[fieldName] = issue.message;
+        });
+        setErrors(fieldErrors);
+      } else {
+        console.error('Order submission failed:', error);
+        alert('Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.');
+      }
     }
   };
 
@@ -110,32 +121,62 @@ export default function PresidentialDumpsters() {
 
           {/* Booking basics */}
           <div className="grid gap-3 mb-5">
-            <AddressAutocomplete
-              value={booking.address}
-              onChange={(address) => setBooking({ ...booking, address })}
-              placeholder="Delivery address"
-              className="px-3 py-2 rounded-lg border border-gray-600 bg-[#0B1C46] text-white focus:border-green-500 focus:outline-none"
-            />
-            <input
-              type="tel"
-              placeholder="Your phone number"
-              value={booking.phone}
-              onChange={(e) =>
-                setBooking({ ...booking, phone: e.target.value })
-              }
-              autoComplete="tel"
-              className="px-3 py-2 rounded-lg border border-gray-600 bg-[#0B1C46] text-white focus:border-green-500 focus:outline-none"
-            />
-            <input
-              type="email"
-              placeholder="Email for receipt (optional)"
-              value={booking.email}
-              onChange={(e) =>
-                setBooking({ ...booking, email: e.target.value })
-              }
-              autoComplete="email"
-              className="px-3 py-2 rounded-lg border border-gray-600 bg-[#0B1C46] text-white focus:border-green-500 focus:outline-none"
-            />
+            <div>
+              <AddressAutocomplete
+                value={booking.address}
+                onChange={(address) => setBooking({ ...booking, address })}
+                placeholder="Delivery address"
+                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
+                  errors.address 
+                    ? 'border-red-500 focus:border-red-500' 
+                    : 'border-gray-600 focus:border-green-500'
+                }`}
+              />
+              {errors.address && (
+                <p className="text-red-400 text-sm mt-1">{errors.address}</p>
+              )}
+            </div>
+            
+            <div>
+              <input
+                type="tel"
+                placeholder="Your phone number"
+                value={booking.phone}
+                onChange={(e) => {
+                  const formatted = formatPhoneNumber(e.target.value);
+                  setBooking({ ...booking, phone: formatted });
+                }}
+                autoComplete="tel"
+                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
+                  errors.phone 
+                    ? 'border-red-500 focus:border-red-500' 
+                    : 'border-gray-600 focus:border-green-500'
+                }`}
+              />
+              {errors.phone && (
+                <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
+              )}
+            </div>
+            
+            <div>
+              <input
+                type="email"
+                placeholder="Email for receipt (optional)"
+                value={booking.email}
+                onChange={(e) =>
+                  setBooking({ ...booking, email: e.target.value })
+                }
+                autoComplete="email"
+                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
+                  errors.email 
+                    ? 'border-red-500 focus:border-red-500' 
+                    : 'border-gray-600 focus:border-green-500'
+                }`}
+              />
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+              )}
+            </div>
           </div>
 
           {/* Pricing info */}
