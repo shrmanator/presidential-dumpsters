@@ -10,7 +10,7 @@ import {
   dumpsters,
   DumpsterSize,
 } from "@/utils/pricing";
-import { handleOrder as processOrder } from "@/lib/orders";
+import { submitOrder } from "@/actions/orders";
 import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 
@@ -20,8 +20,25 @@ export default function PresidentialDumpsters() {
 
   const basePrice = dumpsters[selectedSize].base;
 
-  const handleOrder = () => {
-    processOrder(selectedSize, booking);
+  const handleOrder = async () => {
+    if (!booking.address || !booking.phone) {
+      alert('Please add delivery address and phone number');
+      return;
+    }
+
+    try {
+      const result = await submitOrder({
+        selectedSize,
+        address: booking.address,
+        phone: booking.phone,
+        email: booking.email,
+      });
+      
+      alert(result.message);
+    } catch (error) {
+      console.error('Order submission failed:', error);
+      alert('Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.');
+    }
   };
 
   return (
