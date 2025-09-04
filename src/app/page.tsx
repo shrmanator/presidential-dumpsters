@@ -12,7 +12,7 @@ import {
 import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { formatPhoneNumber } from "@/utils/validation";
-import { handleOrderSubmission } from "@/utils/order-handler";
+import { handleOrderWithUI } from "@/utils/order-handler";
 import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 
 export default function PresidentialDumpsters() {
@@ -26,23 +26,16 @@ export default function PresidentialDumpsters() {
 
   const basePrice = dumpsters[selectedSize].base;
 
-  const handleOrder = async () => {
-    setIsSubmitting(true);
-    
-    // Allow UI to update immediately
-    setTimeout(async () => {
-      try {
-        const result = await handleOrderSubmission(booking, selectedSize, setErrors);
-        
-        setToastMessage(result.message);
-        setToastType(result.success ? "success" : "error");
-        setShowToast(true);
-        
-        setTimeout(() => setShowToast(false), 5000);
-      } finally {
-        setIsSubmitting(false);
-      }
-    }, 0);
+  const handleOrder = () => {
+    handleOrderWithUI(
+      booking,
+      selectedSize,
+      setErrors,
+      setIsSubmitting,
+      setToastMessage,
+      setToastType,
+      setShowToast
+    );
   };
 
   return (

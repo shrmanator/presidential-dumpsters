@@ -47,3 +47,30 @@ export const handleOrderSubmission = async (
     }
   }
 };
+
+export const handleOrderWithUI = async (
+  booking: BookingData,
+  selectedSize: DumpsterSize,
+  setErrors: (errors: Record<string, string>) => void,
+  setIsSubmitting: (loading: boolean) => void,
+  setToastMessage: (message: string) => void,
+  setToastType: (type: 'success' | 'error') => void,
+  setShowToast: (show: boolean) => void
+) => {
+  setIsSubmitting(true);
+  
+  // Allow UI to update immediately
+  setTimeout(async () => {
+    try {
+      const result = await handleOrderSubmission(booking, selectedSize, setErrors);
+      
+      setToastMessage(result.message);
+      setToastType(result.success ? "success" : "error");
+      setShowToast(true);
+      
+      setTimeout(() => setShowToast(false), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, 0);
+};
