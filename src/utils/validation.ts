@@ -17,7 +17,7 @@ export const orderSchema = z.object({
     .min(10, 'Phone number must be at least 10 digits')
     .transform(val => val.replace(/[^\d]/g, ''))
     .refine(val => val.length >= 10, 'Phone number must be at least 10 digits'),
-  email: z.string().email('Invalid email format').optional().or(z.literal('')),
+  email: z.string().min(1, 'Email address is required').email('Please enter a valid email address'),
 });
 
 export type OrderFormData = z.infer<typeof orderSchema>;

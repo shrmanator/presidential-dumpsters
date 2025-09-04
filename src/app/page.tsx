@@ -13,17 +13,36 @@ import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { formatPhoneNumber } from "@/utils/validation";
 import { handleOrderSubmission } from "@/utils/order-handler";
+import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
   const [booking, setBooking] = useState({ address: "", phone: "", email: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const basePrice = dumpsters[selectedSize].base;
 
   const handleOrder = async () => {
-    const result = await handleOrderSubmission(booking, selectedSize, setErrors);
-    alert(result.message);
+    setIsSubmitting(true);
+    
+    // Allow UI to update immediately
+    setTimeout(async () => {
+      try {
+        const result = await handleOrderSubmission(booking, selectedSize, setErrors);
+        
+        setToastMessage(result.message);
+        setToastType(result.success ? "success" : "error");
+        setShowToast(true);
+        
+        setTimeout(() => setShowToast(false), 5000);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }, 0);
   };
 
   return (
@@ -163,10 +182,16 @@ export default function PresidentialDumpsters() {
           </div>
 
           <button
+            type="button"
             onClick={handleOrder}
-            className="mt-4 w-full py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-500"
+            disabled={isSubmitting}
+            className={`mt-4 w-full py-3 rounded-xl text-white font-semibold transition-all ${
+              isSubmitting 
+                ? 'bg-gray-600 cursor-not-allowed' 
+                : 'bg-green-600 hover:bg-green-500'
+            }`}
           >
-            Order Dumpster Now
+            {isSubmitting ? 'Submitting...' : 'Order Dumpster Now'}
           </button>
         </div>
       </section>
@@ -180,6 +205,41 @@ export default function PresidentialDumpsters() {
           <div>Presidential Dumpsters • 7-Day Rentals • Licensed & Insured</div>
         </div>
       </footer>
+      
+      {/* Toast Notification */}
+      {showToast && (
+        <div className={`fixed top-4 right-4 z-50 max-w-sm w-full bg-white border-l-4 rounded-lg shadow-lg p-4 ${
+          toastType === 'success' ? 'border-green-500' : 'border-red-500'
+        }`}>
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              {toastType === 'success' ? (
+                <CheckCircleIcon className="h-5 w-5 text-green-400" />
+              ) : (
+                <XCircleIcon className="h-5 w-5 text-red-400" />
+              )}
+            </div>
+            <div className="ml-3 flex-1">
+              <p className={`text-sm font-medium ${
+                toastType === 'success' ? 'text-green-800' : 'text-red-800'
+              }`}>
+                {toastMessage}
+              </p>
+            </div>
+            <div className="ml-4 flex-shrink-0 flex">
+              <button
+                type="button"
+                onClick={() => setShowToast(false)}
+                className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-600 focus:outline-none"
+                aria-label="Close notification"
+                title="Close notification"
+              >
+                <XCircleIcon className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
