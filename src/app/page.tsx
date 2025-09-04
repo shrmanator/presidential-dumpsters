@@ -135,7 +135,7 @@ export default function PresidentialDumpsters() {
             <div>
               <input
                 type="email"
-                placeholder="Email for receipt (optional)"
+                placeholder="Your email address"
                 value={booking.email}
                 onChange={(e) =>
                   setBooking({ ...booking, email: e.target.value })
