@@ -1,6 +1,7 @@
 import { orderSchema } from './validation';
 import { submitOrder } from '@/actions/orders';
 import { DumpsterSize } from './pricing';
+import { ZodError } from 'zod';
 
 export interface BookingData {
   address: string;
@@ -27,12 +28,13 @@ export const handleOrderSubmission = async (
     
     return { success: result.success, message: result.message };
   } catch (error) {
-    if (error instanceof Error && 'issues' in error) {
-      const zodError = error as any;
+    if (error instanceof ZodError) {
       const fieldErrors: Record<string, string> = {};
-      zodError.issues.forEach((issue: any) => {
+      error.issues.forEach((issue) => {
         const fieldName = issue.path[0];
-        fieldErrors[fieldName] = issue.message;
+        if (typeof fieldName === 'string') {
+          fieldErrors[fieldName] = issue.message;
+        }
       });
       setErrors(fieldErrors);
       return { success: false, message: 'Please fix the errors above' };

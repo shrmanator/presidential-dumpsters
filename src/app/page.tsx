@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   Phone,
   Clock,
-  Calculator,
 } from "lucide-react";
 import {
   dumpsters,
