@@ -21,8 +21,9 @@ export async function submitOrder(formData: {
   
   try {
     await resend.emails.send({
-      from: 'Presidential Dumpsters <orders@presidentialdumpsters.com>',
-      to: ['dovindustries@gmail.com'],
+      from: 'Presidential Dumpsters <onboarding@resend.dev>',
+      replyTo: email || undefined,
+      to: ['office@presidentialmgmt.com'],
       subject: `New Dumpster Order - ${dumpsters[selectedSize].name}`,
       html: `
         <h2>New Dumpster Order</h2>
