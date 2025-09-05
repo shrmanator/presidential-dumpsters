@@ -40,7 +40,7 @@ export async function submitOrder(formData: {
     
     return { 
       success: true, 
-      message: `Order submitted successfully! We'll call ${phone} within 30 minutes.`,
+      message: "Order submitted successfully!",
       basePrice 
     };
   } catch (error) {

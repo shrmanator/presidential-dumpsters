@@ -91,6 +91,7 @@ export default function PresidentialDumpsters() {
           <div className="grid grid-cols-2 gap-3 mb-5">
             {(["10", "20"] as const).map((sz) => (
               <button
+                type="button"
                 key={sz}
                 onClick={() => setSelectedSize(sz)}
                 className={`p-4 rounded-xl border transition ${
@@ -186,7 +187,7 @@ export default function PresidentialDumpsters() {
           >
             {isSubmitting ? 'Submitting...' : 'Order Dumpster Now'}
           </button>
-        </div>
+no        </div>
       </section>
 
       {/* Footer */}

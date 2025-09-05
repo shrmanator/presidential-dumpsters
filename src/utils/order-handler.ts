@@ -13,7 +13,7 @@ export const handleOrderSubmission = async (
   booking: BookingData,
   selectedSize: DumpsterSize,
   setErrors: (errors: Record<string, string>) => void
-): Promise<{ success: boolean; message: string }> => {
+): Promise<{ success: boolean; message: string; showToast: boolean }> => {
   setErrors({});
   
   try {
@@ -26,7 +26,7 @@ export const handleOrderSubmission = async (
       email: validatedData.email || '',
     });
     
-    return { success: result.success, message: result.message };
+    return { success: result.success, message: result.message, showToast: true };
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors: Record<string, string> = {};
@@ -37,12 +37,13 @@ export const handleOrderSubmission = async (
         }
       });
       setErrors(fieldErrors);
-      return { success: false, message: 'Please fix the errors above' };
+      return { success: false, message: '', showToast: false };
     } else {
       console.error('Order submission failed:', error);
       return { 
         success: false, 
-        message: 'Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.' 
+        message: 'Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.',
+        showToast: true
       };
     }
   }
@@ -64,11 +65,13 @@ export const handleOrderWithUI = async (
     try {
       const result = await handleOrderSubmission(booking, selectedSize, setErrors);
       
-      setToastMessage(result.message);
-      setToastType(result.success ? "success" : "error");
-      setShowToast(true);
-      
-      setTimeout(() => setShowToast(false), 5000);
+      if (result.showToast) {
+        setToastMessage(result.message);
+        setToastType(result.success ? "success" : "error");
+        setShowToast(true);
+        
+        setTimeout(() => setShowToast(false), 5000);
+      }
     } finally {
       setIsSubmitting(false);
     }
