@@ -1,7 +1,7 @@
-import { orderSchema } from './validation';
-import { submitOrder } from '@/actions/orders';
-import { DumpsterSize } from './pricing';
-import { ZodError } from 'zod';
+import { orderSchema } from "./validation";
+import { submitOrder } from "@/actions/orders";
+import { DumpsterSize } from "./pricing";
+import { ZodError } from "zod";
 
 export interface BookingData {
   address: string;
@@ -15,35 +15,40 @@ export const handleOrderSubmission = async (
   setErrors: (errors: Record<string, string>) => void
 ): Promise<{ success: boolean; message: string; showToast: boolean }> => {
   setErrors({});
-  
+
   try {
     const validatedData = orderSchema.parse(booking);
-    
+
     const result = await submitOrder({
       selectedSize,
       address: validatedData.address,
       phone: validatedData.phone,
-      email: validatedData.email || '',
+      email: validatedData.email || "",
     });
-    
-    return { success: result.success, message: result.message, showToast: true };
+
+    return {
+      success: result.success,
+      message: result.message,
+      showToast: true,
+    };
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors: Record<string, string> = {};
       error.issues.forEach((issue) => {
         const fieldName = issue.path[0];
-        if (typeof fieldName === 'string') {
+        if (typeof fieldName === "string") {
           fieldErrors[fieldName] = issue.message;
         }
       });
       setErrors(fieldErrors);
-      return { success: false, message: '', showToast: false };
+      return { success: false, message: "", showToast: false };
     } else {
-      console.error('Order submission failed:', error);
-      return { 
-        success: false, 
-        message: 'Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.',
-        showToast: true
+      console.error("Order submission failed:", error);
+      return {
+        success: false,
+        message:
+          "Sorry, there was an error submitting your order. Please call (347) 299-0482 directly.",
+        showToast: true,
       };
     }
   }
@@ -51,32 +56,42 @@ export const handleOrderSubmission = async (
 
 const checkRateLimit = (): { allowed: boolean; message?: string } => {
   const now = Date.now();
-  
+
   // Get rate limiting data from localStorage
-  const lastSubmission = parseInt(localStorage.getItem('lastOrderSubmission') || '0');
-  const submissionCount = parseInt(localStorage.getItem('orderSubmissionCount') || '0');
+  const lastSubmission = parseInt(
+    localStorage.getItem("lastOrderSubmission") || "0"
+  );
+  const submissionCount = parseInt(
+    localStorage.getItem("orderSubmissionCount") || "0"
+  );
   const timeSinceLastSubmission = now - lastSubmission;
-  
+
   // Rate limiting: 10 seconds between submissions
   if (timeSinceLastSubmission < 10000) {
-    return { allowed: false, message: "Please wait before submitting another order." };
+    return {
+      allowed: false,
+      message: "Please wait before submitting another order.",
+    };
   }
-  
+
   // Reset count after 5 minutes
   let newCount = submissionCount;
   if (timeSinceLastSubmission > 300000) {
     newCount = 0;
   }
-  
+
   // Max 3 submissions per 5-minute window
   if (newCount >= 3) {
-    return { allowed: false, message: "Too many submissions. Please wait 5 minutes." };
+    return {
+      allowed: false,
+      message: "Too many submissions. Please wait 5 minutes.",
+    };
   }
-  
+
   // Update localStorage
-  localStorage.setItem('lastOrderSubmission', now.toString());
-  localStorage.setItem('orderSubmissionCount', (newCount + 1).toString());
-  
+  localStorage.setItem("lastOrderSubmission", now.toString());
+  localStorage.setItem("orderSubmissionCount", (newCount + 1).toString());
+
   return { allowed: true };
 };
 
@@ -86,7 +101,7 @@ export const handleOrderWithUI = async (
   setErrors: (errors: Record<string, string>) => void,
   setIsSubmitting: (loading: boolean) => void,
   setToastMessage: (message: string) => void,
-  setToastType: (type: 'success' | 'error') => void,
+  setToastType: (type: "success" | "error") => void,
   setShowToast: (show: boolean) => void
 ) => {
   // Check rate limit first
@@ -100,17 +115,21 @@ export const handleOrderWithUI = async (
   }
 
   setIsSubmitting(true);
-  
+
   // Allow UI to update immediately
   setTimeout(async () => {
     try {
-      const result = await handleOrderSubmission(booking, selectedSize, setErrors);
-      
+      const result = await handleOrderSubmission(
+        booking,
+        selectedSize,
+        setErrors
+      );
+
       if (result.showToast) {
         setToastMessage(result.message);
         setToastType(result.success ? "success" : "error");
         setShowToast(true);
-        
+
         setTimeout(() => setShowToast(false), 5000);
       }
     } finally {
