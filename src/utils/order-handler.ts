@@ -49,6 +49,37 @@ export const handleOrderSubmission = async (
   }
 };
 
+const checkRateLimit = (): { allowed: boolean; message?: string } => {
+  const now = Date.now();
+  
+  // Get rate limiting data from localStorage
+  const lastSubmission = parseInt(localStorage.getItem('lastOrderSubmission') || '0');
+  const submissionCount = parseInt(localStorage.getItem('orderSubmissionCount') || '0');
+  const timeSinceLastSubmission = now - lastSubmission;
+  
+  // Rate limiting: 10 seconds between submissions
+  if (timeSinceLastSubmission < 10000) {
+    return { allowed: false, message: "Please wait before submitting another order." };
+  }
+  
+  // Reset count after 5 minutes
+  let newCount = submissionCount;
+  if (timeSinceLastSubmission > 300000) {
+    newCount = 0;
+  }
+  
+  // Max 3 submissions per 5-minute window
+  if (newCount >= 3) {
+    return { allowed: false, message: "Too many submissions. Please wait 5 minutes." };
+  }
+  
+  // Update localStorage
+  localStorage.setItem('lastOrderSubmission', now.toString());
+  localStorage.setItem('orderSubmissionCount', (newCount + 1).toString());
+  
+  return { allowed: true };
+};
+
 export const handleOrderWithUI = async (
   booking: BookingData,
   selectedSize: DumpsterSize,
@@ -58,6 +89,16 @@ export const handleOrderWithUI = async (
   setToastType: (type: 'success' | 'error') => void,
   setShowToast: (show: boolean) => void
 ) => {
+  // Check rate limit first
+  const rateCheck = checkRateLimit();
+  if (!rateCheck.allowed) {
+    setToastMessage(rateCheck.message!);
+    setToastType("error");
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+    return;
+  }
+
   setIsSubmitting(true);
   
   // Allow UI to update immediately

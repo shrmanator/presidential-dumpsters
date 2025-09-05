@@ -22,19 +22,31 @@ export async function submitOrder(formData: {
   
   try {
     const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.sender = { name: 'Presidential Dumpsters', email: 'dovindustries@gmail.com' };
+    sendSmtpEmail.sender = { name: 'Presidential Dumpsters', email: 'contact@digidov.com' };
     sendSmtpEmail.to = [{ email: 'office@presidentialmgmt.com', name: 'Presidential Management' }];
     sendSmtpEmail.subject = `New Dumpster Order - ${dumpsters[selectedSize].name}`;
     sendSmtpEmail.htmlContent = `
-      <h2>New Dumpster Order</h2>
-      <p><strong>Dumpster Size:</strong> ${dumpsters[selectedSize].name}</p>
-      <p><strong>Base Price:</strong> $${basePrice}</p>
-      <p><strong>Delivery Address:</strong> ${address}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Customer Email:</strong> ${email || 'Not provided'}</p>
-      
-      <hr>
-      <p><small>Order submitted from Presidential Dumpsters website</small></p>
+      <div style="font-family: Arial, sans-serif; max-width: 600px;">
+        <h2 style="color: #333;">New Dumpster Rental Order</h2>
+        
+        <div style="background: #f9f9f9; padding: 15px; margin: 15px 0;">
+          <p><strong>Dumpster Size:</strong> ${dumpsters[selectedSize].name}</p>
+          <p><strong>Base Price:</strong> $${basePrice}</p>
+          <p><strong>Delivery Address:</strong> ${address}</p>
+          <p><strong>Customer Phone:</strong> ${phone}</p>
+          <p><strong>Customer Email:</strong> ${email || 'Not provided'}</p>
+        </div>
+        
+        <hr style="margin: 20px 0;">
+        
+        <div style="font-size: 12px; color: #666;">
+          <p><strong>Presidential Dumpsters</strong><br>
+          Waterbury, Connecticut<br>
+          Phone: (347) 299-0482</p>
+          
+          <p>This order was submitted through our website contact form.</p>
+        </div>
+      </div>
     `;
     
     if (email) {
