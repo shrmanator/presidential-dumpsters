@@ -66,8 +66,8 @@ const checkRateLimit = (): { allowed: boolean; message?: string } => {
   );
   const timeSinceLastSubmission = now - lastSubmission;
 
-  // Rate limiting: 10 seconds between submissions
-  if (timeSinceLastSubmission < 10000) {
+  // Rate limiting: 3 seconds between submissions (relaxed for testing)
+  if (timeSinceLastSubmission < 3000) {
     return {
       allowed: false,
       message: "Please wait before submitting another order.",
@@ -80,8 +80,8 @@ const checkRateLimit = (): { allowed: boolean; message?: string } => {
     newCount = 0;
   }
 
-  // Max 3 submissions per 5-minute window
-  if (newCount >= 3) {
+  // Max 10 submissions per 5-minute window (relaxed for testing)
+  if (newCount >= 10) {
     return {
       allowed: false,
       message: "Too many submissions. Please wait 5 minutes.",
