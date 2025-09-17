@@ -2,9 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Phone, Clock } from "lucide-react";
+import { Phone } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
-import { isBusinessOpen } from "@/utils/business-hours";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { formatPhoneNumber } from "@/utils/validation";
 import { handleOrderWithUI } from "@/utils/order-handler";
