@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Phone, Clock } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { isBusinessOpen } from "@/utils/business-hours";
@@ -36,15 +37,23 @@ export default function PresidentialDumpsters() {
     <div className="min-h-screen bg-[#0B1C46] text-white">
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-[#0B1C46] border-b border-green-600">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-xl font-bold text-green-500">
-            Presidential Dumpsters
+        <div className="max-w-7xl mx-auto px-6 py-1 flex justify-between items-center">
+          <div>
+            <Image
+              src="/logo.png"
+              alt="Presidential Management"
+              width={350}
+              height={112}
+              className="h-28 w-auto"
+              priority
+              quality={100}
+            />
           </div>
           <a
-            href="tel:+1-347-299-0482"
+            href="tel:+1-475-441-6727"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-500"
           >
-            <Phone className="w-4 h-4" /> (347) 299-0482
+            <Phone className="w-4 h-4" /> (475) 441-6727
           </a>
         </div>
       </nav>
@@ -67,7 +76,7 @@ export default function PresidentialDumpsters() {
                 {isBusinessOpen() ? "Open" : "Closed"}
               </span>
               <Clock className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Sun–Fri 6AM–6PM</span>
+              <span className="text-gray-400">Mon-Fri</span>
             </span>
           </div>
         </div>
@@ -192,9 +201,17 @@ export default function PresidentialDumpsters() {
       <footer className="px-6 py-10 border-t border-green-600 bg-[#0B1C46]">
         <div className="max-w-7xl mx-auto text-center text-gray-300">
           <div className="text-2xl font-bold text-yellow-300 mb-2">
-            (347) 299-0482
+            Presidential Management
           </div>
-          <div>Presidential Dumpsters • 7-Day Rentals • Licensed & Insured</div>
+          <div className="text-lg font-semibold text-white mb-1">
+            (475) 441-6727 Ext. 1
+          </div>
+          <div className="text-sm mb-1">
+            Mon - Thurs 10AM - 5PM • Fri 10AM - 12PM
+          </div>
+          <div className="text-sm">
+            PO Box 4141, Waterbury, CT 06704
+          </div>
         </div>
       </footer>
 
