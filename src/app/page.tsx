@@ -34,183 +34,224 @@ export default function PresidentialDumpsters() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1C46] text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#0B1C46] via-[#1a2951] to-[#0B1C46] text-white">
       {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-[#0B1C46] border-b border-green-600">
+      <nav className="relative z-50 bg-transparent">
         <div className="max-w-7xl mx-auto px-6 py-1 flex justify-between items-center">
           <div>
             <Image
               src="/logo.png"
               alt="Presidential Management"
-              width={350}
-              height={112}
-              className="h-28 w-auto"
+              width={450}
+              height={144}
+              className="h-24 sm:h-32 lg:h-36 w-auto"
               priority
               quality={100}
             />
           </div>
-          <a
-            href="tel:+1-475-441-6727"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-500"
-          >
-            <Phone className="w-4 h-4" /> (475) 441-6727
-          </a>
+          <div>
+            <a
+              href="tel:+1-475-441-6727"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-all shadow-lg font-medium text-sm sm:text-base"
+            >
+              <Phone className="w-3 h-3 sm:w-4 sm:h-4" /> (475) 441-6727
+            </a>
+          </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-12 pb-6 px-6 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-yellow-300">
-            Dumpster Rentals
-          </h1>
-          <p className="text-lg text-gray-300 mb-6">
-            Roll‑off dumpsters • 7‑day rental • Same/Next‑day delivery
-          </p>
-
-          <div className="flex justify-center mb-10">
-            <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-gray-800 text-sm border border-gray-600">
-              <span
-                className={isBusinessOpen() ? "text-green-400" : "text-red-400"}
-              >
-                {isBusinessOpen() ? "Open" : "Closed"}
-              </span>
-              <Clock className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Mon-Fri</span>
-            </span>
-          </div>
+      {/* Modern Single-Purpose Hero */}
+      <section className="min-h-[90vh] flex items-center justify-center px-4 pb-32 relative overflow-hidden">
+        {/* Floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-green-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl"></div>
         </div>
+        <div className="max-w-2xl mx-auto relative z-10">
 
-        {/* Quote Card */}
-        <div className="mt-12 max-w-xl mx-auto bg-[#11255a] border border-green-600 rounded-2xl p-6 shadow-md">
-          <div className="flex items-start justify-between mb-4">
-            <h2 className="text-xl font-semibold text-green-400">
-              Place Order
-            </h2>
-            <div className="text-2xl font-bold text-yellow-300">
-              ${basePrice}
+          {/* Ultra-minimal header */}
+          <div className="text-center mb-16 mt-8">
+            <h1 className="text-[3.5rem] md:text-[5rem] font-light leading-[0.9] mb-8 text-white tracking-[-0.02em]">
+              Dumpster
+              <br />
+              <span className="font-bold">rentals</span>
+            </h1>
+
+            <p className="text-xl text-white/80 mb-2">7-day rental from ${dumpsters["10"].base}</p>
+          </div>
+
+          {/* Glassmorphism form container */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl space-y-8">
+
+            {/* Step 1: Size selection with pricing */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-white">What size do you need?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {(["10", "20"] as const).map((sz) => (
+                  <button
+                    type="button"
+                    key={sz}
+                    onClick={() => setSelectedSize(sz)}
+                    className={`group relative p-6 text-left rounded-2xl border-2 transition-all duration-200 backdrop-blur-sm ${
+                      selectedSize === sz
+                        ? "border-green-400 bg-green-400/10 shadow-lg"
+                        : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
+                    }`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-semibold text-white">{dumpsters[sz].name}</div>
+                        <div className="text-sm text-white/70 mt-1">{sz === "10" ? "Small cleanouts & renovations" : "Large projects & construction"}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-white">${dumpsters[sz].base}</div>
+                        <div className="text-xs text-white/70">7 days</div>
+                      </div>
+                    </div>
+                    {selectedSize === sz && (
+                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 12 12">
+                          <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Size selector */}
-          <div className="grid grid-cols-2 gap-3 mb-5">
-            {(["10", "20"] as const).map((sz) => (
-              <button
-                type="button"
-                key={sz}
-                onClick={() => setSelectedSize(sz)}
-                className={`p-4 rounded-xl border transition ${
-                  selectedSize === sz
-                    ? "border-green-500 bg-green-900/30"
-                    : "border-gray-600 hover:border-gray-500"
-                }`}
-              >
-                <div className="text-lg font-bold">{dumpsters[sz].name}</div>
-                <div className="text-xs text-gray-400">7-day rental</div>
-              </button>
-            ))}
-          </div>
-
-          {/* Booking basics */}
-          <div className="grid gap-3 mb-5">
-            <div>
+            {/* Step 2: Address */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-medium text-white">Where should we deliver it?</h3>
               <AddressAutocomplete
                 value={booking.address}
                 onChange={(address) => setBooking({ ...booking, address })}
-                placeholder="Delivery address"
-                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
+                placeholder="123 Main St, City, State"
+                className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
                   errors.address
-                    ? "border-red-500 focus:border-red-500"
-                    : "border-gray-600 focus:border-green-500"
-                }`}
+                    ? "border-red-400 focus:border-red-300"
+                    : "border-white/30 focus:border-green-400"
+                } focus:outline-none bg-white/10 text-white placeholder-white/60`}
               />
               {errors.address && (
-                <p className="text-red-400 text-sm mt-1">{errors.address}</p>
+                <p className="text-red-300 text-sm pl-1">{errors.address}</p>
               )}
             </div>
 
-            <div>
-              <input
-                type="tel"
-                placeholder="Your phone number"
-                value={booking.phone}
-                onChange={(e) => {
-                  const formatted = formatPhoneNumber(e.target.value);
-                  setBooking({ ...booking, phone: formatted });
-                }}
-                autoComplete="tel"
-                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
-                  errors.phone
-                    ? "border-red-500 focus:border-red-500"
-                    : "border-gray-600 focus:border-green-500"
+            {/* Step 3: Contact */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-medium text-white">How can we reach you?</h3>
+              <div className="space-y-3">
+                <input
+                  type="tel"
+                  placeholder="(555) 123-4567"
+                  value={booking.phone}
+                  onChange={(e) => {
+                    const formatted = formatPhoneNumber(e.target.value);
+                    setBooking({ ...booking, phone: formatted });
+                  }}
+                  autoComplete="tel"
+                  className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
+                    errors.phone
+                      ? "border-red-400 focus:border-red-300"
+                      : "border-white/30 focus:border-green-400"
+                  } focus:outline-none bg-white/10 text-white placeholder-white/60`}
+                />
+                <input
+                  type="email"
+                  placeholder="you@email.com"
+                  value={booking.email}
+                  onChange={(e) => setBooking({ ...booking, email: e.target.value })}
+                  autoComplete="email"
+                  className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
+                    errors.email
+                      ? "border-red-400 focus:border-red-300"
+                      : "border-white/30 focus:border-green-400"
+                  } focus:outline-none bg-white/10 text-white placeholder-white/60`}
+                />
+              </div>
+              {(errors.phone || errors.email) && (
+                <div className="text-red-300 text-sm pl-1 space-y-1">
+                  {errors.phone && <p>{errors.phone}</p>}
+                  {errors.email && <p>{errors.email}</p>}
+                </div>
+              )}
+            </div>
+
+            {/* CTA */}
+            <div className="pt-6">
+              <button
+                type="button"
+                onClick={handleOrder}
+                disabled={isSubmitting}
+                className={`w-full py-5 text-lg font-semibold rounded-xl transition-all duration-200 ${
+                  isSubmitting
+                    ? "bg-white/20 text-white/50 cursor-not-allowed"
+                    : "bg-green-500 text-white hover:bg-green-400 shadow-2xl hover:shadow-green-500/25 active:scale-[0.98] border border-green-400/50"
                 }`}
-              />
-              {errors.phone && (
-                <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
-              )}
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/60 border-t-transparent rounded-full animate-spin"></div>
+                    Scheduling delivery...
+                  </span>
+                ) : (
+                  `Schedule delivery → $${basePrice}`
+                )}
+              </button>
+
+              <p className="text-center text-sm text-white/60 mt-4">
+                Same/next day delivery • No hidden fees • 7-day rental
+              </p>
             </div>
 
-            <div>
-              <input
-                type="email"
-                placeholder="Your email address"
-                value={booking.email}
-                onChange={(e) =>
-                  setBooking({ ...booking, email: e.target.value })
-                }
-                autoComplete="email"
-                className={`px-3 py-2 rounded-lg border bg-[#0B1C46] text-white focus:outline-none w-full ${
-                  errors.email
-                    ? "border-red-500 focus:border-red-500"
-                    : "border-gray-600 focus:border-green-500"
-                }`}
-              />
-              {errors.email && (
-                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
-              )}
-            </div>
           </div>
-
-          {/* Pricing info */}
-          <div className="rounded-lg border border-green-600 p-4 bg-[#0B1C46] text-center">
-            <div className="text-sm text-gray-400 mb-1">7-day rental</div>
-            <div className="text-3xl font-bold text-yellow-300 mb-2">
-              ${basePrice}
-            </div>
-            <div className="text-xs text-gray-400">
-              Includes delivery up to 15 miles
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleOrder}
-            disabled={isSubmitting}
-            className={`mt-4 w-full py-3 rounded-xl text-white font-semibold transition-all ${
-              isSubmitting
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-500"
-            }`}
-          >
-            {isSubmitting ? "Submitting..." : "Order Dumpster Now"}
-          </button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-10 border-t border-green-600 bg-[#0B1C46]">
-        <div className="max-w-7xl mx-auto text-center text-gray-300">
-          <div className="text-2xl font-bold text-yellow-300 mb-2">
-            Presidential Management
+      <footer className="px-6 py-16 bg-white/5 backdrop-blur-sm border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+
+            {/* Hours */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-medium text-white">Hours of Operation</h3>
+              <div className="space-y-1 text-white/80">
+                <p>Monday – Thursday</p>
+                <p>10:00 AM – 5:00 PM</p>
+                <p className="mt-2">Friday</p>
+                <p>10:00 AM – 12:00 PM</p>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-medium text-white">Phone Number</h3>
+              <div className="space-y-1">
+                <a href="tel:+1-475-441-6727" className="text-white/80 hover:text-green-400 transition-colors text-lg">
+                  (475) 441‑6727 Ext. 1
+                </a>
+                <p className="text-white/60 text-sm">Office</p>
+              </div>
+            </div>
+
+            {/* Address */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-medium text-white">Mailing Address</h3>
+              <div className="space-y-1 text-white/80">
+                <p>PO Box 4141</p>
+                <p>Waterbury, CT 06704</p>
+              </div>
+            </div>
+
           </div>
-          <div className="text-lg font-semibold text-white mb-1">
-            (475) 441-6727 Ext. 1
-          </div>
-          <div className="text-sm mb-1">
-            Mon - Thurs 10AM - 5PM • Fri 10AM - 12PM
-          </div>
-          <div className="text-sm">
-            PO Box 4141, Waterbury, CT 06704
+
+          <div className="pt-8 mt-8 border-t border-white/10 text-center">
+            <p className="text-sm text-white/40">
+              Dumpster Rentals • Licensed & Insured
+            </p>
           </div>
         </div>
       </footer>
