@@ -75,7 +75,7 @@ export default function PresidentialDumpsters() {
       if (!prev[field]) {
         return prev;
       }
-      const { [field]: _removed, ...rest } = prev;
+      const { [field]: _, ...rest } = prev;
       return rest;
     });
   };
