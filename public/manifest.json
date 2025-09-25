@@ -1,0 +1,27 @@
+{
+  "name": "Presidential Dumpsters",
+  "short_name": "Dumpsters",
+  "description": "Professional dumpster rental services in Waterbury, Connecticut",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1C46",
+  "theme_color": "#0B1C46",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "utilities"],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/presidential-dumpsters-logo-favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

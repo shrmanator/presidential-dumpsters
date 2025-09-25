@@ -2,16 +2,57 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Phone } from "lucide-react";
+import { Building2, CheckCircleIcon, Home, Phone, Truck, XCircleIcon } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { formatPhoneNumber } from "@/utils/validation";
-import { handleOrderWithUI } from "@/utils/order-handler";
-import { CheckCircleIcon, XCircleIcon } from "lucide-react";
+import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
+
+const bookingTypeOptions = [
+  { id: "residential", label: "For my place", icon: Home },
+  { id: "business", label: "For my business", icon: Building2 },
+] as const;
+
+const StepHeading = ({
+  step,
+  title,
+  eyebrow,
+  complete = false,
+  active = false,
+}: {
+  step: string;
+  title: string;
+  eyebrow?: string;
+  complete?: boolean;
+  active?: boolean;
+}) => (
+  <div className="flex items-center justify-between gap-3">
+    <div className="space-y-1">
+      <span
+        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
+          active ? "bg-blue-500/20 text-blue-600" : "bg-slate-100 text-slate-500"
+        }`}
+      >
+        <span>{step}</span>
+        {eyebrow && <span className="font-normal">{eyebrow}</span>}
+      </span>
+      <h3 className={`text-base font-semibold transition-colors ${
+        active ? "text-slate-900" : "text-slate-700"
+      }`}>{title}</h3>
+    </div>
+    {complete && <CheckCircleIcon className="h-4 w-4 text-emerald-500" />}
+  </div>
+);
 
 export default function PresidentialDumpsters() {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
-  const [booking, setBooking] = useState({ address: "", phone: "", email: "" });
+  const [booking, setBooking] = useState<BookingData>({
+    bookingType: "residential",
+    contactName: "",
+    address: "",
+    phone: "",
+    email: "",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -19,6 +60,34 @@ export default function PresidentialDumpsters() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const basePrice = dumpsters[selectedSize].base;
+  const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
+
+    const phoneDigits = booking.phone.replace(/[^\d]/g, "");
+  const isStep1Complete = booking.contactName.trim().length > 0;
+  const isStep2Complete = Boolean(selectedSize);
+  const isStep3Complete = booking.address.trim().length > 0;
+  const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
+  const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
+  const isReadyToSubmit = isStep1Complete && isStep2Complete && isStep3Complete && isStep4Complete;
+  const ctaLabel = isReadyToSubmit ? `Send to dispatch | $${basePrice}` : "Complete the steps to submit";
+
+  const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email") => {
+    setErrors((prev) => {
+      if (!prev[field]) {
+        return prev;
+      }
+      const { [field]: _removed, ...rest } = prev;
+      return rest;
+    });
+  };
+
+  const handleBookingTypeChange = (type: BookingData["bookingType"]) => {
+    setBooking((prev) => ({
+      ...prev,
+      bookingType: type,
+    }));
+    clearFieldError("contactName");
+  };
 
   const handleOrder = () => {
     handleOrderWithUI(
@@ -33,263 +102,339 @@ export default function PresidentialDumpsters() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0B1C46] via-[#1a2951] to-[#0B1C46] text-white">
-      {/* Nav */}
-      <nav className="relative z-50 bg-transparent">
-        <div className="max-w-7xl mx-auto px-6 py-1 flex justify-between items-center">
-          <div>
+    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0a2d56] to-[#0b3f3c] text-white">
+      <nav className="border-b border-white/10 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
             <Image
               src="/logo.png"
-              alt="Presidential Management"
-              width={450}
-              height={144}
-              className="h-24 sm:h-32 lg:h-36 w-auto"
+              alt="Presidential Dumpsters"
+              width={200}
+              height={72}
+              className="h-12 w-auto"
               priority
               quality={100}
             />
+            <span className="hidden text-sm text-white/60 sm:inline-flex">Serving New Haven ? Waterbury ? Hartford</span>
           </div>
-          <div>
-            <a
-              href="tel:+1-475-441-6727"
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-all shadow-lg font-medium text-sm sm:text-base"
-            >
-              <Phone className="w-3 h-3 sm:w-4 sm:h-4" /> (475) 441-6727
-            </a>
-          </div>
+          <a
+            href="tel:+1-475-441-6727"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10"
+          >
+            <Phone className="h-4 w-4" /> (475) 441-6727
+          </a>
         </div>
       </nav>
 
-      {/* Modern Single-Purpose Hero */}
-      <section className="min-h-[90vh] flex items-center justify-center px-4 pb-32 relative overflow-hidden">
-        {/* Floating background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-green-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-2xl mx-auto relative z-10">
-
-          {/* Ultra-minimal header */}
-          <div className="text-center mb-16 mt-8">
-            <h1 className="text-[3.5rem] md:text-[5rem] font-light leading-[0.9] mb-8 text-white tracking-[-0.02em]">
-              Dumpster
-              <br />
-              <span className="font-bold">rentals</span>
+      <main className="mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:gap-16">
+        <section className="space-y-10">
+          <div className="space-y-6">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
+              <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
+            </span>
+            <h1 className="text-4xl font-light leading-tight tracking-tight text-white md:text-[3.75rem]">
+              Schedule a roll-off.
             </h1>
-
-            <p className="text-xl text-white/80 mb-2">7-day rental from ${dumpsters["10"].base}</p>
+            <p className="max-w-xl text-base text-white/70 md:text-lg">
+              Choose a size, drop a pin, and we handle the rest.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                <p className="text-sm font-semibold text-white">Same-week availability</p>
+                <p className="mt-1 text-sm text-white/70">Crews across New Haven, Waterbury, and Hartford.</p>
+              </div>
+              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
+                <p className="text-sm font-semibold text-white">Licensed & insured</p>
+                <p className="mt-1 text-sm text-white/70">State-licensed crews with full coverage on every haul.</p>
+              </div>
+            </div>
           </div>
 
-          {/* Glassmorphism form container */}
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl space-y-8">
+        </section>
 
-            {/* Step 1: Size selection with pricing */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-white">What size do you need?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {(["10", "20"] as const).map((sz) => (
-                  <button
-                    type="button"
-                    key={sz}
-                    onClick={() => setSelectedSize(sz)}
-                    className={`group relative p-6 text-left rounded-2xl border-2 transition-all duration-200 backdrop-blur-sm ${
-                      selectedSize === sz
-                        ? "border-green-400 bg-green-400/10 shadow-lg"
-                        : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
-                    }`}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <div className="font-semibold text-white">{dumpsters[sz].name}</div>
-                        <div className="text-sm text-white/70 mt-1">{sz === "10" ? "Small cleanouts & renovations" : "Large projects & construction"}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-white">${dumpsters[sz].base}</div>
-                        <div className="text-xs text-white/70">7 days</div>
-                      </div>
-                    </div>
-                    {selectedSize === sz && (
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 12 12">
-                          <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    )}
-                  </button>
-                ))}
+        <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900 shadow-xl">
+          <div className="space-y-8">
+            <div className="rounded-2xl border border-blue-500/30 bg-blue-500/10 px-4 py-3 text-sm text-slate-600">
+              All fields required | about 45 seconds.
+            </div>
+
+            <div
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+                currentStep === 1
+                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  : isStep1Complete
+                  ? "border-emerald-400/50 bg-white"
+                  : "border-slate-200 bg-white/95"
+              }`}
+            >
+              <StepHeading
+                step="Step 1"
+                eyebrow="Identity"
+                title="Who are we dropping to?"
+                active={currentStep === 1}
+                complete={isStep1Complete}
+              />
+              <p className="text-xs text-slate-500">Pick who dispatch should ask for on arrival.</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {bookingTypeOptions.map((option) => {
+                  const Icon = option.icon;
+                  const isActive = booking.bookingType === option.id;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => handleBookingTypeChange(option.id)}
+                      className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${
+                        isActive
+                          ? "border-blue-600 bg-blue-600 text-white shadow-sm shadow-blue-600/30"
+                          : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" /> {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="contact-name" className="text-sm font-medium text-slate-700">
+                  {booking.bookingType === "business" ? "Business name" : "Contact name"}
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  placeholder={contactPlaceholder}
+                  required
+                  value={booking.contactName}
+                  onChange={(event) => {
+                    setBooking((prev) => ({ ...prev, contactName: event.target.value }));
+                    clearFieldError("contactName");
+                  }}
+                  className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                    errors.contactName
+                      ? "border-red-400 focus:ring-red-400/40"
+                      : "border-slate-200 focus:border-blue-600"
+                  }`}
+                />
+                {errors.contactName && (
+                  <p className="text-sm text-red-500">{errors.contactName}</p>
+                )}
               </div>
             </div>
 
-            {/* Step 2: Address */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-medium text-white">Where should we deliver it?</h3>
+            <div
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+                currentStep === 2
+                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  : isStep2Complete
+                  ? "border-emerald-400/50 bg-white"
+                  : "border-slate-200 bg-white/95"
+              }`}
+            >
+              <StepHeading
+                step="Step 2"
+                eyebrow="Capacity"
+                title="Pick a size"
+                active={currentStep === 2}
+                complete={isStep2Complete}
+              />
+              <p className="text-xs text-slate-500">Choose the size that fits. Need help? Give us a ring.</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {( ["10", "20"] as const).map((size) => {
+                  const isActive = selectedSize === size;
+                  return (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setSelectedSize(size)}
+                      className={`rounded-2xl border px-4 py-4 text-left transition-colors ${
+                        isActive
+                          ? "border-emerald-500 bg-emerald-500 text-white shadow-sm shadow-emerald-500/30"
+                          : "border-slate-200 bg-white hover:border-slate-300"
+                      }`}
+                    >
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-sm font-semibold">
+                          <span>{dumpsters[size].name}</span>
+                          <span>${dumpsters[size].base}</span>
+                        </div>
+                        <p className={`text-xs ${isActive ? "text-white/80" : "text-slate-500"}`}>
+                          {size === "10"
+                            ? "Tight footprint, weekend clean-outs"
+                            : "Roomy for new builds and heavy demos"}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+                currentStep === 3
+                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  : isStep3Complete
+                  ? "border-emerald-400/50 bg-white"
+                  : "border-slate-200 bg-white/95"
+              }`}
+            >
+              <StepHeading
+                step="Step 3"
+                eyebrow="Address"
+                title="Drop-off location"
+                active={currentStep === 3}
+                complete={isStep3Complete}
+              />
+              <p className="text-xs text-slate-500">Where should we place the container?</p>
               <AddressAutocomplete
                 value={booking.address}
-                onChange={(address) => setBooking({ ...booking, address })}
-                placeholder="123 Main St, City, State"
-                className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
+                onChange={(address) => {
+                  setBooking((prev) => ({ ...prev, address }));
+                  clearFieldError("address");
+                }}
+                placeholder="123 Main St, Waterbury"
+                className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
                   errors.address
-                    ? "border-red-400 focus:border-red-300"
-                    : "border-white/30 focus:border-green-400"
-                } focus:outline-none bg-white/10 text-white placeholder-white/60`}
+                    ? "border-red-400 focus:ring-red-400/40"
+                    : "border-slate-200 focus:border-blue-600"
+                }`}
               />
-              {errors.address && (
-                <p className="text-red-300 text-sm pl-1">{errors.address}</p>
-              )}
+              {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
             </div>
 
-            {/* Step 3: Contact */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-medium text-white">How can we reach you?</h3>
+            <div
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+                currentStep === 4
+                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  : isStep4Complete
+                  ? "border-emerald-400/50 bg-white"
+                  : "border-slate-200 bg-white/95"
+              }`}
+            >
+              <StepHeading
+                step="Step 4"
+                eyebrow="Confirm"
+                title="Contact details"
+                active={currentStep === 4}
+                complete={isStep4Complete}
+              />
+              <p className="text-xs text-slate-500">We confirm here before dispatch heads out.</p>
+              <p className="text-xs text-slate-500">Rental includes seven days on site.</p>
               <div className="space-y-3">
-                <input
-                  type="tel"
-                  placeholder="(555) 123-4567"
-                  value={booking.phone}
-                  onChange={(e) => {
-                    const formatted = formatPhoneNumber(e.target.value);
-                    setBooking({ ...booking, phone: formatted });
-                  }}
-                  autoComplete="tel"
-                  className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
-                    errors.phone
-                      ? "border-red-400 focus:border-red-300"
-                      : "border-white/30 focus:border-green-400"
-                  } focus:outline-none bg-white/10 text-white placeholder-white/60`}
-                />
-                <input
-                  type="email"
-                  placeholder="you@email.com"
-                  value={booking.email}
-                  onChange={(e) => setBooking({ ...booking, email: e.target.value })}
-                  autoComplete="email"
-                  className={`w-full px-4 py-4 text-lg border-2 rounded-xl transition-colors backdrop-blur-sm ${
-                    errors.email
-                      ? "border-red-400 focus:border-red-300"
-                      : "border-white/30 focus:border-green-400"
-                  } focus:outline-none bg-white/10 text-white placeholder-white/60`}
-                />
+                <div className="space-y-2">
+                  <input
+                    type="tel"
+                    placeholder="(555) 123-4567"
+                    required
+                    value={booking.phone}
+                    onChange={(event) => {
+                      const formatted = formatPhoneNumber(event.target.value);
+                      setBooking((prev) => ({ ...prev, phone: formatted }));
+                      clearFieldError("phone");
+                    }}
+                    autoComplete="tel"
+                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                      errors.phone
+                        ? "border-red-400 focus:ring-red-400/40"
+                        : "border-slate-200 focus:border-blue-600"
+                    }`}
+                  />
+                  <p className="text-xs text-slate-500">We call this number (and WhatsApp) before the truck rolls.</p>
+                </div>
+                <div className="space-y-2">
+                  <input
+                    type="email"
+                    placeholder="you@email.com"
+                    required
+                    value={booking.email}
+                    onChange={(event) => {
+                      setBooking((prev) => ({ ...prev, email: event.target.value }));
+                      clearFieldError("email");
+                    }}
+                    autoComplete="email"
+                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                      errors.email
+                        ? "border-red-400 focus:ring-red-400/40"
+                        : "border-slate-200 focus:border-blue-600"
+                    }`}
+                  />
+                  <p className="text-xs text-slate-500">We send your schedule and receipt here.</p>
+                </div>
               </div>
               {(errors.phone || errors.email) && (
-                <div className="text-red-300 text-sm pl-1 space-y-1">
+                <div className="space-y-1 text-sm text-red-500">
                   {errors.phone && <p>{errors.phone}</p>}
                   {errors.email && <p>{errors.email}</p>}
                 </div>
               )}
             </div>
 
-            {/* CTA */}
-            <div className="pt-6">
+            <div className="space-y-3">
               <button
                 type="button"
                 onClick={handleOrder}
-                disabled={isSubmitting}
-                className={`w-full py-5 text-lg font-semibold rounded-xl transition-all duration-200 ${
-                  isSubmitting
-                    ? "bg-white/20 text-white/50 cursor-not-allowed"
-                    : "bg-green-500 text-white hover:bg-green-400 shadow-2xl hover:shadow-green-500/25 active:scale-[0.98] border border-green-400/50"
+                disabled={isSubmitting || !isReadyToSubmit}
+                className={`w-full rounded-2xl px-4 py-4 text-base font-semibold transition-transform duration-150 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 ${
+                  isSubmitting || !isReadyToSubmit
+                    ? "cursor-not-allowed bg-slate-200 text-slate-500"
+                    : "bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 hover:from-green-500/90 hover:via-emerald-400/90 hover:to-yellow-400/90 active:scale-[0.99]"
                 }`}
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white/60 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-transparent"></div>
                     Scheduling delivery...
                   </span>
                 ) : (
-                  `Schedule delivery → $${basePrice}`
+                  ctaLabel
                 )}
               </button>
-
-              <p className="text-center text-sm text-white/60 mt-4">
-                Same/next day delivery • No hidden fees • 7-day rental
-              </p>
             </div>
-
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Footer */}
-      <footer className="px-6 py-16 bg-white/5 backdrop-blur-sm border-t border-white/10">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-
-            {/* Hours */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-medium text-white">Hours of Operation</h3>
-              <div className="space-y-1 text-white/80">
-                <p>Monday – Thursday</p>
-                <p>10:00 AM – 5:00 PM</p>
-                <p className="mt-2">Friday</p>
-                <p>10:00 AM – 12:00 PM</p>
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-medium text-white">Phone Number</h3>
-              <div className="space-y-1">
-                <a href="tel:+1-475-441-6727" className="text-white/80 hover:text-green-400 transition-colors text-lg">
-                  (475) 441‑6727 Ext. 1
-                </a>
-                <p className="text-white/60 text-sm">Office</p>
-              </div>
-            </div>
-
-            {/* Address */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-medium text-white">Mailing Address</h3>
-              <div className="space-y-1 text-white/80">
-                <p>PO Box 4141</p>
-                <p>Waterbury, CT 06704</p>
-              </div>
-            </div>
-
+      <footer className="border-t border-white/10 bg-[#061633]/60 py-12">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <p className="font-medium text-white">Presidential Dumpsters</p>
+            <p>PO Box 4141, Waterbury, CT 06704</p>
           </div>
-
-          <div className="pt-8 mt-8 border-t border-white/10 text-center">
-            <p className="text-sm text-white/40">
-              Dumpster Rentals • Licensed & Insured
-            </p>
+          <div className="space-y-1">
+            <p>Office hours: Mon-Thu 10a-5p | Fri 10a-12p</p>
+            <a href="tel:+1-475-441-6727" className="hover:text-white">
+              (475) 441-6727 Ext. 1
+            </a>
           </div>
+          <p className="text-xs text-white/50">Licensed and insured roll-off service</p>
         </div>
       </footer>
 
-      {/* Toast Notification */}
       {showToast && (
         <div
-          className={`fixed top-4 right-4 z-50 max-w-sm w-full bg-white border-l-4 rounded-lg shadow-lg p-4 ${
-            toastType === "success" ? "border-green-500" : "border-red-500"
+          className={`fixed right-6 top-6 z-50 w-full max-w-sm rounded-2xl border p-4 shadow-lg transition-opacity ${
+            toastType === "success"
+              ? "border-emerald-300/60 bg-emerald-500/20"
+              : "border-red-300/60 bg-red-500/20"
           }`}
         >
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
+          <div className="flex items-start gap-3 text-white">
+            <div className="mt-0.5">
               {toastType === "success" ? (
-                <CheckCircleIcon className="h-5 w-5 text-green-400" />
+                <CheckCircleIcon className="h-5 w-5 text-emerald-200" />
               ) : (
-                <XCircleIcon className="h-5 w-5 text-red-400" />
+                <XCircleIcon className="h-5 w-5 text-red-200" />
               )}
             </div>
-            <div className="ml-3 flex-1">
-              <p
-                className={`text-sm font-medium ${
-                  toastType === "success" ? "text-green-800" : "text-red-800"
-                }`}
-              >
-                {toastMessage}
-              </p>
-            </div>
-            <div className="ml-4 flex-shrink-0 flex">
-              <button
-                type="button"
-                onClick={() => setShowToast(false)}
-                className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-600 focus:outline-none"
-                aria-label="Close notification"
-                title="Close notification"
-              >
-                <XCircleIcon className="h-5 w-5" />
-              </button>
-            </div>
+            <div className="flex-1 text-sm">{toastMessage}</div>
+            <button
+              type="button"
+              onClick={() => setShowToast(false)}
+              className="text-white/60 transition-colors hover:text-white"
+              aria-label="Dismiss notification"
+            >
+              <XCircleIcon className="h-5 w-5" />
+            </button>
           </div>
         </div>
       )}

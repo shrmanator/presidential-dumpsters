@@ -1,9 +1,11 @@
-import { orderSchema } from "./validation";
+import { orderSchema, BookingType } from "./validation";
 import { submitOrder } from "@/actions/orders";
 import { DumpsterSize } from "./pricing";
 import { ZodError } from "zod";
 
 export interface BookingData {
+  bookingType: BookingType;
+  contactName: string;
   address: string;
   phone: string;
   email: string;
@@ -18,12 +20,15 @@ export const handleOrderSubmission = async (
 
   try {
     const validatedData = orderSchema.parse(booking);
+    const contactName = validatedData.contactName.trim();
 
     const result = await submitOrder({
       selectedSize,
+      bookingType: validatedData.bookingType,
+      contactName,
       address: validatedData.address,
       phone: validatedData.phone,
-      email: validatedData.email || "",
+      email: validatedData.email,
     });
 
     return {
@@ -126,7 +131,18 @@ export const handleOrderWithUI = async (
       );
 
       if (result.showToast) {
-        setToastMessage(result.message);
+        const trimmedName = booking.contactName.trim();
+        const personalizedSuccess =
+          result.success && trimmedName
+            ? `Delivery queued for ${trimmedName}. We will connect shortly.`
+            : result.message;
+
+        setToastMessage(
+          personalizedSuccess ||
+            (result.success
+              ? "Order submitted successfully!"
+              : "Sorry, there was an issue submitting your order.")
+        );
         setToastType(result.success ? "success" : "error");
         setShowToast(true);
 
