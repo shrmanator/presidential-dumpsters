@@ -68,8 +68,7 @@ export default function PresidentialDumpsters() {
   const isStep3Complete = booking.address.trim().length > 0;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
-  const isReadyToSubmit = isStep1Complete && isStep2Complete && isStep3Complete && isStep4Complete;
-  const ctaLabel = isReadyToSubmit ? `Send to dispatch | $${basePrice}` : "Complete the steps to submit";
+  const ctaLabel = `Send to dispatch | $${basePrice}`;
 
   const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email") => {
     setErrors((prev) => {
@@ -366,9 +365,9 @@ export default function PresidentialDumpsters() {
               <button
                 type="button"
                 onClick={handleOrder}
-                disabled={isSubmitting || !isReadyToSubmit}
+                disabled={isSubmitting}
                 className={`w-full rounded-2xl px-4 py-4 text-base font-semibold transition-transform duration-150 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 ${
-                  isSubmitting || !isReadyToSubmit
+                  isSubmitting
                     ? "cursor-not-allowed bg-slate-200 text-slate-500"
                     : "bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 hover:from-green-500/90 hover:via-emerald-400/90 hover:to-yellow-400/90 active:scale-[0.99]"
                 }`}
