@@ -404,25 +404,25 @@ export default function PresidentialDumpsters() {
 
       {showToast && (
         <div
-          className={`fixed right-6 top-6 z-50 w-full max-w-sm rounded-2xl border p-4 shadow-lg transition-opacity ${
+          className={`fixed right-6 top-6 z-50 w-full max-w-sm rounded-2xl border p-4 shadow-xl transition-opacity backdrop-blur ${
             toastType === "success"
-              ? "border-emerald-300/60 bg-emerald-500/20"
-              : "border-red-300/60 bg-red-500/20"
+              ? "border-emerald-200 bg-white/95"
+              : "border-red-200 bg-white/95"
           }`}
         >
-          <div className="flex items-start gap-3 text-white">
+          <div className="flex items-start gap-3 text-slate-900">
             <div className="mt-0.5">
               {toastType === "success" ? (
-                <CheckCircleIcon className="h-5 w-5 text-emerald-200" />
+                <CheckCircleIcon className="h-5 w-5 text-emerald-500" />
               ) : (
-                <XCircleIcon className="h-5 w-5 text-red-200" />
+                <XCircleIcon className="h-5 w-5 text-red-500" />
               )}
             </div>
-            <div className="flex-1 text-sm">{toastMessage}</div>
+            <div className="flex-1 text-sm font-medium">{toastMessage}</div>
             <button
               type="button"
               onClick={() => setShowToast(false)}
-              className="text-white/60 transition-colors hover:text-white"
+              className="text-slate-400 transition-colors hover:text-slate-600"
               aria-label="Dismiss notification"
             >
               <XCircleIcon className="h-5 w-5" />

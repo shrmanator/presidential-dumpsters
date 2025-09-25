@@ -140,13 +140,13 @@ export const handleOrderWithUI = async (
         setToastMessage(
           personalizedSuccess ||
             (result.success
-              ? "Order submitted successfully!"
+              ? "Request sent. We'll be in touch shortly."
               : "Sorry, there was an issue submitting your order.")
         );
         setToastType(result.success ? "success" : "error");
         setShowToast(true);
 
-        setTimeout(() => setShowToast(false), 5000);
+        setTimeout(() => setShowToast(false), 7000);
       }
     } finally {
       setIsSubmitting(false);
