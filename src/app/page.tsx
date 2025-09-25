@@ -45,7 +45,7 @@ const StepHeading = ({
 );
 
 export default function PresidentialDumpsters() {
-  const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
+  const [selectedSize, setSelectedSize] = useState<DumpsterSize>("10");
   const [booking, setBooking] = useState<BookingData>({
     bookingType: "residential",
     contactName: "",
@@ -115,7 +115,6 @@ export default function PresidentialDumpsters() {
               priority
               quality={100}
             />
-            <span className="hidden text-sm text-white/60 sm:inline-flex">Serving New Haven ? Waterbury ? Hartford</span>
           </div>
           <a
             href="tel:+1-475-441-6727"
@@ -174,7 +173,6 @@ export default function PresidentialDumpsters() {
                 active={currentStep === 1}
                 complete={isStep1Complete}
               />
-              <p className="text-xs text-slate-500">Pick who dispatch should ask for on arrival.</p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {bookingTypeOptions.map((option) => {
                   const Icon = option.icon;
@@ -237,7 +235,6 @@ export default function PresidentialDumpsters() {
                 active={currentStep === 2}
                 complete={isStep2Complete}
               />
-              <p className="text-xs text-slate-500">Choose the size that fits. Need help? Give us a ring.</p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {( ["10", "20"] as const).map((size) => {
                   const isActive = selectedSize === size;
@@ -285,7 +282,6 @@ export default function PresidentialDumpsters() {
                 active={currentStep === 3}
                 complete={isStep3Complete}
               />
-              <p className="text-xs text-slate-500">Where should we place the container?</p>
               <AddressAutocomplete
                 value={booking.address}
                 onChange={(address) => {
@@ -318,7 +314,6 @@ export default function PresidentialDumpsters() {
                 active={currentStep === 4}
                 complete={isStep4Complete}
               />
-              <p className="text-xs text-slate-500">We confirm here before dispatch heads out.</p>
               <p className="text-xs text-slate-500">Rental includes seven days on site.</p>
               <div className="space-y-3">
                 <div className="space-y-2">
@@ -339,8 +334,7 @@ export default function PresidentialDumpsters() {
                         : "border-slate-200 focus:border-blue-600"
                     }`}
                   />
-                  <p className="text-xs text-slate-500">We call this number (and WhatsApp) before the truck rolls.</p>
-                </div>
+                    </div>
                 <div className="space-y-2">
                   <input
                     type="email"
@@ -358,7 +352,6 @@ export default function PresidentialDumpsters() {
                         : "border-slate-200 focus:border-blue-600"
                     }`}
                   />
-                  <p className="text-xs text-slate-500">We send your schedule and receipt here.</p>
                 </div>
               </div>
               {(errors.phone || errors.email) && (
