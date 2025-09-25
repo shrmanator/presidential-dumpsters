@@ -9,8 +9,8 @@ import { formatPhoneNumber } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 
 const bookingTypeOptions = [
-  { id: "residential", label: "For my place", icon: Home },
   { id: "business", label: "For my business", icon: Building2 },
+  { id: "residential", label: "For my place", icon: Home },
 ] as const;
 
 const StepHeading = ({
@@ -45,9 +45,9 @@ const StepHeading = ({
 );
 
 export default function PresidentialDumpsters() {
-  const [selectedSize, setSelectedSize] = useState<DumpsterSize>("10");
+  const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
   const [booking, setBooking] = useState<BookingData>({
-    bookingType: "residential",
+    bookingType: "business",
     contactName: "",
     address: "",
     phone: "",
@@ -152,9 +152,6 @@ export default function PresidentialDumpsters() {
 
         <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900 shadow-xl">
           <div className="space-y-8">
-            <div className="rounded-2xl border border-blue-500/30 bg-blue-500/10 px-4 py-3 text-sm text-slate-600">
-              All fields required | about 45 seconds.
-            </div>
 
             <div
               className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
