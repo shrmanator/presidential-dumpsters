@@ -14,8 +14,9 @@ export async function submitOrder(formData: {
   address: string;
   phone: string;
   email: string;
+  notes: string;
 }) {
-  const { selectedSize, bookingType, contactName, address, phone, email } = formData;
+  const { selectedSize, bookingType, contactName, address, phone, email, notes } = formData;
 
   if (!address || !phone) {
     return { success: false, message: 'Please add delivery address and phone number' };
@@ -45,6 +46,7 @@ export async function submitOrder(formData: {
           <p><strong>Delivery Address:</strong> ${address}</p>
           <p><strong>Customer Phone:</strong> ${phone}</p>
           <p><strong>Customer Email:</strong> ${email || 'Not provided'}</p>
+          ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
         </div>
 
         <hr style="margin: 20px 0;">

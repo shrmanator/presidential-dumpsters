@@ -9,6 +9,7 @@ export interface BookingData {
   address: string;
   phone: string;
   email: string;
+  notes: string;
 }
 
 export const handleOrderSubmission = async (
@@ -29,6 +30,7 @@ export const handleOrderSubmission = async (
       address: validatedData.address,
       phone: validatedData.phone,
       email: validatedData.email,
+      notes: validatedData.notes?.trim() || '',
     });
 
     return {
@@ -134,7 +136,7 @@ export const handleOrderWithUI = async (
         const trimmedName = booking.contactName.trim();
         const personalizedSuccess =
           result.success && trimmedName
-            ? `Delivery queued for ${trimmedName}. We will connect shortly.`
+            ? `Request received for ${trimmedName}. We'll be in touch soon.`
             : result.message;
 
         setToastMessage(

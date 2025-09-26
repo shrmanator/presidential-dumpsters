@@ -30,6 +30,7 @@ export const orderSchema = z
       .string()
       .min(1, 'Email address is required')
       .email('Please enter a valid email address'),
+    notes: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (!data.contactName) {

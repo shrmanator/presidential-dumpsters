@@ -52,6 +52,7 @@ export default function PresidentialDumpsters() {
     address: "",
     phone: "",
     email: "",
+    notes: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showToast, setShowToast] = useState(false);
@@ -349,6 +350,15 @@ export default function PresidentialDumpsters() {
                     }`}
                   />
                 </div>
+                <div>
+                  <textarea
+                    placeholder="Notes (optional)"
+                    rows={2}
+                    value={booking.notes}
+                    onChange={(event) => setBooking((prev) => ({ ...prev, notes: event.target.value }))}
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  />
+                </div>
               </div>
               {(errors.phone || errors.email) && (
                 <div className="space-y-1 text-sm text-red-500">
@@ -363,10 +373,10 @@ export default function PresidentialDumpsters() {
                 type="button"
                 onClick={handleOrder}
                 disabled={isSubmitting}
-                className={`w-full rounded-2xl px-4 py-4 text-base font-semibold transition-transform duration-150 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 ${
+                className={`w-full rounded-2xl px-4 py-4 text-base font-semibold transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 shadow-lg ${
                   isSubmitting
                     ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                    : "bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 hover:from-green-500/90 hover:via-emerald-400/90 hover:to-yellow-400/90 active:scale-[0.99]"
+                    : "bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 hover:from-green-600 hover:via-emerald-500 hover:to-yellow-500 hover:shadow-xl hover:shadow-green-500/20 active:scale-[0.98] active:shadow-md"
                 }`}
               >
                 {isSubmitting ? (
