@@ -69,7 +69,7 @@ export default function PresidentialDumpsters() {
   const isStep3Complete = booking.address.trim().length > 0;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
-  const ctaLabel = `Send to dispatch | $${basePrice}`;
+  const ctaLabel = `Request dumpster • $${basePrice}`;
 
   const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email") => {
     setErrors((prev) => {
