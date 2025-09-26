@@ -393,6 +393,186 @@ export default function PresidentialDumpsters() {
         </section>
       </main>
 
+      {/* Testimonials Section */}
+      <section className="bg-slate-50 py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">What Our Customers Say</h2>
+            <p className="text-lg text-slate-600">Trusted by homeowners and contractors across Connecticut</p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-slate-600 mb-4">"Fast delivery and fair pricing. The crew was professional and placed the dumpster exactly where we needed it for our kitchen renovation."</p>
+              <div className="font-semibold text-slate-900">Sarah M.</div>
+              <div className="text-sm text-slate-500">Waterbury, CT</div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-slate-600 mb-4">"Presidential Dumpsters made our office cleanout so easy. Same-day delivery as promised and pickup was right on schedule."</p>
+              <div className="font-semibold text-slate-900">Mike R.</div>
+              <div className="text-sm text-slate-500">New Haven, CT</div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-slate-600 mb-4">"Great for our construction project. The 20-yard was perfect size and they were flexible with our timeline. Will definitely use again."</p>
+              <div className="font-semibold text-slate-900">Jennifer L.</div>
+              <div className="text-sm text-slate-500">Hartford, CT</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sizing Guide Section */}
+      <section className="bg-gradient-to-br from-slate-800 to-slate-900 py-16 text-white">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Choose the Right Size</h2>
+            <p className="text-lg text-white/80">Not sure which dumpster size you need? Here's our quick guide.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold">10-Yard Dumpster</h3>
+                <span className="text-2xl font-bold text-emerald-400">$395</span>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Perfect For:</h4>
+                  <ul className="space-y-1 text-white/80">
+                    <li>• Small bathroom renovations</li>
+                    <li>• Basement or attic cleanouts</li>
+                    <li>• Single room projects</li>
+                    <li>• Garage cleanouts</li>
+                    <li>• Small landscaping jobs</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Capacity:</h4>
+                  <p className="text-white/80">Holds about 4 pickup truck loads</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Dimensions:</h4>
+                  <p className="text-white/80">12' long × 8' wide × 4' high</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold">20-Yard Dumpster</h3>
+                <span className="text-2xl font-bold text-emerald-400">$550</span>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Perfect For:</h4>
+                  <ul className="space-y-1 text-white/80">
+                    <li>• Kitchen renovations</li>
+                    <li>• Roofing projects</li>
+                    <li>• Large basement cleanouts</li>
+                    <li>• Construction debris</li>
+                    <li>• Multi-room renovations</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Capacity:</h4>
+                  <p className="text-white/80">Holds about 8 pickup truck loads</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-emerald-400 mb-2">Dimensions:</h4>
+                  <p className="text-white/80">22' long × 8' wide × 4' high</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-white/5 rounded-2xl p-6 max-w-4xl mx-auto">
+              <h3 className="text-xl font-semibold mb-4 text-emerald-400">Still Not Sure?</h3>
+              <p className="text-white/80 mb-4">
+                Our experienced team can help you choose the right size based on your specific project.
+                We'd rather have you get the right size the first time than deal with the hassle of swapping out dumpsters.
+              </p>
+              <a
+                href="tel:+1-475-441-6727"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition-colors"
+              >
+                <Phone className="h-4 w-4" />
+                Call for Free Sizing Advice
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-slate-600">Everything you need to know about our dumpster rental service</p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">What sizes do you offer?</h3>
+                <p className="text-slate-600">We offer 10-yard dumpsters ($395) perfect for small cleanouts and 20-yard dumpsters ($550) ideal for larger projects and construction work.</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">How long can I keep the dumpster?</h3>
+                <p className="text-slate-600">All rentals include 7 days on-site. Need longer? Just let us know and we can extend your rental period.</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">What areas do you serve?</h3>
+                <p className="text-slate-600">We serve Waterbury, New Haven, Hartford and surrounding Connecticut areas with same-week delivery.</p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Do I need a permit?</h3>
+                <p className="text-slate-600">If the dumpster goes on your property, no permit needed. For street placement, you may need a city permit - we can advise you on local requirements.</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">What can't go in the dumpster?</h3>
+                <p className="text-slate-600">No hazardous materials, paint, chemicals, tires, or electronics. Standard household and construction debris is fine.</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">How do I schedule delivery?</h3>
+                <p className="text-slate-600">Fill out our quick form above or call (475) 441-6727. We'll confirm your order and schedule delivery within your timeframe.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t border-white/10 bg-[#061633]/60 py-12">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
