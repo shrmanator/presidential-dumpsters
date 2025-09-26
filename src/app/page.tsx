@@ -76,7 +76,7 @@ export default function PresidentialDumpsters() {
       if (!prev[field]) {
         return prev;
       }
-      const { [field]: _, ...rest } = prev;
+      const { [field]: _, ...rest } = prev; // eslint-disable-line @typescript-eslint/no-unused-vars
       return rest;
     });
   };
