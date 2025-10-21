@@ -163,15 +163,15 @@ export default function PresidentialDumpsters() {
               <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
             </span>
             <h1 className="text-4xl font-light leading-tight tracking-tight text-white md:text-[3.75rem]">
-              Schedule a roll-off.
+              Dumpster rental in Waterbury, CT
             </h1>
             <p className="max-w-xl text-base text-white/70 md:text-lg">
-              Choose a size, drop a pin, and we handle the rest.
+              10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns. Same-day delivery available.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
                 <p className="text-sm font-semibold text-white">Same-week availability</p>
-                <p className="mt-1 text-sm text-white/70">Crews across New Haven, Waterbury, and Hartford.</p>
+                <p className="mt-1 text-sm text-white/70">Local crews staged in Waterbury and New Haven County.</p>
               </div>
               <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
