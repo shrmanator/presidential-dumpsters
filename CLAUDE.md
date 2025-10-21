@@ -47,3 +47,24 @@ pnpm lint
 - `tsconfig.json` - TypeScript configuration
 - `eslint.config.mjs` - ESLint configuration
 - `postcss.config.mjs` - PostCSS configuration
+
+# PR Review Standards
+
+## When to Request Changes (blocks merge):
+- Build failures
+- Test failures
+- Linting errors blocking deployment
+- Breaking changes without clear migration path
+
+Everything else is situational. Think through each PR on its own.
+
+## When to Comment (doesn't block):
+- Suggestions, questions, alternative approaches
+
+## Communication:
+Direct and technical. State: problem, location, what needs fixing.
+
+No emojis. No fluff.
+
+## Commit Messages:
+No emojis. No Claude mentions.
