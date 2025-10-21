@@ -52,7 +52,7 @@ const StepHeading = ({
     <div className="space-y-1">
       <span
         className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
-          active ? "bg-blue-500/20 text-blue-600" : "bg-slate-100 text-slate-500"
+          active ? "bg-emerald-500/20 text-emerald-600" : "bg-slate-100 text-slate-500"
         }`}
       >
         <span>{step}</span>
@@ -166,7 +166,7 @@ export default function PresidentialDumpsters() {
               Dumpster rental in Waterbury, CT
             </h1>
             <p className="max-w-xl text-base text-white/70 md:text-lg">
-              10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns. Same-day delivery available.
+              10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
@@ -182,13 +182,13 @@ export default function PresidentialDumpsters() {
 
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900 shadow-xl">
+        <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900">
           <div className="space-y-8">
 
             <div
               className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
                 currentStep === 1
-                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  ? "border-emerald-500/60 bg-white"
                   : isStep1Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -212,7 +212,7 @@ export default function PresidentialDumpsters() {
                       onClick={() => handleBookingTypeChange(option.id)}
                       className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${
                         isActive
-                          ? "border-blue-600 bg-blue-600 text-white shadow-sm shadow-blue-600/30"
+                          ? "border-emerald-600 bg-emerald-600 text-white"
                           : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
                       }`}
                     >
@@ -235,10 +235,10 @@ export default function PresidentialDumpsters() {
                     setBooking((prev) => ({ ...prev, contactName: event.target.value }));
                     clearFieldError("contactName");
                   }}
-                  className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                  className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                     errors.contactName
                       ? "border-red-400 focus:ring-red-400/40"
-                      : "border-slate-200 focus:border-blue-600"
+                      : "border-slate-200 focus:border-emerald-600"
                   }`}
                 />
                 {errors.contactName && (
@@ -250,7 +250,7 @@ export default function PresidentialDumpsters() {
             <div
               className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
                 currentStep === 2
-                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  ? "border-emerald-500/60 bg-white"
                   : isStep2Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -273,7 +273,7 @@ export default function PresidentialDumpsters() {
                       onClick={() => setSelectedSize(size)}
                       className={`rounded-2xl border px-4 py-4 text-left transition-colors ${
                         isActive
-                          ? "border-emerald-500 bg-emerald-500 text-white shadow-sm shadow-emerald-500/30"
+                          ? "border-emerald-600 bg-emerald-600 text-white"
                           : "border-slate-200 bg-white hover:border-slate-300"
                       }`}
                     >
@@ -297,7 +297,7 @@ export default function PresidentialDumpsters() {
             <div
               className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
                 currentStep === 3
-                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  ? "border-emerald-500/60 bg-white"
                   : isStep3Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -317,10 +317,10 @@ export default function PresidentialDumpsters() {
                   clearFieldError("address");
                 }}
                 placeholder="123 Main St, Waterbury"
-                className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                   errors.address
                     ? "border-red-400 focus:ring-red-400/40"
-                    : "border-slate-200 focus:border-blue-600"
+                    : "border-slate-200 focus:border-emerald-600"
                 }`}
               />
               {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
@@ -329,7 +329,7 @@ export default function PresidentialDumpsters() {
             <div
               className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
                 currentStep === 4
-                  ? "border-blue-500/60 bg-white shadow-lg shadow-blue-500/20"
+                  ? "border-emerald-500/60 bg-white"
                   : isStep4Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -356,10 +356,10 @@ export default function PresidentialDumpsters() {
                       clearFieldError("phone");
                     }}
                     autoComplete="tel"
-                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                       errors.phone
                         ? "border-red-400 focus:ring-red-400/40"
-                        : "border-slate-200 focus:border-blue-600"
+                        : "border-slate-200 focus:border-emerald-600"
                     }`}
                   />
                     </div>
@@ -374,10 +374,10 @@ export default function PresidentialDumpsters() {
                       clearFieldError("email");
                     }}
                     autoComplete="email"
-                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
                       errors.email
                         ? "border-red-400 focus:ring-red-400/40"
-                        : "border-slate-200 focus:border-blue-600"
+                        : "border-slate-200 focus:border-emerald-600"
                     }`}
                   />
                 </div>
@@ -387,7 +387,7 @@ export default function PresidentialDumpsters() {
                     rows={2}
                     value={booking.notes}
                     onChange={(event) => setBooking((prev) => ({ ...prev, notes: event.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                   />
                 </div>
               </div>
@@ -404,10 +404,10 @@ export default function PresidentialDumpsters() {
                 type="button"
                 onClick={handleOrder}
                 disabled={isSubmitting}
-                className={`w-full rounded-2xl px-4 py-4 text-base font-semibold transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-yellow-400/30 shadow-lg ${
+                className={`w-full rounded-xl px-4 py-3.5 text-base font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
                   isSubmitting
                     ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                    : "bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 hover:from-green-600 hover:via-emerald-500 hover:to-yellow-500 hover:shadow-xl hover:shadow-green-500/20 active:scale-[0.98] active:shadow-md"
+                    : "bg-emerald-500 text-white hover:bg-emerald-600 active:bg-emerald-700"
                 }`}
               >
                 {isSubmitting ? (
