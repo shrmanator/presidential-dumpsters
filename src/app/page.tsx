@@ -163,7 +163,7 @@ export default function PresidentialDumpsters() {
               <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
             </span>
             <h1 className="text-4xl font-light leading-tight tracking-tight text-white md:text-[3.75rem]">
-              Dumpster rental in Waterbury, CT
+              Dumpster rentals in Waterbury, CT
             </h1>
             <p className="max-w-xl text-base text-white/70 md:text-lg">
               10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns.
