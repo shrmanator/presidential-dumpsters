@@ -407,7 +407,7 @@ export default function PresidentialDumpsters() {
                 className={`w-full rounded-xl px-4 py-3.5 text-base font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
                   isSubmitting
                     ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                    : "bg-emerald-500 text-white hover:bg-emerald-600 active:bg-emerald-700"
+                    : "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800"
                 }`}
               >
                 {isSubmitting ? (
