@@ -44,7 +44,7 @@ export default function SizingGuidePage() {
                 Choose the Right Size
               </h1>
               <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                Not sure which dumpster size you need? Here's our quick guide.
+                Not sure which dumpster size you need? Here&apos;s our quick guide.
               </p>
             </div>
 
@@ -71,7 +71,7 @@ export default function SizingGuidePage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-emerald-400 mb-2">Dimensions:</h3>
-                    <p className="text-white/80">12' long × 8' wide × 4' high</p>
+                    <p className="text-white/80">12&apos; long × 8&apos; wide × 4&apos; high</p>
                   </div>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default function SizingGuidePage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-emerald-400 mb-2">Dimensions:</h3>
-                    <p className="text-white/80">22' long × 8' wide × 4' high</p>
+                    <p className="text-white/80">22&apos; long × 8&apos; wide × 4&apos; high</p>
                   </div>
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default function SizingGuidePage() {
                 <h3 className="text-xl font-semibold mb-4 text-emerald-400">Still Not Sure?</h3>
                 <p className="text-white/80 mb-6">
                   Our experienced team can help you choose the right size based on your specific project.
-                  We'd rather have you get the right size the first time than deal with the hassle of swapping out dumpsters.
+                  We&apos;d rather have you get the right size the first time than deal with the hassle of swapping out dumpsters.
                 </p>
                 <a
                   href="tel:+1-475-441-6727"
@@ -138,7 +138,7 @@ export default function SizingGuidePage() {
                     </svg>
                   ))}
                 </div>
-                <p className="text-white/80 mb-4">"Fast delivery and fair pricing. The crew was professional and placed the dumpster exactly where we needed it for our kitchen renovation."</p>
+                <p className="text-white/80 mb-4">&quot;Fast delivery and fair pricing. The crew was professional and placed the dumpster exactly where we needed it for our kitchen renovation.&quot;</p>
                 <div className="font-semibold text-white">Sarah M.</div>
                 <div className="text-sm text-white/60">Waterbury, CT</div>
               </div>
@@ -151,7 +151,7 @@ export default function SizingGuidePage() {
                     </svg>
                   ))}
                 </div>
-                <p className="text-white/80 mb-4">"Presidential Dumpsters made our office cleanout so easy. Same-day delivery as promised and pickup was right on schedule."</p>
+                <p className="text-white/80 mb-4">&quot;Presidential Dumpsters made our office cleanout so easy. Same-day delivery as promised and pickup was right on schedule.&quot;</p>
                 <div className="font-semibold text-white">Mike R.</div>
                 <div className="text-sm text-white/60">New Haven, CT</div>
               </div>
@@ -164,7 +164,7 @@ export default function SizingGuidePage() {
                     </svg>
                   ))}
                 </div>
-                <p className="text-white/80 mb-4">"Great for our construction project. The 20-yard was perfect size and they were flexible with our timeline. Will definitely use again."</p>
+                <p className="text-white/80 mb-4">&quot;Great for our construction project. The 20-yard was perfect size and they were flexible with our timeline. Will definitely use again.&quot;</p>
                 <div className="font-semibold text-white">Jennifer L.</div>
                 <div className="text-sm text-white/60">Hartford, CT</div>
               </div>

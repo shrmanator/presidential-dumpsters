@@ -71,13 +71,13 @@ export default function FAQPage() {
               </div>
 
               <div className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-2">What can't go in the dumpster?</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">What can&apos;t go in the dumpster?</h3>
                 <p className="text-white/80">No hazardous materials, paint, chemicals, tires, or electronics. Standard household and construction debris is fine.</p>
               </div>
 
               <div className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
                 <h3 className="text-lg font-semibold text-white mb-2">How do I schedule delivery?</h3>
-                <p className="text-white/80">Fill out our quick form on the homepage or call (475) 441-6727. We'll confirm your order and schedule delivery within your timeframe.</p>
+                <p className="text-white/80">Fill out our quick form on the homepage or call (475) 441-6727. We&apos;ll confirm your order and schedule delivery within your timeframe.</p>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function FAQPage() {
           <div className="text-center">
             <div className="bg-white/5 rounded-2xl p-8 backdrop-blur-sm border border-white/10">
               <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
-              <p className="text-white/80 mb-6">Our team is here to help. Give us a call and we'll walk you through everything.</p>
+              <p className="text-white/80 mb-6">Our team is here to help. Give us a call and we&apos;ll walk you through everything.</p>
               <a
                 href="tel:+1-475-441-6727"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 via-emerald-400 to-yellow-400 text-slate-900 font-semibold rounded-xl hover:from-green-600 hover:via-emerald-500 hover:to-yellow-500 transition-all"
