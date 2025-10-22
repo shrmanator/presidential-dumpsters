@@ -37,13 +37,13 @@ export default function PresidentialDumpsters() {
               10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                <p className="text-sm font-semibold text-white">Same-week availability</p>
-                <p className="mt-1 text-sm text-white/70">Waterbury-based crews ready to deliver.</p>
-              </div>
               <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
+                <p className="text-sm font-semibold text-white">Same-day delivery available</p>
+                <p className="mt-1 text-sm text-white/70">Local Waterbury crews ready to deliver fast.</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
-                <p className="mt-1 text-sm text-white/70">State-licensed crews with full coverage on every haul.</p>
+                <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
               </div>
             </div>
           </div>
