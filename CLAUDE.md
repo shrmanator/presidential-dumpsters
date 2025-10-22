@@ -40,16 +40,18 @@ Embrace Modern Next.js (15+) & React (19+) Patterns.
 
   - **RSCs by Default:** Components are Server Components unless they require interactivity (state, effects, event handlers), at which point they must use `"use client"`.
   - **Keep Client Components Small:** Isolate interactivity. A `"use client"` directive makes the component and *all its children* client components. Push state and interactivity as deep into the component tree (to "leaf" components) as possible.
+  - **Server Actions for Mutations:** Use Server Actions (`"use server"`) in `/actions` for data mutations (form submissions, database writes). They run on the server and can be called from Client Components.
   - **Fetch Data on the Server:** Prefer server-side data fetching (in Server Components, Layouts, or Pages) and passing data down as props. Avoid client-side data fetching (e.g., in a `useEffect`) unless absolutely necessary (e.g., for data that is user-specific and changes frequently on the client).
   - **Colocate Logic:** Avoid premature abstraction. Business logic should live in `/utils` and be framework-agnostic (plain TS functions).
-  - **No Unnecessary Hook Wrappers:** Do not wrap simple utilities or business logic in a custom hook. Reserve custom hooks (`useSomething`) *only* for logic that genuinely manages reusable, complex *React state or lifecycles* (e.g., `useLocalStorage`, `useMediaQuery`).
+  - **No Custom Hooks Directory:** Do not create a `/hooks` directory. If you need a custom hook, colocate it with the component using it. Reserve custom hooks *only* for logic that genuinely manages reusable, complex *React state or lifecycles* (e.g., `useLocalStorage`, `useMediaQuery`). Most "hooks" are just utilities that belong in `/utils`.
   - **Favor Simplicity:** Don't Repeat Yourself (DRY) is not an absolute rule. Duplicating code 2-3 times is often *better* than introducing a complex, premature abstraction. Favor simplicity and readability over absolute dryness.
 
 ## Repository Structure
 
   - `src/app/` - App Router routes, pages, layouts, and route-specific components.
-  - `src/components/` - Shared, reusable, and ideally "dumb" UI components (e.g., `<Button />`, `<Card />`).
-  - `src/utils/` - Project-wide, framework-agnostic utility functions (e.g., `formatDate`, `isBusinessOpen`).
+  - `src/components/` - Shared, reusable UI components. Client Components live here when they need interactivity.
+  - `src/actions/` - Next.js Server Actions (`"use server"`) for mutations like form submissions and database operations.
+  - `src/utils/` - Framework-agnostic utility functions (e.g., `formatDate`, `isBusinessOpen`). Pure TypeScript, no React.
   - `public/` - Static assets (images, fonts, etc.).
 
 ## Configuration Files
