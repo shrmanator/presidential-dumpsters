@@ -1,18 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Phone } from "lucide-react";
-import { isBusinessOpen } from "@/utils/business-hours";
+import { useOfficeHours } from "./useOfficeHours";
 
 export function NavPhoneButton() {
-  const [officeOpen, setOfficeOpen] = useState(isBusinessOpen());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOfficeOpen(isBusinessOpen());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  const officeOpen = useOfficeHours();
 
   return (
     <a

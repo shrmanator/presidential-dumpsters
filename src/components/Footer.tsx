@@ -1,18 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { isBusinessOpen } from "@/utils/business-hours";
+import { useOfficeHours } from "./useOfficeHours";
 
 export default function Footer() {
-  const [officeOpen, setOfficeOpen] = useState(isBusinessOpen());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOfficeOpen(isBusinessOpen());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  const officeOpen = useOfficeHours();
 
   return (
     <footer className="border-t border-white/10 bg-[#061633]/60 py-12 mt-16">
