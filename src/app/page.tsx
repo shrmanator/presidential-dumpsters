@@ -49,20 +49,22 @@ const StepHeading = ({
   active?: boolean;
 }) => (
   <div className="flex items-center justify-between gap-3">
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <span
-        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
+        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200 ${
           active ? "bg-emerald-500/20 text-emerald-600" : "bg-slate-100 text-slate-500"
         }`}
       >
-        <span>{step}</span>
-        {eyebrow && <span className="font-normal">{eyebrow}</span>}
+        <span className="font-semibold">{step}</span>
+        {eyebrow && <span className="font-normal opacity-80">{eyebrow}</span>}
       </span>
-      <h3 className={`text-base font-semibold transition-colors ${
-        active ? "text-slate-900" : "text-slate-700"
+      <h3 className={`text-[15px] font-semibold tracking-tight transition-all duration-200 ${
+        active ? "text-slate-900" : "text-slate-600"
       }`}>{title}</h3>
     </div>
-    {complete && <CheckCircleIcon className="h-4 w-4 text-emerald-500" />}
+    {complete && (
+      <CheckCircleIcon className="h-4.5 w-4.5 text-emerald-500 transition-all duration-200 animate-in fade-in zoom-in" />
+    )}
   </div>
 );
 
@@ -149,7 +151,7 @@ export default function PresidentialDumpsters() {
           </div>
           <a
             href={officeOpen ? "tel:+1-475-441-6727" : "tel:+1-347-299-0482"}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
           >
             <Phone className="h-4 w-4" /> {officeOpen ? "(475) 441-6727" : "(347) 299-0482"}
           </a>
@@ -162,10 +164,10 @@ export default function PresidentialDumpsters() {
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
               <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
             </span>
-            <h1 className="text-4xl font-light leading-tight tracking-tight text-white md:text-[3.75rem]">
+            <h1 className="text-[2.75rem] font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-[3.5rem]">
               Dumpster rentals in Waterbury, CT
             </h1>
-            <p className="max-w-xl text-base text-white/70 md:text-lg">
+            <p className="max-w-xl text-[17px] leading-relaxed text-white/70 md:text-lg">
               10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -186,9 +188,9 @@ export default function PresidentialDumpsters() {
           <div className="space-y-8">
 
             <div
-              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
                 currentStep === 1
-                  ? "border-emerald-500/60 bg-white"
+                  ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
                   : isStep1Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -210,10 +212,10 @@ export default function PresidentialDumpsters() {
                       key={option.id}
                       type="button"
                       onClick={() => handleBookingTypeChange(option.id)}
-                      className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${
+                      className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-all duration-200 ${
                         isActive
-                          ? "border-emerald-600 bg-emerald-600 text-white"
-                          : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                          ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
+                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
                       }`}
                     >
                       <Icon className="h-4 w-4" /> {option.label}
@@ -235,10 +237,10 @@ export default function PresidentialDumpsters() {
                     setBooking((prev) => ({ ...prev, contactName: event.target.value }));
                     clearFieldError("contactName");
                   }}
-                  className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                  className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                     errors.contactName
-                      ? "border-red-400 focus:ring-red-400/40"
-                      : "border-slate-200 focus:border-emerald-600"
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
                   }`}
                 />
                 {errors.contactName && (
@@ -248,9 +250,9 @@ export default function PresidentialDumpsters() {
             </div>
 
             <div
-              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
                 currentStep === 2
-                  ? "border-emerald-500/60 bg-white"
+                  ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
                   : isStep2Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -271,18 +273,18 @@ export default function PresidentialDumpsters() {
                       key={size}
                       type="button"
                       onClick={() => setSelectedSize(size)}
-                      className={`rounded-2xl border px-4 py-4 text-left transition-colors ${
+                      className={`rounded-xl border px-4 py-4 text-left transition-all duration-200 ${
                         isActive
-                          ? "border-emerald-600 bg-emerald-600 text-white"
-                          : "border-slate-200 bg-white hover:border-slate-300"
+                          ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
+                          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
                       }`}
                     >
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-sm font-semibold">
                           <span>{dumpsters[size].name}</span>
-                          <span>${dumpsters[size].base}</span>
+                          <span className="tabular-nums">${dumpsters[size].base}</span>
                         </div>
-                        <p className={`text-xs ${isActive ? "text-white/80" : "text-slate-500"}`}>
+                        <p className={`text-xs leading-relaxed ${isActive ? "text-white/80" : "text-slate-500"}`}>
                           {size === "10"
                             ? "Tight footprint, weekend clean-outs"
                             : "Roomy for new builds and heavy demos"}
@@ -295,9 +297,9 @@ export default function PresidentialDumpsters() {
             </div>
 
             <div
-              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
                 currentStep === 3
-                  ? "border-emerald-500/60 bg-white"
+                  ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
                   : isStep3Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -317,19 +319,19 @@ export default function PresidentialDumpsters() {
                   clearFieldError("address");
                 }}
                 placeholder="123 Main St, Waterbury"
-                className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                   errors.address
-                    ? "border-red-400 focus:ring-red-400/40"
-                    : "border-slate-200 focus:border-emerald-600"
+                    ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                    : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
                 }`}
               />
               {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
             </div>
 
             <div
-              className={`space-y-4 rounded-2xl border px-5 py-5 transition ${
+              className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
                 currentStep === 4
-                  ? "border-emerald-500/60 bg-white"
+                  ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
                   : isStep4Complete
                   ? "border-emerald-400/50 bg-white"
                   : "border-slate-200 bg-white/95"
@@ -356,10 +358,10 @@ export default function PresidentialDumpsters() {
                       clearFieldError("phone");
                     }}
                     autoComplete="tel"
-                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                    className={`w-full rounded-xl border px-4 py-3 text-[15px] tabular-nums transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                       errors.phone
-                        ? "border-red-400 focus:ring-red-400/40"
-                        : "border-slate-200 focus:border-emerald-600"
+                        ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                        : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
                     }`}
                   />
                     </div>
@@ -374,10 +376,10 @@ export default function PresidentialDumpsters() {
                       clearFieldError("email");
                     }}
                     autoComplete="email"
-                    className={`w-full rounded-xl border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+                    className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                       errors.email
-                        ? "border-red-400 focus:ring-red-400/40"
-                        : "border-slate-200 focus:border-emerald-600"
+                        ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                        : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
                     }`}
                   />
                 </div>
@@ -387,7 +389,7 @@ export default function PresidentialDumpsters() {
                     rows={2}
                     value={booking.notes}
                     onChange={(event) => setBooking((prev) => ({ ...prev, notes: event.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                    className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:border-emerald-600 focus:bg-emerald-50/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                   />
                 </div>
               </div>
@@ -404,10 +406,10 @@ export default function PresidentialDumpsters() {
                 type="button"
                 onClick={handleOrder}
                 disabled={isSubmitting}
-                className={`w-full rounded-xl px-4 py-3.5 text-base font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
+                className={`w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
                   isSubmitting
                     ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                    : "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800"
+                    : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow active:scale-[0.98] active:bg-emerald-800"
                 }`}
               >
                 {isSubmitting ? (
@@ -428,10 +430,10 @@ export default function PresidentialDumpsters() {
 
       {showToast && (
         <div
-          className={`fixed right-6 top-6 z-50 w-full max-w-sm rounded-2xl border p-4 shadow-xl transition-opacity backdrop-blur ${
+          className={`fixed right-6 top-6 z-50 w-full max-w-sm animate-in slide-in-from-top-2 fade-in duration-300 rounded-2xl border p-4 shadow-lg backdrop-blur ${
             toastType === "success"
-              ? "border-emerald-200 bg-white/95"
-              : "border-red-200 bg-white/95"
+              ? "border-emerald-200 bg-white/95 shadow-emerald-500/10"
+              : "border-red-200 bg-white/95 shadow-red-500/10"
           }`}
         >
           <div className="flex items-start gap-3 text-slate-900">
@@ -442,11 +444,11 @@ export default function PresidentialDumpsters() {
                 <XCircleIcon className="h-5 w-5 text-red-500" />
               )}
             </div>
-            <div className="flex-1 text-sm font-medium">{toastMessage}</div>
+            <div className="flex-1 text-sm font-medium leading-relaxed">{toastMessage}</div>
             <button
               type="button"
               onClick={() => setShowToast(false)}
-              className="text-slate-400 transition-colors hover:text-slate-600"
+              className="text-slate-400 transition-all duration-200 hover:text-slate-600 active:scale-90"
               aria-label="Dismiss notification"
             >
               <XCircleIcon className="h-5 w-5" />
