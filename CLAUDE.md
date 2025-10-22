@@ -27,44 +27,57 @@ pnpm lint
 
 ## Architecture
 
-- **Framework**: Next.js 15.5.2 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Build Tool**: Turbopack (Next.js's fast bundler)
-- **Package Manager**: pnpm
+  - **Framework**: Next.js 15.x (App Router)
+  - **Core Philosophy**: **Server-First.** We leverage React Server Components (RSCs) by default. Client-side interactivity (`"use client"`) is an *opt-in* for specific, minimal components.
+  - **Language**: TypeScript
+  - **Styling**: Tailwind CSS (v4+)
+  - **Build & Dev**: Turbopack (via `pnpm dev` and `pnpm build`)
+  - **Package Manager**: pnpm
+
+## Code Patterns
+
+Embrace Modern Next.js (15+) & React (19+) Patterns.
+
+  - **RSCs by Default:** Components are Server Components unless they require interactivity (state, effects, event handlers), at which point they must use `"use client"`.
+  - **Keep Client Components Small:** Isolate interactivity. A `"use client"` directive makes the component and *all its children* client components. Push state and interactivity as deep into the component tree (to "leaf" components) as possible.
+  - **Fetch Data on the Server:** Prefer server-side data fetching (in Server Components, Layouts, or Pages) and passing data down as props. Avoid client-side data fetching (e.g., in a `useEffect`) unless absolutely necessary (e.g., for data that is user-specific and changes frequently on the client).
+  - **Colocate Logic:** Avoid premature abstraction. Business logic should live in `/utils` and be framework-agnostic (plain TS functions).
+  - **No Unnecessary Hook Wrappers:** Do not wrap simple utilities or business logic in a custom hook. Reserve custom hooks (`useSomething`) *only* for logic that genuinely manages reusable, complex *React state or lifecycles* (e.g., `useLocalStorage`, `useMediaQuery`).
+  - **Favor Simplicity:** Don't Repeat Yourself (DRY) is not an absolute rule. Duplicating code 2-3 times is often *better* than introducing a complex, premature abstraction. Favor simplicity and readability over absolute dryness.
 
 ## Repository Structure
 
-- `src/` - Source code with App Router structure
-- `public/` - Static assets
-- `node_modules/` - Dependencies
-- `.dist/` - Legacy directory (can be removed)
+  - `src/app/` - App Router routes, pages, layouts, and route-specific components.
+  - `src/components/` - Shared, reusable, and ideally "dumb" UI components (e.g., `<Button />`, `<Card />`).
+  - `src/utils/` - Project-wide, framework-agnostic utility functions (e.g., `formatDate`, `isBusinessOpen`).
+  - `public/` - Static assets (images, fonts, etc.).
 
 ## Configuration Files
 
-- `next.config.ts` - Next.js configuration
-- `tailwind.config.ts` - Tailwind CSS configuration  
-- `tsconfig.json` - TypeScript configuration
-- `eslint.config.mjs` - ESLint configuration
-- `postcss.config.mjs` - PostCSS configuration
+  - `next.config.ts` - Next.js configuration
+  - `tailwind.config.ts` - Tailwind CSS configuration
+  - `tsconfig.json` - TypeScript configuration
+  - `eslint.config.mjs` - ESLint configuration
+  - `postcss.config.mjs` - PostCSS configuration
 
-# PR Review Standards
+## PR Review Standards
 
-## When to Request Changes (blocks merge):
-- Build failures
-- Test failures
-- Linting errors blocking deployment
-- Breaking changes without clear migration path
+### Blocking Reviews (Request Changes):
 
-Everything else is situational. Think through each PR on its own.
+  - Build, test, or linting failures.
+  - Obvious bugs or regressions.
+  - Architectural misalignment (e.g., unnecessary client-side fetching, premature abstraction).
+  - Breaking changes without a clear migration path or documentation.
 
-## When to Comment (doesn't block):
-- Suggestions, questions, alternative approaches
+### Non-Blocking Feedback (Comments):
 
-## Communication:
-Direct and technical. State: problem, location, what needs fixing.
+  - Suggestions, questions, or alternative approaches.
+  - For minor, non-blocking suggestions (style, wording, a small simplification), prefix your comment with **"nit:"** (nitpick). This signals the author can address it at their discretion.
 
-No emojis. No fluff.
+### Communication:
+
+Direct and technical. State: problem, location, what needs fixing. No emojis. No fluff.
 
 ## Commit Messages:
-No emojis. No Claude mentions.
+
+Keep commits professional, technical, and emoji-free.
