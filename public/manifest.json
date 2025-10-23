@@ -13,7 +13,7 @@
   "screenshots": [],
   "icons": [
     {
-      "src": "/presidential-dumpsters-logo-favicon.png",
+      "src": "/presidential-dumpsters-logo-favicon-min.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

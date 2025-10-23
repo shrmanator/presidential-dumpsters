@@ -43,7 +43,7 @@ export const metadata: Metadata = {
         alt: 'Presidential Dumpsters Logo',
       },
       {
-        url: '/presidential-dumpsters-logo-favicon.png',
+        url: '/presidential-dumpsters-logo-favicon-min.png',
         width: 512,
         height: 512,
         alt: 'Presidential Dumpsters Favicon',
@@ -73,16 +73,16 @@ export const metadata: Metadata = {
     statusBarStyle: 'default',
     title: 'Presidential Dumpsters',
     startupImage: [
-      '/presidential-dumpsters-logo-favicon.png',
+      '/presidential-dumpsters-logo-favicon-min.png',
     ],
   },
   icons: {
     icon: [
       { url: '/favicon.ico' },
-      { url: '/presidential-dumpsters-logo-favicon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/presidential-dumpsters-logo-favicon-min.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: [
-      { url: '/presidential-dumpsters-logo-favicon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/presidential-dumpsters-logo-favicon-min.png', sizes: '180x180', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
   },
@@ -123,7 +123,7 @@ export default function RootLayout({
     logo: 'https://presidentialdumpsters.xyz/logo.png',
     image: [
       'https://presidentialdumpsters.xyz/logo.png',
-      'https://presidentialdumpsters.xyz/presidential-dumpsters-logo-favicon.png'
+      'https://presidentialdumpsters.xyz/presidential-dumpsters-logo-favicon-min.png'
     ],
     description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
     priceRange: '$395-$695',
