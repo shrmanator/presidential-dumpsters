@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Dumpster Sizing Guide & Customer Reviews | Presidential Dumpsters",
   description: "Choose the right dumpster size for your project. Compare 10-yard and 20-yard dumpsters. Read reviews from Connecticut homeowners and contractors.",
   keywords: "dumpster size guide, 10 yard dumpster, 20 yard dumpster, dumpster rental reviews, customer testimonials",
+  alternates: {
+    canonical: 'https://presidentialdumpsters.xyz/sizing-guide',
+  },
 };
 
 export default function SizingGuidePage() {

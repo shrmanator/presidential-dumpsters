@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://presidentialdumpsters.com',
+    url: 'https://presidentialdumpsters.xyz',
     siteName: 'Presidential Dumpsters',
     title: 'Presidential Dumpsters - Professional Dumpster Rental Waterbury CT',
     description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     site: '@presidentialdumpsters',
   },
   alternates: {
-    canonical: 'https://presidentialdumpsters.com',
+    canonical: 'https://presidentialdumpsters.xyz',
   },
   verification: {
     google: 'your-google-verification-code',
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     'DC.date': new Date().toISOString().split('T')[0],
     'DC.type': 'Service',
     'DC.format': 'text/html',
-    'DC.identifier': 'https://presidentialdumpsters.com',
+    'DC.identifier': 'https://presidentialdumpsters.xyz',
     'DC.language': 'en',
     'DC.coverage': 'Waterbury, Connecticut, USA',
     'DC.rights': 'Copyright Presidential Management',
@@ -116,19 +116,19 @@ export default function RootLayout({
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://presidentialdumpsters.com/#business',
+    '@id': 'https://presidentialdumpsters.xyz/#business',
     name: 'Presidential Dumpsters',
     legalName: 'Presidential Management',
-    url: 'https://presidentialdumpsters.com',
-    logo: 'https://presidentialdumpsters.com/logo.png',
+    url: 'https://presidentialdumpsters.xyz',
+    logo: 'https://presidentialdumpsters.xyz/logo.png',
     image: [
-      'https://presidentialdumpsters.com/logo.png',
-      'https://presidentialdumpsters.com/presidential-dumpsters-logo-favicon.png'
+      'https://presidentialdumpsters.xyz/logo.png',
+      'https://presidentialdumpsters.xyz/presidential-dumpsters-logo-favicon.png'
     ],
     description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
     priceRange: '$395-$695',
     telephone: '+1-475-441-6727',
-    email: 'info@presidentialdumpsters.com',
+    email: 'info@presidentialdumpsters.xyz',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'PO Box 4141',
@@ -146,6 +146,30 @@ export default function RootLayout({
       {
         '@type': 'City',
         name: 'Waterbury',
+        addressRegion: 'CT',
+        addressCountry: 'US'
+      },
+      {
+        '@type': 'City',
+        name: 'New Haven',
+        addressRegion: 'CT',
+        addressCountry: 'US'
+      },
+      {
+        '@type': 'City',
+        name: 'Hartford',
+        addressRegion: 'CT',
+        addressCountry: 'US'
+      },
+      {
+        '@type': 'City',
+        name: 'Oakville',
+        addressRegion: 'CT',
+        addressCountry: 'US'
+      },
+      {
+        '@type': 'City',
+        name: 'Wolcott',
         addressRegion: 'CT',
         addressCountry: 'US'
       },

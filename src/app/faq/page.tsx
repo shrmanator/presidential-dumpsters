@@ -8,11 +8,73 @@ export const metadata: Metadata = {
   title: "FAQ - Dumpster Rental Questions | Presidential Dumpsters",
   description: "Common questions about dumpster rental in Connecticut. Learn about sizes, permits, delivery, pricing, and what you can dispose of.",
   keywords: "dumpster rental faq, dumpster questions, permit requirements, rental period, disposal guidelines",
+  alternates: {
+    canonical: 'https://presidentialdumpsters.xyz/faq',
+  },
 };
 
 export default function FAQPage() {
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What sizes do you offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer 10-yard dumpsters ($395) perfect for small cleanouts and 20-yard dumpsters ($550) ideal for larger projects and construction work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long can I keep the dumpster?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All rentals include 7 days on-site. Need longer? Just let us know and we can extend your rental period."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve Waterbury, New Haven, Hartford and surrounding Connecticut areas with same-week delivery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a permit for dumpster rental in Connecticut?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If the dumpster goes on your property, no permit needed. For street placement, you may need a city permit - we can advise you on local requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can't go in the dumpster?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No hazardous materials, paint, chemicals, tires, or electronics. Standard household and construction debris is fine."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I schedule delivery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fill out our quick form on the homepage or call (475) 441-6727. We'll confirm your order and schedule delivery within your timeframe."
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0a2d56] to-[#0b3f3c] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
       <nav className="border-b border-white/10 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/">

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/admin/'],
     },
-    sitemap: 'https://presidentialdumpsters.com/sitemap.xml',
+    sitemap: 'https://presidentialdumpsters.xyz/sitemap.xml',
   }
 }
