@@ -20,7 +20,13 @@ export const orderSchema = z
   .object({
     bookingType: bookingTypeEnum,
     contactName: z.string().transform((value) => value.trim()),
-    address: z.string().min(1, 'Delivery address is required'),
+    address: z
+      .string()
+      .min(15, 'Please enter a complete delivery address')
+      .refine(
+        (addr) => addr.split(',').length >= 2,
+        'Please select a full address from the dropdown'
+      ),
     phone: z
       .string()
       .min(10, 'Phone number must be at least 10 digits')
@@ -55,3 +61,36 @@ export const orderSchema = z
   });
 
 export type OrderFormData = z.infer<typeof orderSchema>;
+
+// Client-side validation functions for immediate UX feedback
+export const validateContactName = (name: string, bookingType: BookingType): string | null => {
+  if (!name.trim()) {
+    return bookingType === 'business' ? 'Business name is required' : 'Contact name is required';
+  }
+  return null;
+};
+
+export const validateAddress = (address: string, wasSelected: boolean): string | null => {
+  if (!wasSelected || address.split(',').length < 2 || address.length < 15) {
+    return 'Please select a full address from the dropdown';
+  }
+  return null;
+};
+
+export const validatePhone = (phone: string): string | null => {
+  const digits = phone.replace(/[^\d]/g, '');
+  if (digits.length < 10) {
+    return 'Phone number must be at least 10 digits';
+  }
+  return null;
+};
+
+export const validateEmail = (email: string): string | null => {
+  if (!email.trim()) {
+    return 'Email address is required';
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return 'Please enter a valid email address';
+  }
+  return null;
+};

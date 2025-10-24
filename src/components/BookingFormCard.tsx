@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Building2, CheckCircleIcon, Home, XCircleIcon } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
-import { formatPhoneNumber } from "@/utils/validation";
+import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 
@@ -57,18 +57,19 @@ export function BookingFormCard() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error">("success");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [wasAddressSelected, setWasAddressSelected] = useState(false);
 
   const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
   const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
   const phoneDigits = booking.phone.replace(/[^\d]/g, "");
   const isStep1Complete = booking.contactName.trim().length > 0;
   const isStep2Complete = Boolean(selectedSize);
-  const isStep3Complete = booking.address.trim().length > 0;
+  const isStep3Complete = wasAddressSelected && booking.address.split(',').length >= 2 && booking.address.length > 15;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
   const ctaLabel = selectedSize ? `Request dumpster • $${basePrice}` : "Request dumpster";
 
-  const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email") => {
+  const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email" | "size") => {
     setErrors((prev) => {
       if (!prev[field]) {
         return prev;
@@ -87,9 +88,29 @@ export function BookingFormCard() {
   };
 
   const handleOrder = () => {
-    if (!selectedSize) {
+    const validationErrors: Record<string, string> = {};
+
+    const contactNameError = validateContactName(booking.contactName, booking.bookingType);
+    if (contactNameError) validationErrors.contactName = contactNameError;
+
+    if (!selectedSize) validationErrors.size = "Please select a dumpster size";
+
+    const addressError = validateAddress(booking.address, wasAddressSelected);
+    if (addressError) validationErrors.address = addressError;
+
+    const phoneError = validatePhone(booking.phone);
+    if (phoneError) validationErrors.phone = phoneError;
+
+    const emailError = validateEmail(booking.email);
+    if (emailError) validationErrors.email = emailError;
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
+
+    if (!selectedSize) return;
+
     handleOrderWithUI(
       booking,
       selectedSize,
@@ -190,7 +211,10 @@ export function BookingFormCard() {
                   <button
                     key={size}
                     type="button"
-                    onClick={() => setSelectedSize(size)}
+                    onClick={() => {
+                      setSelectedSize(size);
+                      clearFieldError("size");
+                    }}
                     className={`rounded-xl border px-4 py-4 text-left transition-all duration-200 ${
                       isActive
                         ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
@@ -212,6 +236,7 @@ export function BookingFormCard() {
                 );
               })}
             </div>
+            {errors.size && <p className="text-sm text-red-500">{errors.size}</p>}
           </div>
 
           <div
@@ -236,6 +261,7 @@ export function BookingFormCard() {
                 setBooking((prev) => ({ ...prev, address }));
                 clearFieldError("address");
               }}
+              onSelectionChange={setWasAddressSelected}
               placeholder="123 Main St, Waterbury"
               className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                 errors.address
