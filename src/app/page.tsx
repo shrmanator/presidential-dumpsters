@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Truck } from "lucide-react";
 import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
@@ -34,7 +35,23 @@ export default function PresidentialDumpsters() {
               Dumpster rentals in Waterbury, CT
             </h1>
             <p className="max-w-xl text-[17px] leading-relaxed text-white/70 md:text-lg">
-              10-yard and 20-yard roll-off dumpsters serving Waterbury neighborhoods, Oakville, Wolcott, and surrounding towns.
+              10-yard and 20-yard roll-off dumpsters serving Waterbury,{" "}
+              <Link href="/oakville" className="text-white underline decoration-white/30 hover:decoration-white/60 transition-colors">
+                Oakville
+              </Link>
+              ,{" "}
+              <Link href="/wolcott" className="text-white underline decoration-white/30 hover:decoration-white/60 transition-colors">
+                Wolcott
+              </Link>
+              ,{" "}
+              <Link href="/hartford" className="text-white underline decoration-white/30 hover:decoration-white/60 transition-colors">
+                Hartford
+              </Link>
+              ,{" "}
+              <Link href="/new-haven" className="text-white underline decoration-white/30 hover:decoration-white/60 transition-colors">
+                New Haven
+              </Link>
+              , and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
