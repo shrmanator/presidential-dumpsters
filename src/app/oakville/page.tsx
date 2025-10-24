@@ -104,24 +104,13 @@ export default function OakvillePage() {
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold text-white">Oakville Dumpster Rental Services</h2>
             <p className="text-white/80">
-              Serving Oakville, CT with reliable roll-off dumpster rentals. Perfect for home renovations, spring cleaning, basement cleanouts, roofing projects, and landscaping work. We understand the unique needs of Oakville properties and provide personalized service.
+              We provide reliable roll-off dumpster rentals throughout Oakville, CT. Whether you&apos;re a homeowner tackling a kitchen renovation, a contractor managing a construction site, or working on outdoor projects, we have the right dumpster size for your needs.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                <h3 className="font-semibold text-white mb-2">Home Projects</h3>
-                <p className="text-sm text-white/70">Kitchen and bathroom renovations, deck removal, garage cleanouts, estate cleanups</p>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                <h3 className="font-semibold text-white mb-2">Yard & Outdoor</h3>
-                <p className="text-sm text-white/70">Landscaping debris, tree removal, shed demolition, property cleanup</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">Why Choose Us in Oakville</h2>
             <p className="text-white/80">
-              As a local service, we know Oakville neighborhoods and can navigate tight driveways and residential streets with ease. Our team provides prompt delivery, helpful guidance on sizing, and reliable pickup scheduling that respects your property.
+              Our 10-yard and 20-yard dumpsters are perfect for home projects like bathroom remodels, deck removal, garage cleanouts, and estate cleanups. We also serve outdoor projects including landscaping debris removal, tree removal, shed demolition, and general property cleanup throughout Oakville.
+            </p>
+            <p className="text-white/80">
+              As a local service, we know Oakville neighborhoods and can navigate tight driveways and residential streets with ease. Our team provides prompt delivery, helpful guidance on sizing, and reliable pickup scheduling that respects your property. Same-day delivery is available for most Oakville locations.
             </p>
           </div>
         </section>

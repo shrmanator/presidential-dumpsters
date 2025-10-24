@@ -104,24 +104,13 @@ export default function HartfordPage() {
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold text-white">Hartford Dumpster Rental Services</h2>
             <p className="text-white/80">
-              We provide reliable dumpster rental services throughout Hartford, CT and surrounding areas. Whether you&apos;re a homeowner tackling a renovation, a contractor managing a construction site, or a business needing regular waste removal, we have the right dumpster size for your project.
+              We provide reliable roll-off dumpster rentals throughout Hartford, CT and surrounding areas. Whether you&apos;re a homeowner tackling a kitchen renovation, a contractor managing a construction site, or a business needing regular waste removal, we have the right dumpster size for your project.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                <h3 className="font-semibold text-white mb-2">Residential Projects</h3>
-                <p className="text-sm text-white/70">Home renovations, basement cleanouts, garage cleanups, landscaping projects</p>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                <h3 className="font-semibold text-white mb-2">Commercial Projects</h3>
-                <p className="text-sm text-white/70">Construction sites, office cleanouts, retail renovations, property management</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">Serving Hartford Neighborhoods</h2>
             <p className="text-white/80">
-              We deliver dumpsters throughout Hartford including downtown, West End, South End, Parkville, Frog Hollow, and all surrounding neighborhoods. Our local knowledge ensures accurate delivery and pickup scheduling.
+              Our 10-yard and 20-yard dumpsters are perfect for residential projects like bathroom remodels, deck removal, garage cleanouts, estate cleanups, and landscaping work. For commercial customers, we serve construction sites, office cleanouts, retail renovations, and property management companies throughout Hartford.
+            </p>
+            <p className="text-white/80">
+              We deliver dumpsters throughout Hartford including downtown, West End, South End, Parkville, Frog Hollow, and all surrounding neighborhoods. Our local knowledge of Hartford streets and properties ensures accurate delivery and pickup scheduling. Same-day delivery is available for most Hartford locations.
             </p>
           </div>
         </section>
