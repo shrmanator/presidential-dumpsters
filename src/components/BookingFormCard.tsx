@@ -29,7 +29,7 @@ const StepHeading = ({
     <div className="space-y-1.5">
       <span
         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200 ${
-          active ? "bg-emerald-500/20 text-emerald-600" : "bg-slate-100 text-slate-500"
+          complete ? "bg-emerald-500 text-white" : "bg-slate-100 text-slate-500"
         }`}
       >
         <span className="font-semibold">{step}</span>
@@ -39,14 +39,11 @@ const StepHeading = ({
         active ? "text-slate-900" : "text-slate-600"
       }`}>{title}</h3>
     </div>
-    {complete && (
-      <CheckCircleIcon className="h-4.5 w-4.5 text-emerald-500 transition-all duration-200 animate-in fade-in zoom-in" />
-    )}
   </div>
 );
 
 export function BookingFormCard() {
-  const [selectedSize, setSelectedSize] = useState<DumpsterSize>("20");
+  const [selectedSize, setSelectedSize] = useState<DumpsterSize | null>(null);
   const [booking, setBooking] = useState<BookingData>({
     bookingType: "business",
     contactName: "",
@@ -61,7 +58,7 @@ export function BookingFormCard() {
   const [toastType, setToastType] = useState<"success" | "error">("success");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const basePrice = dumpsters[selectedSize].base;
+  const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
   const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
   const phoneDigits = booking.phone.replace(/[^\d]/g, "");
   const isStep1Complete = booking.contactName.trim().length > 0;
@@ -69,7 +66,7 @@ export function BookingFormCard() {
   const isStep3Complete = booking.address.trim().length > 0;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
-  const ctaLabel = `Request dumpster • $${basePrice}`;
+  const ctaLabel = selectedSize ? `Request dumpster • $${basePrice}` : "Request dumpster";
 
   const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email") => {
     setErrors((prev) => {
@@ -90,6 +87,9 @@ export function BookingFormCard() {
   };
 
   const handleOrder = () => {
+    if (!selectedSize) {
+      return;
+    }
     handleOrderWithUI(
       booking,
       selectedSize,
