@@ -126,7 +126,7 @@ export default function WolcottPage() {
           </div>
         </section>
 
-        <BookingFormCard />
+        <BookingFormCard addressPlaceholder="123 Main St, Wolcott" />
       </main>
 
       <Footer />

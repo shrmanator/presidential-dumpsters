@@ -42,7 +42,11 @@ const StepHeading = ({
   </div>
 );
 
-export function BookingFormCard() {
+interface BookingFormCardProps {
+  addressPlaceholder?: string;
+}
+
+export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" }: BookingFormCardProps = {}) {
   const [selectedSize, setSelectedSize] = useState<DumpsterSize | null>(null);
   const [booking, setBooking] = useState<BookingData>({
     bookingType: "business",
@@ -262,7 +266,7 @@ export function BookingFormCard() {
                 clearFieldError("address");
               }}
               onSelectionChange={setWasAddressSelected}
-              placeholder="123 Main St, Waterbury"
+              placeholder={addressPlaceholder}
               className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                 errors.address
                   ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"

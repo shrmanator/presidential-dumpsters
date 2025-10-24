@@ -126,7 +126,7 @@ export default function HartfordPage() {
           </div>
         </section>
 
-        <BookingFormCard />
+        <BookingFormCard addressPlaceholder="123 Main St, Hartford" />
       </main>
 
       <Footer />

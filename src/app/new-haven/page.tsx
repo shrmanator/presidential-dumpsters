@@ -126,7 +126,7 @@ export default function NewHavenPage() {
           </div>
         </section>
 
-        <BookingFormCard />
+        <BookingFormCard addressPlaceholder="123 Main St, New Haven" />
       </main>
 
       <Footer />

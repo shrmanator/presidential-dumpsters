@@ -126,7 +126,7 @@ export default function OakvillePage() {
           </div>
         </section>
 
-        <BookingFormCard />
+        <BookingFormCard addressPlaceholder="123 Main St, Oakville" />
       </main>
 
       <Footer />
