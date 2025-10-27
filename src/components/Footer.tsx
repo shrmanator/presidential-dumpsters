@@ -45,6 +45,18 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        <div className="mt-12 pt-8 border-t border-white/5 text-center">
+          <p className="text-xs text-white/40">
+            <a
+              href="https://dovindustries.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/50 hover:text-white/70 transition-colors duration-200"
+            >
+              dovindustries
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
