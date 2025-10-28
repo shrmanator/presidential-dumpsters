@@ -3,9 +3,16 @@
 import * as brevo from '@getbrevo/brevo';
 import { dumpsters, DumpsterSize } from '@/utils/pricing';
 import { BookingType } from '@/utils/validation';
+import {
+  buildCustomerConfirmationHtml,
+  buildInternalOrderHtml,
+} from '@/utils/email-templates';
 
 const apiInstance = new brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY!);
+apiInstance.setApiKey(
+  brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY!,
+);
 
 export async function submitOrder(formData: {
   selectedSize: DumpsterSize;
@@ -22,50 +29,56 @@ export async function submitOrder(formData: {
     return { success: false, message: 'Please add delivery address and phone number' };
   }
 
-  const basePrice = dumpsters[selectedSize].base;
+  const dumpster = dumpsters[selectedSize];
+  const basePrice = dumpster.base;
   const trimmedContact = contactName.trim();
+  const customerEmail = email.trim();
   const bookingDescriptor = bookingType === 'business' ? 'Business' : 'Residential';
+  const emailContext = {
+    dumpsterName: dumpster.name,
+    basePrice,
+    bookingDescriptor,
+    contactName: trimmedContact,
+    address,
+    phone,
+    email: customerEmail,
+    notes,
+  };
 
   try {
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.sender = { name: 'Presidential Dumpsters', email: 'contact@digidov.com' };
     sendSmtpEmail.to = [{ email: 'office@presidentialmgmt.com', name: 'Presidential Management' }];
-    sendSmtpEmail.subject = `New Dumpster Order - ${dumpsters[selectedSize].name}${
+    sendSmtpEmail.subject = `New Dumpster Order - ${dumpster.name}${
       trimmedContact ? ` for ${trimmedContact}` : ''
     }`;
-    sendSmtpEmail.htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px;">
-        <h2 style="color: #333;">New Dumpster Rental Order</h2>
+    sendSmtpEmail.htmlContent = buildInternalOrderHtml(emailContext);
 
-        <div style="background: #f9f9f9; padding: 15px; margin: 15px 0;">
-          <p><strong>Dumpster Size:</strong> ${dumpsters[selectedSize].name}</p>
-          <p><strong>Base Price:</strong> $${basePrice}</p>
-          <p><strong>Booking Type:</strong> ${bookingDescriptor}${
-            trimmedContact ? ` - ${trimmedContact}` : ''
-          }</p>
-          <p><strong>Delivery Address:</strong> ${address}</p>
-          <p><strong>Customer Phone:</strong> ${phone}</p>
-          <p><strong>Customer Email:</strong> ${email || 'Not provided'}</p>
-          ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
-        </div>
-
-        <hr style="margin: 20px 0;">
-
-        <div style="font-size: 12px; color: #666;">
-          <p><strong>Presidential Dumpsters</strong><br>
-          Waterbury, Connecticut<br>
-          Phone: (347) 299-0482</p>
-
-          <p>This order was submitted through our website contact form.</p>
-        </div>
-      </div>
-    `;
-
-    if (email) {
-      sendSmtpEmail.replyTo = { email: email };
+    if (customerEmail) {
+      sendSmtpEmail.replyTo = { email: customerEmail };
     }
 
     await apiInstance.sendTransacEmail(sendSmtpEmail);
+
+    if (customerEmail) {
+      const confirmationEmail = new brevo.SendSmtpEmail();
+      confirmationEmail.sender = { name: 'Presidential Dumpsters', email: 'contact@digidov.com' };
+      confirmationEmail.to = [
+        { email: customerEmail, name: trimmedContact || 'Presidential Dumpsters customer' },
+      ];
+      confirmationEmail.subject = 'We received your dumpster request';
+      confirmationEmail.replyTo = {
+        email: 'office@presidentialmgmt.com',
+        name: 'Presidential Management',
+      };
+      confirmationEmail.htmlContent = buildCustomerConfirmationHtml(emailContext);
+
+      try {
+        await apiInstance.sendTransacEmail(confirmationEmail);
+      } catch (customerEmailError) {
+        console.error('Error sending confirmation email to customer:', customerEmailError);
+      }
+    }
 
     return {
       success: true,
@@ -83,3 +96,4 @@ export async function submitOrder(formData: {
     };
   }
 }
+
