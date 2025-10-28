@@ -11,7 +11,10 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://presidentialdumpsters.xyz";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Presidential Dumpsters - Dumpster Rental Waterbury CT | Same Day Delivery",
   description: "Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured. Call (475) 441-6727.",
   keywords: "dumpster rental waterbury ct, roll off dumpster rental waterbury, construction dumpster new haven, dumpster rental hartford ct, 10 yard dumpster connecticut, 20 yard dumpster waterbury, same day dumpster delivery ct, weekend dumpster rental, residential dumpster rental waterbury, commercial dumpster rental connecticut, debris removal waterbury ct, construction waste disposal",
