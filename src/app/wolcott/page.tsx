@@ -100,19 +100,6 @@ export default function WolcottPage() {
               </div>
             </div>
           </div>
-
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">Wolcott Dumpster Rental Services</h2>
-            <p className="text-white/80">
-              We provide reliable roll-off dumpster rentals throughout Wolcott, CT. Whether you&apos;re a homeowner tackling a kitchen renovation, a contractor managing a construction site, or working on outdoor projects, we have the right dumpster size for your needs.
-            </p>
-            <p className="text-white/80">
-              Our 10-yard and 20-yard dumpsters are perfect for home projects like bathroom remodels, deck removal, garage cleanouts, and estate cleanups. We also serve outdoor projects including landscaping debris removal, tree removal, shed demolition, and general property cleanup throughout Wolcott.
-            </p>
-            <p className="text-white/80">
-              As a local service, we know Wolcott neighborhoods and can navigate residential streets with ease. Our team provides prompt delivery, helpful guidance on sizing, and reliable pickup scheduling that respects your property. Same-day delivery is available for most Wolcott locations.
-            </p>
-          </div>
         </section>
 
         <BookingFormCard addressPlaceholder="123 Main St, Wolcott" />
