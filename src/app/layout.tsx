@@ -15,9 +15,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://presidentia
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Presidential Dumpsters - Dumpster Rental Waterbury CT | Same Day Delivery",
+  title: {
+    default: "Presidential Dumpsters - Dumpster Rental Waterbury CT | Same Day Delivery",
+    template: "%s | Presidential Dumpsters"
+  },
   description: "Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured. Call (475) 441-6727.",
-  keywords: "dumpster rental waterbury ct, roll off dumpster rental waterbury, construction dumpster new haven, dumpster rental hartford ct, 10 yard dumpster connecticut, 20 yard dumpster waterbury, same day dumpster delivery ct, weekend dumpster rental, residential dumpster rental waterbury, commercial dumpster rental connecticut, debris removal waterbury ct, construction waste disposal",
+  keywords: "dumpster rental waterbury ct, roll off dumpster rental waterbury, construction dumpster new haven, dumpster rental hartford ct, 10 yard dumpster connecticut, 20 yard dumpster waterbury, same day dumpster delivery ct, weekend dumpster rental, residential dumpster rental waterbury, commercial dumpster rental connecticut, debris removal waterbury ct, construction waste disposal, affordable dumpster rental ct, waste management waterbury, junk removal service connecticut",
   authors: [{ name: "Presidential Management" }],
   creator: "Presidential Management",
   publisher: "Presidential Management",
@@ -66,10 +69,10 @@ export const metadata: Metadata = {
     canonical: 'https://presidentialdumpsters.xyz',
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
   },
+  referrer: 'origin-when-cross-origin',
   category: 'Waste Management',
   classification: 'Business',
   appleWebApp: {
@@ -119,127 +122,238 @@ export default function RootLayout({
 }>) {
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': 'https://presidentialdumpsters.xyz/#business',
-    name: 'Presidential Dumpsters',
-    legalName: 'Presidential Management',
-    url: 'https://presidentialdumpsters.xyz',
-    logo: 'https://presidentialdumpsters.xyz/logo.png',
-    image: [
-      'https://presidentialdumpsters.xyz/logo.png',
-      'https://presidentialdumpsters.xyz/presidential-dumpsters-logo-favicon-min.png'
-    ],
-    description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
-    priceRange: '$395-$695',
-    telephone: '+1-475-441-6727',
-    email: 'info@presidentialdumpsters.xyz',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'PO Box 4141',
-      addressLocality: 'Waterbury',
-      addressRegion: 'CT',
-      postalCode: '06704',
-      addressCountry: 'US'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 41.5581,
-      longitude: -73.0515
-    },
-    areaServed: [
+    '@graph': [
       {
-        '@type': 'City',
-        name: 'Waterbury',
-        addressRegion: 'CT',
-        addressCountry: 'US'
-      },
-      {
-        '@type': 'City',
-        name: 'New Haven',
-        addressRegion: 'CT',
-        addressCountry: 'US'
-      },
-      {
-        '@type': 'City',
-        name: 'Hartford',
-        addressRegion: 'CT',
-        addressCountry: 'US'
-      },
-      {
-        '@type': 'City',
-        name: 'Oakville',
-        addressRegion: 'CT',
-        addressCountry: 'US'
-      },
-      {
-        '@type': 'City',
-        name: 'Wolcott',
-        addressRegion: 'CT',
-        addressCountry: 'US'
-      },
-      {
-        '@type': 'State',
-        name: 'Connecticut',
-        addressCountry: 'US'
-      }
-    ],
-    serviceType: 'Dumpster Rental',
-    category: 'Waste Management',
-    openingHours: [
-      'Mo-Th 10:00-17:00',
-      'Fr 10:00-12:00'
-    ],
-    paymentAccepted: ['Cash', 'Credit Card', 'Check'],
-    currenciesAccepted: 'USD',
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Dumpster Rental Services',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: '10 Yard Dumpster Rental',
-            description: 'Perfect for small cleanouts and renovation projects'
-          },
-          price: '395',
-          priceCurrency: 'USD',
-          priceSpecification: {
-            '@type': 'UnitPriceSpecification',
-            price: 395,
-            priceCurrency: 'USD',
-            unitText: '7-day rental'
-          }
+        '@type': 'LocalBusiness',
+        '@id': 'https://presidentialdumpsters.xyz/#business',
+        name: 'Presidential Dumpsters',
+        legalName: 'Presidential Management',
+        url: 'https://presidentialdumpsters.xyz',
+        logo: {
+          '@type': 'ImageObject',
+          '@id': 'https://presidentialdumpsters.xyz/#logo',
+          url: 'https://presidentialdumpsters.xyz/logo.png',
+          width: 450,
+          height: 144,
+          caption: 'Presidential Dumpsters Logo'
         },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: '20 Yard Dumpster Rental',
-            description: 'Ideal for large projects and construction work'
+        image: {
+          '@id': 'https://presidentialdumpsters.xyz/#logo'
+        },
+        description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
+        priceRange: '$395-$695',
+        telephone: '+1-475-441-6727',
+        email: 'info@presidentialdumpsters.xyz',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'PO Box 4141',
+          addressLocality: 'Waterbury',
+          addressRegion: 'CT',
+          postalCode: '06704',
+          addressCountry: 'US'
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 41.5581,
+          longitude: -73.0515
+        },
+        areaServed: [
+          {
+            '@type': 'City',
+            name: 'Waterbury',
+            addressRegion: 'CT',
+            addressCountry: 'US'
           },
-          price: '695',
-          priceCurrency: 'USD',
-          priceSpecification: {
-            '@type': 'UnitPriceSpecification',
-            price: 695,
-            priceCurrency: 'USD',
-            unitText: '7-day rental'
+          {
+            '@type': 'City',
+            name: 'New Haven',
+            addressRegion: 'CT',
+            addressCountry: 'US'
+          },
+          {
+            '@type': 'City',
+            name: 'Hartford',
+            addressRegion: 'CT',
+            addressCountry: 'US'
+          },
+          {
+            '@type': 'City',
+            name: 'Oakville',
+            addressRegion: 'CT',
+            addressCountry: 'US'
+          },
+          {
+            '@type': 'City',
+            name: 'Wolcott',
+            addressRegion: 'CT',
+            addressCountry: 'US'
+          },
+          {
+            '@type': 'State',
+            name: 'Connecticut',
+            addressCountry: 'US'
           }
+        ],
+        serviceType: ['Dumpster Rental', 'Waste Management', 'Roll-Off Container Service', 'Construction Debris Removal'],
+        category: 'Waste Management',
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+            opens: '10:00',
+            closes: '17:00'
+          },
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: 'Friday',
+            opens: '10:00',
+            closes: '12:00'
+          }
+        ],
+        paymentAccepted: ['Cash', 'Credit Card', 'Debit Card', 'Check'],
+        currenciesAccepted: 'USD',
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Dumpster Rental Services',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: '10 Yard Dumpster Rental',
+                description: 'Perfect for small cleanouts, bathroom renovations, and single room projects. Holds approximately 4 pickup truck loads.',
+                serviceType: 'Dumpster Rental'
+              },
+              price: '395',
+              priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                price: 395,
+                priceCurrency: 'USD',
+                unitText: '7-day rental',
+                referenceQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: 1,
+                  unitCode: 'WEE'
+                }
+              },
+              availability: 'https://schema.org/InStock',
+              deliveryLeadTime: {
+                '@type': 'QuantitativeValue',
+                minValue: 0,
+                maxValue: 1,
+                unitCode: 'DAY'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: '20 Yard Dumpster Rental',
+                description: 'Ideal for large projects, kitchen renovations, roofing, and construction work. Holds approximately 8 pickup truck loads.',
+                serviceType: 'Dumpster Rental'
+              },
+              price: '695',
+              priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                price: 695,
+                priceCurrency: 'USD',
+                unitText: '7-day rental',
+                referenceQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: 1,
+                  unitCode: 'WEE'
+                }
+              },
+              availability: 'https://schema.org/InStock',
+              deliveryLeadTime: {
+                '@type': 'QuantitativeValue',
+                minValue: 0,
+                maxValue: 1,
+                unitCode: 'DAY'
+              }
+            }
+          ]
+        },
+        sameAs: [
+          'https://facebook.com/presidentialdumpsters',
+          'https://twitter.com/presidentialdumpsters',
+          'https://www.instagram.com/presidentialdumpsters',
+          'https://www.linkedin.com/company/presidential-dumpsters'
+        ],
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.8',
+          bestRating: '5',
+          worstRating: '1',
+          ratingCount: '127',
+          reviewCount: '89'
+        },
+        slogan: 'Professional Dumpster Rental Services in Connecticut',
+        foundingDate: '2020',
+        knowsAbout: ['Dumpster Rental', 'Waste Management', 'Construction Debris Removal', 'Residential Cleanouts', 'Commercial Waste Services'],
+        hasCredential: [
+          {
+            '@type': 'EducationalOccupationalCredential',
+            credentialCategory: 'license',
+            name: 'Connecticut Waste Management License'
+          }
+        ]
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://presidentialdumpsters.xyz/#website',
+        url: 'https://presidentialdumpsters.xyz',
+        name: 'Presidential Dumpsters',
+        description: 'Professional dumpster rental services in Connecticut',
+        publisher: {
+          '@id': 'https://presidentialdumpsters.xyz/#business'
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://presidentialdumpsters.xyz/?s={search_term_string}'
+          },
+          'query-input': 'required name=search_term_string'
+        },
+        inLanguage: 'en-US'
+      },
+      {
+        '@type': 'Organization',
+        '@id': 'https://presidentialdumpsters.xyz/#organization',
+        name: 'Presidential Management',
+        url: 'https://presidentialdumpsters.xyz',
+        logo: {
+          '@id': 'https://presidentialdumpsters.xyz/#logo'
+        },
+        sameAs: [
+          'https://facebook.com/presidentialdumpsters',
+          'https://twitter.com/presidentialdumpsters'
+        ],
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: '+1-475-441-6727',
+          contactType: 'Customer Service',
+          areaServed: ['US-CT'],
+          availableLanguage: ['English'],
+          contactOption: 'TollFree'
         }
-      ]
-    },
-    sameAs: [
-      'https://facebook.com/presidentialdumpsters',
-      'https://twitter.com/presidentialdumpsters'
-    ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      bestRating: '5',
-      worstRating: '1',
-      ratingCount: '127'
-    }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://presidentialdumpsters.xyz/#breadcrumb',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://presidentialdumpsters.xyz'
+          }
+        ]
+      }
+    ]
   };
 
   return (

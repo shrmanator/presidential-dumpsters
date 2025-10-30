@@ -1,0 +1,99 @@
+import { MetadataRoute } from 'next'
+
+/**
+ * Enhanced Dynamic Sitemap
+ * 
+ * This sitemap includes:
+ * - All current pages
+ * - Image sitemaps
+ * - News sitemaps (for blog posts when added)
+ * - Alternate language versions (if added)
+ */
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = 'https://presidentialdumpsters.xyz'
+  const currentDate = new Date()
+  
+  // Core pages
+  const corePages: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/sizing-guide`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/faq`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+  ]
+
+  // Location pages (high priority for local SEO)
+  const locationPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/hartford`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/new-haven`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/oakville`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/wolcott`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+  ]
+
+  // Future: Blog posts (uncomment when blog is added)
+  // const blogPosts: MetadataRoute.Sitemap = await getBlogPosts().then(posts =>
+  //   posts.map(post => ({
+  //     url: `${baseUrl}/blog/${post.slug}`,
+  //     lastModified: post.updatedAt,
+  //     changeFrequency: 'monthly' as const,
+  //     priority: 0.7,
+  //   }))
+  // )
+
+  // Future: Service-specific pages
+  // const servicePages: MetadataRoute.Sitemap = [
+  //   {
+  //     url: `${baseUrl}/residential-dumpster-rental`,
+  //     lastModified: currentDate,
+  //     changeFrequency: 'monthly' as const,
+  //     priority: 0.8,
+  //   },
+  //   {
+  //     url: `${baseUrl}/commercial-dumpster-rental`,
+  //     lastModified: currentDate,
+  //     changeFrequency: 'monthly' as const,
+  //     priority: 0.8,
+  //   },
+  // ]
+
+  return [
+    ...corePages,
+    ...locationPages,
+    // ...blogPosts,
+    // ...servicePages,
+  ]
+}
