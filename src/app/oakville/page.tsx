@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Truck } from "lucide-react";
 import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -79,6 +80,7 @@ export default function OakvillePage() {
 
       <main className="mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
         <section className="space-y-10">
+          <Breadcrumb items={[{ label: "Oakville Dumpster Rental" }]} />
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
               <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
