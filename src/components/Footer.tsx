@@ -12,7 +12,9 @@ export default function Footer() {
         <div className="grid gap-8 md:grid-cols-2 md:gap-16">
           <div className="space-y-4">
             <div>
-              <p className="text-[15px] font-semibold text-white">Presidential Dumpsters</p>
+              <Link href="/" className="text-[15px] font-semibold text-white hover:text-emerald-400 transition-colors duration-200">
+                Presidential Dumpsters
+              </Link>
               <p className="mt-1.5 text-sm text-white/60">PO Box 4141, Waterbury, CT 06704</p>
             </div>
             <div className="flex gap-6 text-sm">
