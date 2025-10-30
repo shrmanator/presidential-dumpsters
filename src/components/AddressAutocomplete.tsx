@@ -48,7 +48,7 @@ export default function AddressAutocomplete({
     }).catch((error) => {
       console.error('Error loading Google Maps API:', error);
     });
-  }, [onChange]);
+  }, [onChange, onSelectionChange]);
 
   return (
     <input
