@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, CheckCircleIcon, Home, XCircleIcon } from "lucide-react";
+import { Building2, CheckCircleIcon, Home, Truck, XCircleIcon } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
@@ -62,6 +62,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
   const [toastType, setToastType] = useState<"success" | "error">("success");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [wasAddressSelected, setWasAddressSelected] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
   const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
@@ -115,12 +116,36 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
     if (!selectedSize) return;
 
+    // Call order handler and handle success
     handleOrderWithUI(
       booking,
       selectedSize,
       setErrors,
       setIsSubmitting,
-      setToastMessage,
+      (message: string) => {
+        setToastMessage(message);
+        // Check if it's a success message (contains "received" or "submitted")
+        if (message.toLowerCase().includes('received') || message.toLowerCase().includes('submitted')) {
+          setSubmitSuccess(true);
+          // Show checkmark for 2 seconds, then smooth fade and reset
+          setTimeout(() => {
+            setSubmitSuccess(false);
+            // Wait 500ms for smooth fade before resetting form
+            setTimeout(() => {
+              setSelectedSize(null);
+              setBooking({
+                bookingType: "business",
+                contactName: "",
+                address: "",
+                phone: "",
+                email: "",
+                notes: "",
+              });
+              setWasAddressSelected(false);
+            }, 500);
+          }, 2000);
+        }
+      },
       setToastType,
       setShowToast
     );
@@ -353,17 +378,36 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
             <button
               type="button"
               onClick={handleOrder}
-              disabled={isSubmitting}
-              className={`w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
-                isSubmitting
+              disabled={isSubmitting || submitSuccess}
+              className={`relative overflow-hidden w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
+                submitSuccess
+                  ? "cursor-default bg-emerald-600 text-white"
+                  : isSubmitting
                   ? "cursor-not-allowed bg-slate-200 text-slate-500"
                   : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow active:scale-[0.98] active:bg-emerald-800"
               }`}
             >
-              {isSubmitting ? (
+              {submitSuccess ? (
                 <span className="flex items-center justify-center gap-2">
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-transparent"></div>
-                  Scheduling delivery...
+                  <svg 
+                    className="h-5 w-5 animate-in zoom-in duration-300" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      d="M5 13l4 4L19 7" 
+                    />
+                  </svg>
+                  Requested!
+                </span>
+              ) : isSubmitting ? (
+                <span className="relative flex items-center justify-center h-6 w-full">
+                  <span className="opacity-0">Scheduling delivery...</span>
+                  <Truck className="absolute left-0 h-5 w-5 animate-[slide_2.5s_ease-in-out_infinite]" />
                 </span>
               ) : (
                 ctaLabel
@@ -372,6 +416,25 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           </div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes slide {
+          0% {
+            left: -10%;
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            left: 110%;
+            opacity: 0;
+          }
+        }
+      `}</style>
 
       {showToast && (
         <div
