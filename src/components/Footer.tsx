@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useOfficeHours } from "./useOfficeHours";
 
 export default function Footer() {
@@ -47,17 +48,25 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-white/5 text-center">
-          <p className="text-xs text-white/40">
-            <a
-              href="https://dovindustries.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/50 hover:text-white/70 transition-colors duration-200"
-            >
+        <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+          <a
+            href="https://dovindustries.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-white/40 hover:text-white/60 transition-colors duration-200"
+          >
+            <Image 
+              src="/dovindustries-bear-white-transparent.png" 
+              alt="dovindustries logo" 
+              width={20}
+              height={20}
+              quality={100}
+              className="h-5 w-5"
+            />
+            <span className="text-sm">
               dovindustries
-            </a>
-          </p>
+            </span>
+          </a>
         </div>
       </div>
     </footer>
