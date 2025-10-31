@@ -92,7 +92,30 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
     clearFieldError("contactName");
   };
 
-  const handleOrder = () => {
+  const resetForm = () => {
+    setSelectedSize(null);
+    setBooking({
+      bookingType: "business",
+      contactName: "",
+      address: "",
+      phone: "",
+      email: "",
+      notes: "",
+    });
+    setWasAddressSelected(false);
+  };
+
+  const handleSuccessAnimation = () => {
+    setSubmitSuccess(true);
+    setTimeout(() => {
+      resetForm();
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 100);
+    }, 2000);
+  };
+
+  const handleOrder = (event?: React.MouseEvent<HTMLButtonElement>) => {
     const validationErrors: Record<string, string> = {};
 
     const contactNameError = validateContactName(booking.contactName, booking.bookingType);
@@ -116,6 +139,16 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
     if (!selectedSize) return;
 
+    // Test mode: Shift+Click to simulate success without sending email
+    if (event?.shiftKey) {
+      setIsSubmitting(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        handleSuccessAnimation();
+      }, 2500);
+      return;
+    }
+
     // Call order handler and handle success
     handleOrderWithUI(
       booking,
@@ -124,26 +157,8 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
       setIsSubmitting,
       (message: string) => {
         setToastMessage(message);
-        // Check if it's a success message (contains "received" or "submitted")
         if (message.toLowerCase().includes('received') || message.toLowerCase().includes('submitted')) {
-          setSubmitSuccess(true);
-          // Show checkmark for 2 seconds, then smooth fade and reset
-          setTimeout(() => {
-            setSubmitSuccess(false);
-            // Wait 500ms for smooth fade before resetting form
-            setTimeout(() => {
-              setSelectedSize(null);
-              setBooking({
-                bookingType: "business",
-                contactName: "",
-                address: "",
-                phone: "",
-                email: "",
-                notes: "",
-              });
-              setWasAddressSelected(false);
-            }, 500);
-          }, 2000);
+          handleSuccessAnimation();
         }
       },
       setToastType,
