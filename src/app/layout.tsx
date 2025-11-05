@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     site: '@presidentialdumpsters',
   },
   alternates: {
-    canonical: 'https://presidentialdumpsters.xyz',
+    canonical: '/',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
