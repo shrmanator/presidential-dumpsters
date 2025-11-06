@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ReactNode } from "react";
 
 interface ShakeInputProps {
@@ -9,12 +9,12 @@ interface ShakeInputProps {
 }
 
 export function ShakeInput({ children, isError }: ShakeInputProps) {
-  const shakeVariants = {
+  const shakeVariants: Variants = {
     shake: {
       x: [-10, 10, -10, 10, -5, 5, 0],
       transition: {
         duration: 0.5,
-        ease: "easeInOut",
+        ease: [0.4, 0, 0.2, 1],
       },
     },
     normal: {

@@ -8,7 +8,6 @@ import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ShakeInput } from "@/components/ShakeInput";
-import { RippleButton } from "@/components/RippleButton";
 
 const bookingTypeOptions = [
   { id: "business", label: "For my business", icon: Building2 },
