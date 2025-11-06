@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 interface LiquidGlassPanelProps {
   children: ReactNode;
   className?: string;
+  variant?: "default" | "accent";
 }
 
 /**
@@ -14,7 +15,39 @@ interface LiquidGlassPanelProps {
 export function LiquidGlassPanel({
   children,
   className = "",
+  variant = "default",
 }: LiquidGlassPanelProps) {
+  const variantStyles = {
+    default: {
+      border: "rgba(255, 255, 255, 0.15)",
+      midGradient:
+        "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+      nearTint: "rgba(255, 255, 255, 0.08)",
+      shine: "rgba(255,255,255,0.4)",
+      shadow: `
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+      `,
+    },
+    accent: {
+      border: "rgba(16, 185, 129, 0.25)",
+      midGradient:
+        "linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(255,255,255,0.05) 100%)",
+      nearTint: "rgba(16, 185, 129, 0.06)",
+      shine: "rgba(16,185,129,0.35)",
+      shadow: `
+        0 8px 32px rgba(16, 185, 129, 0.15),
+        0 2px 8px rgba(16, 185, 129, 0.08),
+        inset 0 1px 0 rgba(16, 185, 129, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+      `,
+    },
+  };
+
+  const styles = variantStyles[variant];
+
   return (
     <div className={`relative ${className}`}>
       {/* Layer 1: Far blur (creates depth) */}
@@ -33,8 +66,7 @@ export function LiquidGlassPanel({
         style={{
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+          background: styles.midGradient,
         }}
       />
 
@@ -44,7 +76,7 @@ export function LiquidGlassPanel({
         style={{
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: styles.nearTint,
         }}
       />
 
@@ -52,21 +84,15 @@ export function LiquidGlassPanel({
       <div
         className="relative rounded-3xl border transition-all duration-300"
         style={{
-          borderColor: "rgba(255, 255, 255, 0.15)",
-          boxShadow: `
-            0 8px 32px rgba(0, 0, 0, 0.12),
-            0 2px 8px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-          `,
+          borderColor: styles.border,
+          boxShadow: styles.shadow,
         }}
       >
         {/* Top shine (light refraction simulation) */}
         <div
           className="absolute top-0 left-4 right-4 h-[2px] rounded-full pointer-events-none"
           style={{
-            background:
-              "linear-gradient(90deg, transparent, rgba(255,255,255,0.4) 20%, rgba(255,255,255,0.4) 80%, transparent)",
+            background: `linear-gradient(90deg, transparent, ${styles.shine} 20%, ${styles.shine} 80%, transparent)`,
             filter: "blur(1px)",
           }}
         />

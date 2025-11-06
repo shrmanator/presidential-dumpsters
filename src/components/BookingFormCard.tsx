@@ -7,6 +7,7 @@ import { formatPhoneNumber, validateContactName, validateAddress, validatePhone,
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { ShakeInput } from "@/components/ShakeInput";
+import { LiquidGlassPanel } from "@/components/LiquidGlassPanel";
 
 const bookingTypeOptions = [
   { id: "business", label: "For my business", icon: Building2 },
@@ -169,7 +170,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
   return (
     <>
-      <section className="rounded-3xl border border-white/10 bg-white/90 backdrop-blur-xl p-6 text-slate-900 shadow-2xl shadow-emerald-500/10">
+      <LiquidGlassPanel variant="accent" className="bg-white/90 text-slate-900">
         <div className="space-y-8">
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
@@ -433,7 +434,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
             </button>
           </div>
         </div>
-      </section>
+      </LiquidGlassPanel>
 
       <style jsx>{`
         @keyframes slide {
