@@ -6,6 +6,8 @@ import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
+import { ShakeInput } from "@/components/ShakeInput";
+import { LiquidGlassPanel } from "@/components/LiquidGlassPanel";
 
 const bookingTypeOptions = [
   { id: "business", label: "For my business", icon: Building2 },
@@ -168,16 +170,20 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
   return (
     <>
-      <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900">
+      <LiquidGlassPanel variant="accent" className="bg-white/90 text-slate-900">
         <div className="space-y-8">
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 1
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep1Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 1"
@@ -210,22 +216,24 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               <label htmlFor="contact-name" className="text-sm font-medium text-slate-700">
                 {booking.bookingType === "business" ? "Business name" : "Contact name"}
               </label>
-              <input
-                id="contact-name"
-                type="text"
-                placeholder={contactPlaceholder}
-                required
-                value={booking.contactName}
-                onChange={(event) => {
-                  setBooking((prev) => ({ ...prev, contactName: event.target.value }));
-                  clearFieldError("contactName");
-                }}
-                className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
-                  errors.contactName
-                    ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                    : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
-                }`}
-              />
+              <ShakeInput isError={!!errors.contactName}>
+                <input
+                  id="contact-name"
+                  type="text"
+                  placeholder={contactPlaceholder}
+                  required
+                  value={booking.contactName}
+                  onChange={(event) => {
+                    setBooking((prev) => ({ ...prev, contactName: event.target.value }));
+                    clearFieldError("contactName");
+                  }}
+                  className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                    errors.contactName
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                  }`}
+                />
+              </ShakeInput>
               {errors.contactName && (
                 <p className="text-sm text-red-500">{errors.contactName}</p>
               )}
@@ -235,11 +243,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 2
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep2Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 2"
@@ -286,11 +298,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 3
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep3Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 3"
@@ -319,11 +335,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 4
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep4Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 4"
@@ -399,22 +419,22 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                   ? "cursor-default bg-emerald-600 text-white"
                   : isSubmitting
                   ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                  : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow active:scale-[0.98] active:bg-emerald-800"
+                  : "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-600/40 hover:ring-2 hover:ring-emerald-400/50 hover:ring-offset-2 active:scale-[0.98] active:bg-emerald-800"
               }`}
             >
               {submitSuccess ? (
                 <span className="flex items-center justify-center gap-2">
-                  <svg 
-                    className="h-5 w-5 animate-in zoom-in duration-300" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    className="h-5 w-5 animate-in zoom-in duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth={3}
                   >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      d="M5 13l4 4L19 7" 
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
                   Requested!
@@ -430,7 +450,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
             </button>
           </div>
         </div>
-      </section>
+      </LiquidGlassPanel>
 
       <style jsx>{`
         @keyframes slide {
