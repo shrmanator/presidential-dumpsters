@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
 import { ScrollNav } from "@/components/ScrollNav";
+import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental New Haven CT | Same Day Delivery | Presidential Dumpsters",
@@ -103,14 +104,14 @@ export default function NewHavenPage() {
               Professional roll-off dumpster rental service for New Haven residents and businesses. 10-yard and 20-yard dumpsters for home renovations, construction projects, and commercial cleanouts.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
+              <LiquidGlassCard variant="accent">
                 <p className="text-sm font-semibold text-white">Same-day delivery available</p>
                 <p className="mt-1 text-sm text-white/70">Serving all New Haven neighborhoods with fast local delivery.</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
+              </LiquidGlassCard>
+              <LiquidGlassCard variant="blue">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
                 <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
-              </div>
+              </LiquidGlassCard>
             </div>
           </header>
         </article>

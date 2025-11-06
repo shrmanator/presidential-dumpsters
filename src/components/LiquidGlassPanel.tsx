@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 interface LiquidGlassPanelProps {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "accent";
+  variant?: "default" | "accent" | "blue";
 }
 
 /**
@@ -41,6 +41,19 @@ export function LiquidGlassPanel({
         0 8px 32px rgba(16, 185, 129, 0.15),
         0 2px 8px rgba(16, 185, 129, 0.08),
         inset 0 1px 0 rgba(16, 185, 129, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+      `,
+    },
+    blue: {
+      border: "rgba(10, 33, 71, 0.3)",
+      midGradient:
+        "linear-gradient(135deg, rgba(10,33,71,0.1) 0%, rgba(6,22,51,0.05) 100%)",
+      nearTint: "rgba(10, 33, 71, 0.08)",
+      shine: "rgba(10,33,71,0.4)",
+      shadow: `
+        0 8px 32px rgba(10, 33, 71, 0.15),
+        0 2px 8px rgba(10, 33, 71, 0.08),
+        inset 0 1px 0 rgba(10, 33, 71, 0.2),
         inset 0 -1px 0 rgba(0, 0, 0, 0.1)
       `,
     },

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 interface LiquidGlassCardProps {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "accent";
+  variant?: "default" | "accent" | "blue";
 }
 
 export function LiquidGlassCard({
@@ -23,6 +23,11 @@ export function LiquidGlassCard({
       border: "rgba(16, 185, 129, 0.3)",
       background: "rgba(16, 185, 129, 0.1)",
       shadowColor: "rgba(16, 185, 129, 0.1)",
+    },
+    blue: {
+      border: "rgba(10, 33, 71, 0.3)",
+      background: "rgba(10, 33, 71, 0.1)",
+      shadowColor: "rgba(10, 33, 71, 0.1)",
     },
   };
 

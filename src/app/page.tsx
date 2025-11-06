@@ -64,7 +64,7 @@ export default function PresidentialDumpsters() {
                 <p className="text-sm font-semibold text-white">Same-day delivery available</p>
                 <p className="mt-1 text-sm text-white/70">Local crews ready to deliver fast.</p>
               </LiquidGlassCard>
-              <LiquidGlassCard variant="default">
+              <LiquidGlassCard variant="blue">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
                 <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
               </LiquidGlassCard>
