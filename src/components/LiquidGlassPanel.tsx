@@ -25,10 +25,10 @@ export function LiquidGlassPanel({
       nearTint: "rgba(255, 255, 255, 0.08)",
       shine: "rgba(255,255,255,0.4)",
       shadow: `
-        0 8px 32px rgba(0, 0, 0, 0.12),
-        0 2px 8px rgba(0, 0, 0, 0.08),
+        0 8px 40px rgba(0, 0, 0, 0.08),
+        0 4px 30px rgba(0, 0, 0, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05)
       `,
     },
     accent: {
@@ -38,10 +38,10 @@ export function LiquidGlassPanel({
       nearTint: "rgba(16, 185, 129, 0.06)",
       shine: "rgba(16,185,129,0.35)",
       shadow: `
-        0 8px 32px rgba(16, 185, 129, 0.15),
-        0 2px 8px rgba(16, 185, 129, 0.08),
+        0 8px 40px rgba(16, 185, 129, 0.18),
+        0 4px 30px rgba(16, 185, 129, 0.12),
         inset 0 1px 0 rgba(16, 185, 129, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05)
       `,
     },
     blue: {
@@ -51,10 +51,10 @@ export function LiquidGlassPanel({
       nearTint: "rgba(10, 33, 71, 0.08)",
       shine: "rgba(10,33,71,0.4)",
       shadow: `
-        0 8px 32px rgba(10, 33, 71, 0.15),
-        0 2px 8px rgba(10, 33, 71, 0.08),
+        0 8px 40px rgba(10, 33, 71, 0.18),
+        0 4px 30px rgba(10, 33, 71, 0.12),
         inset 0 1px 0 rgba(10, 33, 71, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05)
       `,
     },
   };
