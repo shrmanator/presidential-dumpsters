@@ -50,7 +50,7 @@ export default function SizingGuidePage() {
                 </span>
               </h1>
               <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                Not sure which dumpster you need? Here's our quick guide.
+                Not sure which dumpster you need? Here&apos;s our quick guide.
               </p>
             </div>
 
@@ -89,7 +89,7 @@ export default function SizingGuidePage() {
                     
                     <div className="pt-4 border-t border-white/20">
                       <p><span className="font-semibold text-white">Capacity:</span> About 4 pickup truck loads</p>
-                      <p className="mt-2"><span className="font-semibold text-white">Size:</span> 12' long × 8' wide × 4' high</p>
+                      <p className="mt-2"><span className="font-semibold text-white">Size:</span> 12&apos; long × 8&apos; wide × 4&apos; high</p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export default function SizingGuidePage() {
                     
                     <div className="pt-4 border-t border-white/20">
                       <p><span className="font-semibold text-white">Capacity:</span> About 8 pickup truck loads</p>
-                      <p className="mt-2"><span className="font-semibold text-white">Size:</span> 22' long × 8' wide × 4' high</p>
+                      <p className="mt-2"><span className="font-semibold text-white">Size:</span> 22&apos; long × 8&apos; wide × 4&apos; high</p>
                     </div>
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export default function SizingGuidePage() {
               <div className="text-center py-6">
                 <h2 className="text-2xl font-bold mb-3">Still Not Sure?</h2>
                 <p className="text-white/80 mb-6 text-lg max-w-2xl mx-auto">
-                  No worries! Give us a call and we'll help you choose the perfect size for your project.
+                  No worries! Give us a call and we&apos;ll help you choose the perfect size for your project.
                 </p>
                 <PhoneLink className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl hover:bg-white/90 shadow-lg shadow-white/20 hover:shadow-xl hover:shadow-white/30 transition-all hover:-translate-y-0.5 active:scale-[0.98]">
                   <Phone className="h-5 w-5" />

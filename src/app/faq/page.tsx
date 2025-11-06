@@ -159,7 +159,7 @@ export default function FAQPage() {
               <div className="text-center py-6">
                 <h2 className="text-2xl font-bold mb-3">Still have questions?</h2>
                 <p className="text-white/80 mb-6 text-lg">
-                  Give us a call and we'll walk you through everything.
+                  Give us a call and we&apos;ll walk you through everything.
                 </p>
                 <PhoneLink className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl hover:bg-white/90 shadow-lg shadow-white/20 hover:shadow-xl hover:shadow-white/30 transition-all hover:-translate-y-0.5 active:scale-[0.98]">
                   <Phone className="h-5 w-5" />
