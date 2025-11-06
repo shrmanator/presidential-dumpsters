@@ -3,16 +3,28 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-interface ButtonProps {
+interface BaseButtonProps {
   children: ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+interface ButtonAsButton extends BaseButtonProps {
+  href?: never;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
-  className?: string;
-  href?: string;
 }
+
+interface ButtonAsLink extends BaseButtonProps {
+  href: string;
+  onClick?: never;
+  disabled?: never;
+  type?: never;
+}
+
+type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 export function Button({
   children,
@@ -55,7 +67,6 @@ export function Button({
   };
 
   const style = variants[variant];
-  const Component = href ? motion.a : motion.button;
 
   const baseClasses = `
     inline-flex items-center justify-center gap-2 font-semibold
@@ -69,26 +80,41 @@ export function Button({
     ${className}
   `.trim().replace(/\s+/g, ' ');
 
-  const props = href
-    ? { href, ...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' }) }
-    : { type, onClick, disabled };
+  const motionProps = {
+    whileHover: disabled ? {} : {
+      y: -2,
+      boxShadow: variant === 'ghost' ? undefined : style.shadowHover,
+    },
+    whileTap: disabled ? {} : { scale: 0.98 },
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 30,
+    },
+  };
+
+  if (href) {
+    return (
+      <motion.a
+        href={href}
+        className={baseClasses}
+        {...motionProps}
+        {...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+      >
+        {children}
+      </motion.a>
+    );
+  }
 
   return (
-    <Component
+    <motion.button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
       className={baseClasses}
-      whileHover={disabled ? {} : {
-        y: -2,
-        boxShadow: variant === 'ghost' ? undefined : style.shadowHover,
-      }}
-      whileTap={disabled ? {} : { scale: 0.98 }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      }}
-      {...props}
+      {...motionProps}
     >
       {children}
-    </Component>
+    </motion.button>
   );
 }
