@@ -5,15 +5,16 @@ import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
 import Footer from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
-import { ScrollNav } from "@/components/ScrollNav";
+import { LiquidGlassNav } from "@/components/LiquidGlassNav";
+import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export default function PresidentialDumpsters() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
       {/* Navigation */}
-      <ScrollNav>
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
+      <LiquidGlassNav>
+        <div className="flex w-full items-center justify-between">
+          <Link href="/">
             <Image
               src="/logo.png"
               alt="Presidential Dumpsters - Dumpster Rental Services in Waterbury CT"
@@ -23,10 +24,10 @@ export default function PresidentialDumpsters() {
               priority
               quality={100}
             />
-          </div>
+          </Link>
           <NavPhoneButton />
         </div>
-      </ScrollNav>
+      </LiquidGlassNav>
 
       {/* Main Content */}
       <main className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
@@ -59,14 +60,14 @@ export default function PresidentialDumpsters() {
               , and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
+              <LiquidGlassCard variant="accent">
                 <p className="text-sm font-semibold text-white">Same-day delivery available</p>
                 <p className="mt-1 text-sm text-white/70">Local crews ready to deliver fast.</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
+              </LiquidGlassCard>
+              <LiquidGlassCard variant="default">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
                 <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
-              </div>
+              </LiquidGlassCard>
             </div>
           </header>
           </FadeIn>
