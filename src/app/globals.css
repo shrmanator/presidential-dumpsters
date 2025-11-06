@@ -147,7 +147,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: #061633;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     letter-spacing: -0.011em;
   }
