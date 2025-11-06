@@ -175,11 +175,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 1
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep1Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 1"
@@ -239,11 +243,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 2
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep2Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 2"
@@ -290,11 +298,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 3
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep3Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 3"
@@ -323,11 +335,15 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
               currentStep === 4
-                ? "border-emerald-500/60 bg-white shadow-sm shadow-emerald-500/10"
+                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
                 : isStep4Complete
-                ? "border-emerald-400/50 bg-white"
-                : "border-slate-200 bg-white/95"
+                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
+                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
             }`}
+            style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
           >
             <StepHeading
               step="Step 4"
