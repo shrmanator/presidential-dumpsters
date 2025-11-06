@@ -10,7 +10,7 @@ import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export default function PresidentialDumpsters() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
+    <div className="min-h-screen text-white">
       {/* Navigation */}
       <LiquidGlassNav>
         <div className="flex w-full items-center justify-between">

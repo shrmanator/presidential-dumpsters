@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function SizingGuidePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
+    <div className="min-h-screen text-white">
       <ScrollNav>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href="/" className="transition-opacity hover:opacity-80">

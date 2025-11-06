@@ -148,7 +148,8 @@
   }
   body {
     @apply text-foreground;
-    background: #061633;
+    background: linear-gradient(to bottom right, #061633, #0A2147, #061633);
+    background-attachment: fixed;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     letter-spacing: -0.011em;
   }

@@ -67,7 +67,7 @@ export default function NewHavenPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
+    <div className="min-h-screen text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
