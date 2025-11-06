@@ -12,10 +12,18 @@ import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental Wolcott CT | Same Day Delivery | Presidential Dumpsters",
-  description: "Professional dumpster rental in Wolcott, Connecticut. 10-yard and 20-yard roll-off dumpsters starting at $395. Same-day delivery available. Licensed & insured. Call (475) 441-6727.",
-  keywords: "dumpster rental wolcott ct, roll off dumpster wolcott, construction dumpster rental wolcott, 10 yard dumpster wolcott, 20 yard dumpster wolcott, residential dumpster rental wolcott",
+  description: "Professional dumpster rental in Wolcott, Connecticut. 10-yard and 20-yard roll-off dumpsters starting at $395. Same-day delivery available. Licensed & insured. Serving downtown Wolcott, West End, Parkville, and all Wolcott neighborhoods. Call (475) 441-6727.",
+  keywords: "dumpster rental wolcott ct, roll off dumpster wolcott, construction dumpster rental wolcott, 10 yard dumpster wolcott, 20 yard dumpster wolcott, same day dumpster delivery wolcott, residential dumpster rental wolcott, commercial dumpster wolcott, waste management wolcott ct, debris removal wolcott, junk removal wolcott, affordable dumpster wolcott",
   alternates: {
     canonical: 'https://presidentialdumpsters.xyz/wolcott',
+  },
+  openGraph: {
+    title: 'Dumpster Rental Wolcott CT | Same Day Delivery',
+    description: 'Professional dumpster rental in Wolcott, CT. 10-yard and 20-yard dumpsters starting at $395. Same-day delivery available.',
+    url: 'https://presidentialdumpsters.xyz/wolcott',
+    siteName: 'Presidential Dumpsters',
+    locale: 'en_US',
+    type: 'website',
   },
 };
 
@@ -64,15 +72,16 @@ export default function WolcottPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+
       <ScrollNav>
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <Link href="/" className="transition-opacity hover:opacity-80">
             <Image
               src="/logo.png"
               alt="Presidential Dumpsters"
               width={200}
               height={72}
-              className="h-12 w-auto cursor-pointer"
+              className="h-12 w-auto"
               priority
               quality={100}
             />
@@ -81,41 +90,87 @@ export default function WolcottPage() {
         </div>
       </ScrollNav>
 
-      <main className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
-        <FadeIn>
-        <section className="space-y-10">
-          <Breadcrumb items={[{ label: "Wolcott Dumpster Rental" }]} />
-          <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
-              <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
-            </span>
-            <h1 className="text-6xl font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-7xl">
-              Dumpster Rental in Wolcott, CT
-            </h1>
-            <p className="max-w-xl text-[17px] leading-relaxed text-white/70 md:text-lg">
-              Local dumpster rental service for Wolcott homeowners and contractors. 10-yard and 20-yard roll-off dumpsters for home renovations, cleanouts, and construction projects.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <LiquidGlassCard variant="accent">
-                <p className="text-sm font-semibold text-white">Same-day delivery available</p>
-                <p className="mt-1 text-sm text-white/70">Local Wolcott service with fast delivery.</p>
-              </LiquidGlassCard>
-              <LiquidGlassCard variant="blue">
-                <p className="text-sm font-semibold text-white">Licensed & insured</p>
-                <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
-              </LiquidGlassCard>
-            </div>
-          </div>
-        </section>
-        </FadeIn>
+      <main className="relative z-10 mx-auto grid max-w-7xl items-start gap-16 px-6 pb-24 pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-20 lg:pt-32">
+        <article className="space-y-12">
+          <FadeIn>
+            <Breadcrumb items={[{ label: "Wolcott" }]} />
 
-        <FadeIn delay={0.2} direction="left">
-        <BookingFormCard addressPlaceholder="123 Main St, Wolcott" />
-        </FadeIn>
+            <header className="space-y-8">
+              {/* Badge */}
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-300 backdrop-blur-sm">
+                <Truck className="h-4 w-4" aria-hidden="true" />
+                Wolcott, Connecticut
+              </span>
+
+              {/* Headline */}
+              <h1 className="text-7xl font-bold leading-[1.05] tracking-[-0.03em] text-white md:text-8xl lg:text-[96px]">
+                Dumpster rental in{" "}
+                <span className="bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+                  Wolcott
+                </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="max-w-2xl text-xl leading-relaxed text-white/80 md:text-2xl">
+                Professional roll-off dumpster service for Wolcott residents and businesses.
+                10-yard and 20-yard dumpsters for renovations, construction, and cleanouts.
+              </p>
+
+              {/* Feature Cards */}
+              <div className="grid gap-4 pt-4 sm:grid-cols-2">
+                <LiquidGlassCard variant="accent">
+                  <div className="flex items-start gap-3">
+                    <div className="rounded-lg bg-emerald-500/20 p-2">
+                      <Truck className="h-5 w-5 text-emerald-300" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Same-day delivery</p>
+                      <p className="mt-1 text-sm text-white/70">
+                        Serving all Wolcott neighborhoods.
+                      </p>
+                    </div>
+                  </div>
+                </LiquidGlassCard>
+
+                <LiquidGlassCard variant="blue">
+                  <div className="flex items-start gap-3">
+                    <div className="rounded-lg bg-blue-500/20 p-2">
+                      <svg
+                        className="h-5 w-5 text-blue-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Licensed & insured</p>
+                      <p className="mt-1 text-sm text-white/70">
+                        State-licensed with full coverage.
+                      </p>
+                    </div>
+                  </div>
+                </LiquidGlassCard>
+              </div>
+            </header>
+          </FadeIn>
+        </article>
+
+        <aside aria-label="Booking form">
+          <FadeIn delay={0.2} direction="left">
+            <BookingFormCard addressPlaceholder="123 Main St, Wolcott" />
+          </FadeIn>
+        </aside>
       </main>
 
       <FadeIn delay={0.3}>
-      <Footer />
+        <Footer />
       </FadeIn>
     </div>
   );

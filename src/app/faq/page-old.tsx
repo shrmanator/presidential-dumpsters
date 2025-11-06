@@ -7,7 +7,6 @@ import { PhoneLink } from "@/components/PhoneLink";
 import Footer from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
 import { ScrollNav } from "@/components/ScrollNav";
-import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "FAQ - Dumpster Rental Questions | Presidential Dumpsters",
@@ -110,14 +109,14 @@ export default function FAQPage() {
 
       {/* Navigation */}
       <ScrollNav>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="transition-opacity hover:opacity-80">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link href="/">
             <Image
               src="/logo.png"
               alt="Presidential Dumpsters"
               width={200}
               height={72}
-              className="h-12 w-auto"
+              className="h-12 w-auto cursor-pointer"
               priority
               quality={100}
             />
@@ -126,47 +125,35 @@ export default function FAQPage() {
         </div>
       </ScrollNav>
 
-      <main className="relative z-10 mx-auto max-w-4xl px-6 py-24 lg:py-32">
+      <main className="relative z-10 mx-auto max-w-3xl px-6 py-16">
         <FadeIn>
-          <div className="space-y-12">
-            {/* Header */}
-            <div className="space-y-6 text-center">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.03em]">
-                Frequently Asked{" "}
-                <span className="bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-                  Questions
-                </span>
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <h1 className="text-5xl md:text-6xl font-medium leading-tight tracking-tight">
+                Frequently Asked Questions
               </h1>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                Quick answers about our dumpster rental service in Connecticut
+              <p className="text-lg text-white/70">
+                Quick answers about our dumpster rental service
               </p>
             </div>
 
-            {/* FAQ Cards */}
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <LiquidGlassCard key={index} variant="default">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-3">{faq.q}</h3>
-                    <p className="text-white/80 leading-relaxed">{faq.a}</p>
-                  </div>
-                </LiquidGlassCard>
+                <div key={index} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 shadow-lg shadow-white/5">
+                  <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
+                  <p className="text-white/70 leading-relaxed">{faq.a}</p>
+                </div>
               ))}
             </div>
 
-            {/* CTA Card */}
-            <LiquidGlassCard variant="accent">
-              <div className="text-center py-6">
-                <h2 className="text-2xl font-bold mb-3">Still have questions?</h2>
-                <p className="text-white/80 mb-6 text-lg">
-                  Give us a call and we'll walk you through everything.
-                </p>
-                <PhoneLink className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl hover:bg-white/90 shadow-lg shadow-white/20 hover:shadow-xl hover:shadow-white/30 transition-all hover:-translate-y-0.5 active:scale-[0.98]">
-                  <Phone className="h-5 w-5" />
-                  Call Us Now
-                </PhoneLink>
-              </div>
-            </LiquidGlassCard>
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 text-center shadow-lg shadow-white/5">
+              <h2 className="text-xl font-semibold mb-3">Still have questions?</h2>
+              <p className="text-white/70 mb-6">Give us a call and we&apos;ll walk you through everything.</p>
+              <PhoneLink className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-600/40 hover:ring-2 hover:ring-emerald-400/50 hover:ring-offset-2 hover:ring-offset-[#061633] transition-all active:scale-[0.98]">
+                <Phone className="h-4 w-4" />
+                Call Us Now
+              </PhoneLink>
+            </div>
           </div>
         </FadeIn>
       </main>
