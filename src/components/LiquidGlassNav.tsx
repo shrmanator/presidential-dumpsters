@@ -69,7 +69,7 @@ export function LiquidGlassNav({ children }: LiquidGlassNavProps) {
 
       {/* Content */}
       <motion.div
-        className="mx-auto flex h-full max-w-6xl items-center px-6"
+        className="mx-auto flex h-full max-w-7xl items-center px-6"
         style={{ paddingTop: navPadding, paddingBottom: navPadding }}
       >
         {children}
