@@ -8,7 +8,7 @@ export default function Footer() {
   const officeOpen = useOfficeHours();
 
   return (
-    <footer className="border-t border-white/10 bg-[#061633]/60 py-12 mt-16">
+    <footer className="border-t border-white/10 bg-[#061633]/60 backdrop-blur-md py-12 mt-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-8 md:grid-cols-2 md:gap-16">
           <div className="space-y-4">

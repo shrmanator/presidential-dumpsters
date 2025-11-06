@@ -168,7 +168,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
   return (
     <>
-      <section className="rounded-3xl border border-white/10 bg-white/95 p-6 text-slate-900">
+      <section className="rounded-3xl border border-white/10 bg-white/90 backdrop-blur-xl p-6 text-slate-900 shadow-2xl shadow-emerald-500/10">
         <div className="space-y-8">
           <div
             className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
@@ -399,7 +399,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                   ? "cursor-default bg-emerald-600 text-white"
                   : isSubmitting
                   ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                  : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow active:scale-[0.98] active:bg-emerald-800"
+                  : "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-600/40 hover:ring-2 hover:ring-emerald-400/50 hover:ring-offset-2 active:scale-[0.98] active:bg-emerald-800"
               }`}
             >
               {submitSuccess ? (
