@@ -75,7 +75,10 @@ export default function OakvillePage() {
 
       <ScrollNav>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="transition-opacity hover:opacity-80">
+          <Link
+            href="/"
+            className="flex items-center transition-opacity hover:opacity-80"
+          >
             <Image
               src="/logo.png"
               alt="Presidential Dumpsters"
@@ -119,7 +122,7 @@ export default function OakvillePage() {
               {/* Feature Cards */}
               <div className="grid gap-4 pt-4 sm:grid-cols-2">
                 <LiquidGlassCard variant="accent">
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="rounded-lg bg-emerald-500/20 p-2">
                       <Truck className="h-5 w-5 text-emerald-300" />
                     </div>
@@ -133,7 +136,7 @@ export default function OakvillePage() {
                 </LiquidGlassCard>
 
                 <LiquidGlassCard variant="blue">
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="rounded-lg bg-blue-500/20 p-2">
                       <svg
                         className="h-5 w-5 text-blue-300"
