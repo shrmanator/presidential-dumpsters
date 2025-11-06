@@ -6,6 +6,9 @@ import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
+import { MagneticButton } from "@/components/MagneticButton";
+import { ShakeInput } from "@/components/ShakeInput";
+import { RippleButton } from "@/components/RippleButton";
 
 const bookingTypeOptions = [
   { id: "business", label: "For my business", icon: Building2 },
@@ -210,22 +213,24 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               <label htmlFor="contact-name" className="text-sm font-medium text-slate-700">
                 {booking.bookingType === "business" ? "Business name" : "Contact name"}
               </label>
-              <input
-                id="contact-name"
-                type="text"
-                placeholder={contactPlaceholder}
-                required
-                value={booking.contactName}
-                onChange={(event) => {
-                  setBooking((prev) => ({ ...prev, contactName: event.target.value }));
-                  clearFieldError("contactName");
-                }}
-                className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
-                  errors.contactName
-                    ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                    : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
-                }`}
-              />
+              <ShakeInput isError={!!errors.contactName}>
+                <input
+                  id="contact-name"
+                  type="text"
+                  placeholder={contactPlaceholder}
+                  required
+                  value={booking.contactName}
+                  onChange={(event) => {
+                    setBooking((prev) => ({ ...prev, contactName: event.target.value }));
+                    clearFieldError("contactName");
+                  }}
+                  className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                    errors.contactName
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
+                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                  }`}
+                />
+              </ShakeInput>
               {errors.contactName && (
                 <p className="text-sm text-red-500">{errors.contactName}</p>
               )}
@@ -390,8 +395,8 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           </div>
 
           <div className="space-y-3">
-            <button
-              type="button"
+            <MagneticButton
+              strength={0.2}
               onClick={handleOrder}
               disabled={isSubmitting || submitSuccess}
               className={`relative overflow-hidden w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
@@ -404,17 +409,17 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
             >
               {submitSuccess ? (
                 <span className="flex items-center justify-center gap-2">
-                  <svg 
-                    className="h-5 w-5 animate-in zoom-in duration-300" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    className="h-5 w-5 animate-in zoom-in duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth={3}
                   >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      d="M5 13l4 4L19 7" 
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
                   Requested!
@@ -427,7 +432,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               ) : (
                 ctaLabel
               )}
-            </button>
+            </MagneticButton>
           </div>
         </div>
       </section>
