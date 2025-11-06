@@ -6,7 +6,6 @@ import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-import { MagneticButton } from "@/components/MagneticButton";
 import { ShakeInput } from "@/components/ShakeInput";
 
 const bookingTypeOptions = [
@@ -394,8 +393,8 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           </div>
 
           <div className="space-y-3">
-            <MagneticButton
-              strength={0.2}
+            <button
+              type="button"
               onClick={handleOrder}
               disabled={isSubmitting || submitSuccess}
               className={`relative overflow-hidden w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
@@ -431,7 +430,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               ) : (
                 ctaLabel
               )}
-            </MagneticButton>
+            </button>
           </div>
         </div>
       </section>

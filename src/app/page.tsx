@@ -5,17 +5,11 @@ import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
 import Footer from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
-import { GradientMesh } from "@/components/GradientMesh";
-import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollNav } from "@/components/ScrollNav";
-import { FloatingCard } from "@/components/FloatingCard";
 
 export default function PresidentialDumpsters() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
-      <CustomCursor />
-      <GradientMesh />
-
       {/* Navigation */}
       <ScrollNav>
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -65,18 +59,14 @@ export default function PresidentialDumpsters() {
               , and surrounding towns.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FloatingCard delay={0}>
-                <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
-                  <p className="text-sm font-semibold text-white">Same-day delivery available</p>
-                  <p className="mt-1 text-sm text-white/70">Local crews ready to deliver fast.</p>
-                </div>
-              </FloatingCard>
-              <FloatingCard delay={1}>
-                <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
-                  <p className="text-sm font-semibold text-white">Licensed & insured</p>
-                  <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
-                </div>
-              </FloatingCard>
+              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
+                <p className="text-sm font-semibold text-white">Same-day delivery available</p>
+                <p className="mt-1 text-sm text-white/70">Local crews ready to deliver fast.</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
+                <p className="text-sm font-semibold text-white">Licensed & insured</p>
+                <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
+              </div>
             </div>
           </header>
           </FadeIn>
