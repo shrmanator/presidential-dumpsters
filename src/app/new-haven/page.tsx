@@ -6,6 +6,8 @@ import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
+import { FadeIn } from "@/components/FadeIn";
+import { ScrollNav } from "@/components/ScrollNav";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental New Haven CT | Same Day Delivery | Presidential Dumpsters",
@@ -64,12 +66,12 @@ export default function NewHavenPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#061633] text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <nav className="border-b border-white/10 backdrop-blur-sm">
+      <ScrollNav>
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/">
             <Image
@@ -84,9 +86,9 @@ export default function NewHavenPage() {
           </Link>
           <NavPhoneButton />
         </div>
-      </nav>
+      </ScrollNav>
 
-      <main className="mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
+      <main className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
         <article className="space-y-10">
           <Breadcrumb items={[{ label: "New Haven Dumpster Rental" }]} />
           
@@ -94,18 +96,18 @@ export default function NewHavenPage() {
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
               <Truck className="h-3.5 w-3.5" aria-hidden="true" /> Presidential Dumpsters
             </span>
-            <h1 className="text-[2.75rem] font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-[3.5rem]">
+            <h1 className="text-6xl font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-7xl">
               Dumpster Rental in New Haven, CT
             </h1>
             <p className="max-w-xl text-[17px] leading-relaxed text-white/70 md:text-lg">
               Professional roll-off dumpster rental service for New Haven residents and businesses. 10-yard and 20-yard dumpsters for home renovations, construction projects, and commercial cleanouts.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
+              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
                 <p className="text-sm font-semibold text-white">Same-day delivery available</p>
                 <p className="mt-1 text-sm text-white/70">Serving all New Haven neighborhoods with fast local delivery.</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+              <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
                 <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
               </div>
@@ -118,7 +120,9 @@ export default function NewHavenPage() {
         </aside>
       </main>
 
+      <FadeIn delay={0.3}>
       <Footer />
+      </FadeIn>
     </div>
   );
 }

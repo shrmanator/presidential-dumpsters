@@ -6,6 +6,8 @@ import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { BookingFormCard } from "@/components/BookingFormCard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
+import { FadeIn } from "@/components/FadeIn";
+import { ScrollNav } from "@/components/ScrollNav";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental Oakville CT | Same Day Delivery | Presidential Dumpsters",
@@ -56,12 +58,12 @@ export default function OakvillePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#061633] text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <nav className="border-b border-white/10 backdrop-blur-sm">
+      <ScrollNav>
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/">
             <Image
@@ -76,38 +78,44 @@ export default function OakvillePage() {
           </Link>
           <NavPhoneButton />
         </div>
-      </nav>
+      </ScrollNav>
 
-      <main className="mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
+      <main className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 pt-16 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
+        <FadeIn>
         <section className="space-y-10">
           <Breadcrumb items={[{ label: "Oakville Dumpster Rental" }]} />
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
               <Truck className="h-3.5 w-3.5" /> Presidential Dumpsters
             </span>
-            <h1 className="text-[2.75rem] font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-[3.5rem]">
+            <h1 className="text-6xl font-medium leading-[1.1] tracking-[-0.025em] text-white md:text-7xl">
               Dumpster Rental in Oakville, CT
             </h1>
             <p className="max-w-xl text-[17px] leading-relaxed text-white/70 md:text-lg">
               Local dumpster rental service for Oakville homeowners and contractors. 10-yard and 20-yard roll-off dumpsters for home renovations, cleanouts, and construction projects.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 p-4">
+              <div className="rounded-2xl border border-emerald-200/30 bg-emerald-500/10 backdrop-blur-sm p-4 shadow-lg shadow-emerald-500/10">
                 <p className="text-sm font-semibold text-white">Same-day delivery available</p>
                 <p className="mt-1 text-sm text-white/70">Local Oakville service with fast delivery.</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+              <div className="rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm p-4 shadow-lg shadow-white/5">
                 <p className="text-sm font-semibold text-white">Licensed & insured</p>
                 <p className="mt-1 text-sm text-white/70">State-licensed with full coverage on every haul.</p>
               </div>
             </div>
           </div>
         </section>
+        </FadeIn>
 
+        <FadeIn delay={0.2} direction="left">
         <BookingFormCard addressPlaceholder="123 Main St, Oakville" />
+        </FadeIn>
       </main>
 
+      <FadeIn delay={0.3}>
       <Footer />
+      </FadeIn>
     </div>
   );
 }

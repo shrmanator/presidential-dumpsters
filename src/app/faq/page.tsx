@@ -5,6 +5,8 @@ import { Phone } from "lucide-react";
 import { NavPhoneButton } from "@/components/NavPhoneButton";
 import { PhoneLink } from "@/components/PhoneLink";
 import Footer from "@/components/Footer";
+import { FadeIn } from "@/components/FadeIn";
+import { ScrollNav } from "@/components/ScrollNav";
 
 export const metadata: Metadata = {
   title: "FAQ - Dumpster Rental Questions | Presidential Dumpsters",
@@ -99,14 +101,14 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#061633] text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#061633] via-[#0A2147] to-[#061633] text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
-      
+
       {/* Navigation */}
-      <nav className="border-b border-white/10 backdrop-blur-sm">
+      <ScrollNav>
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/">
             <Image
@@ -121,40 +123,44 @@ export default function FAQPage() {
           </Link>
           <NavPhoneButton />
         </div>
-      </nav>
+      </ScrollNav>
 
-      <main className="mx-auto max-w-3xl px-6 py-16">
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <h1 className="text-[2.5rem] font-medium leading-tight tracking-tight">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-lg text-white/70">
-              Quick answers about our dumpster rental service
-            </p>
-          </div>
+      <main className="relative z-10 mx-auto max-w-3xl px-6 py-16">
+        <FadeIn>
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <h1 className="text-5xl md:text-6xl font-medium leading-tight tracking-tight">
+                Frequently Asked Questions
+              </h1>
+              <p className="text-lg text-white/70">
+                Quick answers about our dumpster rental service
+              </p>
+            </div>
 
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div key={index} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
-                <p className="text-white/70 leading-relaxed">{faq.a}</p>
-              </div>
-            ))}
-          </div>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 shadow-lg shadow-white/5">
+                  <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
+                  <p className="text-white/70 leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-            <h2 className="text-xl font-semibold mb-3">Still have questions?</h2>
-            <p className="text-white/70 mb-6">Give us a call and we&apos;ll walk you through everything.</p>
-            <PhoneLink className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 shadow-sm hover:shadow transition-all active:scale-[0.98]">
-              <Phone className="h-4 w-4" />
-              Call Us Now
-            </PhoneLink>
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 text-center shadow-lg shadow-white/5">
+              <h2 className="text-xl font-semibold mb-3">Still have questions?</h2>
+              <p className="text-white/70 mb-6">Give us a call and we&apos;ll walk you through everything.</p>
+              <PhoneLink className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-600/40 hover:ring-2 hover:ring-emerald-400/50 hover:ring-offset-2 hover:ring-offset-[#061633] transition-all active:scale-[0.98]">
+                <Phone className="h-4 w-4" />
+                Call Us Now
+              </PhoneLink>
+            </div>
           </div>
-        </div>
+        </FadeIn>
       </main>
 
-      <Footer />
+      <FadeIn delay={0.2}>
+        <Footer />
+      </FadeIn>
     </div>
   );
 }
