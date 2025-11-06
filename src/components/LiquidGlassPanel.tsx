@@ -62,10 +62,10 @@ export function LiquidGlassPanel({
   const styles = variantStyles[variant];
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative rounded-3xl overflow-hidden ${className}`}>
       {/* Layer 1: Far blur (creates depth) */}
       <div
-        className="absolute inset-0 -z-30 rounded-3xl"
+        className="absolute inset-0 -z-30"
         style={{
           backdropFilter: "blur(40px)",
           WebkitBackdropFilter: "blur(40px)",
@@ -75,7 +75,7 @@ export function LiquidGlassPanel({
 
       {/* Layer 2: Mid blur (main glass effect) */}
       <div
-        className="absolute inset-0 -z-20 rounded-3xl"
+        className="absolute inset-0 -z-20"
         style={{
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
@@ -85,7 +85,7 @@ export function LiquidGlassPanel({
 
       {/* Layer 3: Near blur with tint (vibrancy) */}
       <div
-        className="absolute inset-0 -z-10 rounded-3xl"
+        className="absolute inset-0 -z-10"
         style={{
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
