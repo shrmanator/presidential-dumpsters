@@ -1,14 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Truck, Shield, DollarSign, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Phone, MapPin, Calendar } from "lucide-react";
 import { NavPhoneButton } from "@/components/NavPhoneButton";
-import { BookingFormCard } from "@/components/BookingFormCard";
 import Footer from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
 import { LiquidGlassNav } from "@/components/LiquidGlassNav";
-import { LiquidGlassCard } from "@/components/LiquidGlassCard";
+import { useState } from "react";
 
 export default function PresidentialDumpsters() {
+  const [selectedSize, setSelectedSize] = useState<"10" | "20" | null>(null);
+
   return (
     <div className="min-h-screen text-white">
       {/* Navigation */}
@@ -33,209 +36,213 @@ export default function PresidentialDumpsters() {
       </LiquidGlassNav>
 
       <main className="relative z-10">
-        {/* Hero Section - Asymmetric with Overlapping Form */}
-        <section className="relative overflow-hidden pb-48 pt-20 lg:pb-64 lg:pt-32">
-          <div className="mx-auto max-w-[1400px] px-6">
-            <div className="grid gap-12 lg:grid-cols-[1fr_500px] lg:gap-16">
-              {/* Left: Hero Content */}
-              <FadeIn>
-                <div className="space-y-8 lg:pt-12">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-2 backdrop-blur-sm">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                    <span className="text-sm font-medium text-emerald-300">
-                      Available now in Connecticut
-                    </span>
-                  </div>
+        {/* Hero - Extreme Simplicity */}
+        <section className="mx-auto max-w-6xl px-6 pb-32 pt-32 lg:pt-48">
+          <FadeIn>
+            <div className="space-y-16 text-center">
+              {/* Headline - Let it breathe */}
+              <div className="space-y-8">
+                <h1 className="text-7xl font-bold leading-[0.9] tracking-[-0.04em] text-white md:text-8xl lg:text-[140px]">
+                  Dumpster rentals
+                  <br />
+                  in{" "}
+                  <span className="bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+                    Waterbury
+                  </span>
+                </h1>
 
-                  <h1 className="text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-white md:text-8xl lg:text-[120px]">
-                    Dumpster
-                    <br />
-                    rentals in{" "}
-                    <span className="relative inline-block">
-                      <span className="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-                        Waterbury
-                      </span>
+                <p className="mx-auto max-w-2xl text-2xl text-white/60 lg:text-3xl">
+                  Same-day delivery. No hidden fees.
+                </p>
+              </div>
+
+              {/* Address Input - Single field */}
+              <div className="mx-auto max-w-2xl">
+                <div className="relative">
+                  <MapPin className="absolute left-6 top-1/2 h-6 w-6 -translate-y-1/2 text-white/40" />
+                  <input
+                    type="text"
+                    placeholder="Where do you need it?"
+                    className="w-full rounded-3xl border border-white/10 bg-white/5 py-6 pl-16 pr-6 text-xl text-white placeholder-white/40 backdrop-blur-xl transition-all focus:border-emerald-400/50 focus:bg-white/10 focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </section>
+
+        {/* Pricing - Direct, Clickable */}
+        <section className="mx-auto max-w-6xl px-6 pb-32">
+          <FadeIn delay={0.1}>
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* 10-Yard */}
+              <button
+                onClick={() => setSelectedSize("10")}
+                className={`group relative overflow-hidden rounded-3xl border p-12 text-left transition-all hover:scale-[1.02] ${
+                  selectedSize === "10"
+                    ? "border-emerald-400/50 bg-emerald-500/10"
+                    : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
+                }`}
+              >
+                <div className="space-y-6">
+                  <div className="text-6xl font-bold text-white">$395</div>
+                  <div>
+                    <div className="text-3xl font-bold text-white">
+                      10-Yard Dumpster
+                    </div>
+                    <div className="mt-2 text-lg text-white/60">
+                      Perfect for bathroom remodels, small cleanouts
+                    </div>
+                  </div>
+                  <div className="pt-4 text-sm text-white/40">
+                    12&apos; × 8&apos; × 4&apos; • Holds ~4 pickup loads
+                  </div>
+                </div>
+                {selectedSize === "10" && (
+                  <div className="absolute right-6 top-6">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500">
                       <svg
-                        className="absolute -bottom-2 left-0 w-full"
-                        height="8"
-                        viewBox="0 0 300 8"
+                        className="h-5 w-5 text-white"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
                         <path
-                          d="M1 5.5C50 2.5 100 1 150 3.5C200 6 250 4 299 5.5"
-                          stroke="url(#gradient)"
-                          strokeWidth="3"
                           strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
                         />
-                        <defs>
-                          <linearGradient id="gradient" x1="0" y1="0" x2="300" y2="0">
-                            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
-                            <stop offset="50%" stopColor="#10b981" stopOpacity="0.6" />
-                            <stop offset="100%" stopColor="#10b981" stopOpacity="0.3" />
-                          </linearGradient>
-                        </defs>
                       </svg>
-                    </span>
-                  </h1>
+                    </div>
+                  </div>
+                )}
+              </button>
 
-                  <p className="max-w-xl text-xl leading-relaxed text-white/70 md:text-2xl">
-                    Same-day dumpster delivery for Connecticut homes and businesses.
-                    No hidden fees. No hassle.
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-4 pt-4">
-                    <a
-                      href="#booking"
-                      className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-emerald-500/25 transition-all hover:shadow-xl hover:shadow-emerald-500/40 hover:-translate-y-0.5"
-                    >
-                      Get started
-                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </a>
-                    <a
-                      href="tel:+1-475-441-6727"
-                      className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
-                    >
-                      (475) 441-6727
-                    </a>
+              {/* 20-Yard */}
+              <button
+                onClick={() => setSelectedSize("20")}
+                className={`group relative overflow-hidden rounded-3xl border p-12 text-left transition-all hover:scale-[1.02] ${
+                  selectedSize === "20"
+                    ? "border-emerald-400/50 bg-emerald-500/10"
+                    : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
+                }`}
+              >
+                <div className="space-y-6">
+                  <div className="text-6xl font-bold text-white">$695</div>
+                  <div>
+                    <div className="text-3xl font-bold text-white">
+                      20-Yard Dumpster
+                    </div>
+                    <div className="mt-2 text-lg text-white/60">
+                      Ideal for kitchen remodels, roofing, large projects
+                    </div>
+                  </div>
+                  <div className="pt-4 text-sm text-white/40">
+                    22&apos; × 8&apos; × 4&apos; • Holds ~8 pickup loads
                   </div>
                 </div>
-              </FadeIn>
-
-              {/* Right: Floating Booking Form */}
-              <FadeIn delay={0.1} direction="left">
-                <div className="lg:absolute lg:right-6 lg:top-16 lg:w-[500px]">
-                  <div className="transform transition-transform hover:scale-[1.02]">
-                    <BookingFormCard />
+                {selectedSize === "20" && (
+                  <div className="absolute right-6 top-6">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500">
+                      <svg
+                        className="h-5 w-5 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
                   </div>
-                </div>
-              </FadeIn>
+                )}
+              </button>
             </div>
-          </div>
+          </FadeIn>
         </section>
 
-        {/* Bento Grid Features - Asymmetric Layout */}
-        <section className="relative px-6 pb-32">
-          <div className="mx-auto max-w-[1400px]">
+        {/* Inline Booking - Only shows when size selected */}
+        {selectedSize && (
+          <section className="mx-auto max-w-2xl px-6 pb-32">
             <FadeIn delay={0.2}>
-              {/* CSS Grid with irregular sizing */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-                {/* Large Feature - Spans 2 columns */}
-                <LiquidGlassCard variant="accent" className="lg:col-span-2 lg:row-span-2">
-                  <div className="flex h-full flex-col justify-between space-y-6 p-8">
-                    <div className="rounded-2xl bg-emerald-500/20 p-4 w-fit">
-                      <Truck className="h-10 w-10 text-emerald-300" />
-                    </div>
-                    <div className="space-y-4">
-                      <h3 className="text-3xl font-bold text-white">
-                        Same-day delivery
-                      </h3>
-                      <p className="text-lg text-white/70 leading-relaxed">
-                        Local crews standing by. Call before noon and get your dumpster
-                        delivered the same day. No waiting, no delays.
-                      </p>
-                      <div className="flex items-center gap-2 text-emerald-400">
-                        <Clock className="h-5 w-5" />
-                        <span className="font-semibold">Available today</span>
-                      </div>
-                    </div>
-                  </div>
-                </LiquidGlassCard>
-
-                {/* Small Cards - Stack vertically */}
-                <LiquidGlassCard variant="blue" className="lg:col-span-1">
-                  <div className="space-y-4 p-6">
-                    <div className="rounded-xl bg-blue-500/20 p-3 w-fit">
-                      <Shield className="h-6 w-6 text-blue-300" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        Licensed & insured
-                      </h3>
-                      <p className="mt-2 text-sm text-white/70">
-                        State-licensed with full coverage
-                      </p>
-                    </div>
-                  </div>
-                </LiquidGlassCard>
-
-                <LiquidGlassCard variant="accent" className="lg:col-span-1">
-                  <div className="space-y-4 p-6">
-                    <div className="rounded-xl bg-emerald-500/20 p-3 w-fit">
-                      <DollarSign className="h-6 w-6 text-emerald-300" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        From $395
-                      </h3>
-                      <p className="mt-2 text-sm text-white/70">
-                        Transparent pricing, no hidden fees
-                      </p>
-                    </div>
-                  </div>
-                </LiquidGlassCard>
-
-                {/* Medium Cards */}
-                <LiquidGlassCard variant="blue" className="lg:col-span-1">
-                  <div className="space-y-4 p-6">
-                    <div className="rounded-xl bg-blue-500/20 p-3 w-fit">
-                      <MapPin className="h-6 w-6 text-blue-300" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        Connecticut-wide
-                      </h3>
-                      <p className="mt-2 text-sm text-white/70">
-                        Waterbury, Hartford, New Haven & more
-                      </p>
-                    </div>
-                  </div>
-                </LiquidGlassCard>
-
-                <LiquidGlassCard variant="accent" className="lg:col-span-1">
-                  <div className="space-y-4 p-6">
-                    <div className="rounded-xl bg-emerald-500/20 p-3 w-fit">
-                      <CheckCircle className="h-6 w-6 text-emerald-300" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        Simple process
-                      </h3>
-                      <p className="mt-2 text-sm text-white/70">
-                        Book online, we deliver, you fill it
-                      </p>
-                    </div>
-                  </div>
-                </LiquidGlassCard>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-
-        {/* Social Proof Section - Full Bleed */}
-        <section className="relative border-t border-white/5 bg-white/[0.02] py-20">
-          <div className="mx-auto max-w-[1400px] px-6">
-            <FadeIn delay={0.3}>
-              <div className="grid gap-12 md:grid-cols-3">
-                <div className="space-y-2 text-center">
-                  <div className="text-5xl font-bold text-white">500+</div>
-                  <div className="text-white/60">Dumpsters delivered</div>
+              <div className="space-y-8 rounded-3xl border border-emerald-400/30 bg-emerald-500/5 p-12 backdrop-blur-xl">
+                <div className="flex items-center gap-3 text-emerald-400">
+                  <Calendar className="h-6 w-6" />
+                  <span className="text-xl font-semibold">
+                    When do you need it?
+                  </span>
                 </div>
-                <div className="space-y-2 text-center">
-                  <div className="text-5xl font-bold text-white">4.8★</div>
-                  <div className="text-white/60">Average rating</div>
+
+                <div className="space-y-4">
+                  <button className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition-all hover:border-emerald-400/30 hover:bg-white/10">
+                    <div className="text-xl font-semibold text-white">
+                      Today
+                    </div>
+                    <div className="mt-1 text-sm text-white/60">
+                      Delivered this afternoon
+                    </div>
+                  </button>
+
+                  <button className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition-all hover:border-emerald-400/30 hover:bg-white/10">
+                    <div className="text-xl font-semibold text-white">
+                      Tomorrow
+                    </div>
+                    <div className="mt-1 text-sm text-white/60">
+                      Next-day delivery
+                    </div>
+                  </button>
+
+                  <button className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 text-left transition-all hover:border-emerald-400/30 hover:bg-white/10">
+                    <div className="text-xl font-semibold text-white">
+                      Pick a date
+                    </div>
+                    <div className="mt-1 text-sm text-white/60">
+                      Choose your delivery day
+                    </div>
+                  </button>
                 </div>
-                <div className="space-y-2 text-center">
-                  <div className="text-5xl font-bold text-white">Same day</div>
-                  <div className="text-white/60">Delivery available</div>
+
+                <div className="border-t border-white/10 pt-8">
+                  <a
+                    href="tel:+1-475-441-6727"
+                    className="flex w-full items-center justify-center gap-3 rounded-2xl bg-white/10 px-8 py-5 text-xl font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  >
+                    <Phone className="h-6 w-6" />
+                    Or call (475) 441-6727
+                  </a>
                 </div>
               </div>
             </FadeIn>
-          </div>
-        </section>
+          </section>
+        )}
+
+        {/* Simple CTA if nothing selected */}
+        {!selectedSize && (
+          <section className="mx-auto max-w-2xl px-6 pb-32">
+            <FadeIn delay={0.2}>
+              <div className="text-center">
+                <p className="text-xl text-white/60">
+                  Or call us directly at
+                </p>
+                <a
+                  href="tel:+1-475-441-6727"
+                  className="mt-4 inline-flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-10 py-5 text-2xl font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+                >
+                  <Phone className="h-6 w-6" />
+                  (475) 441-6727
+                </a>
+              </div>
+            </FadeIn>
+          </section>
+        )}
       </main>
 
-      <FadeIn delay={0.4}>
+      <FadeIn delay={0.3}>
         <Footer />
       </FadeIn>
     </div>
