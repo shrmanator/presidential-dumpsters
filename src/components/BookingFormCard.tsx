@@ -192,7 +192,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               active={currentStep === 1}
               complete={isStep1Complete}
             />
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {bookingTypeOptions.map((option) => {
                 const Icon = option.icon;
                 const isActive = booking.bookingType === option.id;
@@ -201,13 +201,13 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                     key={option.id}
                     type="button"
                     onClick={() => handleBookingTypeChange(option.id)}
-                    className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                    className={`flex items-center justify-center gap-2.5 rounded-xl border-2 px-5 py-4 text-base font-semibold transition-all duration-200 ${
                       isActive
-                        ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
-                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
+                        ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
+                        : "border-slate-300 bg-white text-slate-700 hover:border-emerald-400 hover:shadow-md hover:shadow-slate-200 hover:scale-[1.02] active:scale-[0.98]"
                     }`}
                   >
-                    <Icon className="h-4 w-4" /> {option.label}
+                    <Icon className="h-5 w-5" /> {option.label}
                   </button>
                 );
               })}
@@ -227,10 +227,10 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                     setBooking((prev) => ({ ...prev, contactName: event.target.value }));
                     clearFieldError("contactName");
                   }}
-                  className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
                     errors.contactName
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
+                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
                   }`}
                 />
               </ShakeInput>
@@ -260,7 +260,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               active={currentStep === 2}
               complete={isStep2Complete}
             />
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {( ["10", "20"] as const).map((size) => {
                 const isActive = selectedSize === size;
                 return (
@@ -271,23 +271,32 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                       setSelectedSize(size);
                       clearFieldError("size");
                     }}
-                    className={`rounded-xl border px-4 py-4 text-left transition-all duration-200 ${
+                    className={`group relative rounded-2xl border-2 px-6 py-6 text-left transition-all duration-200 ${
                       isActive
-                        ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
-                        : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
+                        ? "border-emerald-600 bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 scale-[1.02]"
+                        : "border-slate-300 bg-white hover:border-emerald-400 hover:shadow-lg hover:shadow-slate-200 hover:scale-[1.02] active:scale-[0.98]"
                     }`}
                   >
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-sm font-semibold">
-                        <span>{dumpsters[size].name}</span>
-                        <span className="tabular-nums">${dumpsters[size].base}</span>
+                    <div className="space-y-3">
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-lg font-bold">{dumpsters[size].name}</span>
+                        <span className="text-2xl font-bold tabular-nums">${dumpsters[size].base}</span>
                       </div>
-                      <p className={`text-xs leading-relaxed ${isActive ? "text-white/80" : "text-slate-500"}`}>
+                      <p className={`text-sm leading-relaxed ${isActive ? "text-white/90" : "text-slate-600"}`}>
                         {size === "10"
                           ? "Tight footprint, weekend clean-outs"
                           : "Roomy for new builds and heavy demos"}
                       </p>
                     </div>
+                    {isActive && (
+                      <div className="absolute right-4 top-4">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
+                          <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
                   </button>
                 );
               })}
@@ -323,10 +332,10 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               }}
               onSelectionChange={setWasAddressSelected}
               placeholder={addressPlaceholder}
-              className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+              className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
                 errors.address
-                  ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                  : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                  ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
+                  : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
               }`}
             />
             {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
@@ -366,10 +375,10 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                     clearFieldError("phone");
                   }}
                   autoComplete="tel"
-                  className={`w-full rounded-xl border px-4 py-3 text-[15px] tabular-nums transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium tabular-nums transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
                     errors.phone
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
+                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
                   }`}
                 />
                   </div>
@@ -384,10 +393,10 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                     clearFieldError("email");
                   }}
                   autoComplete="email"
-                  className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
                     errors.email
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/20"
-                      : "border-slate-200 bg-white focus:border-emerald-600 focus:bg-emerald-50/30 focus:ring-emerald-500/20"
+                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
+                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
                   }`}
                 />
               </div>
@@ -397,7 +406,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                   rows={2}
                   value={booking.notes}
                   onChange={(event) => setBooking((prev) => ({ ...prev, notes: event.target.value }))}
-                  className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:border-emerald-600 focus:bg-emerald-50/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full resize-none rounded-xl border-2 border-slate-300 bg-white px-4 py-3.5 text-base font-medium shadow-sm transition-all duration-200 placeholder:text-slate-400 hover:border-slate-400 hover:shadow-md focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-500/10"
                 />
               </div>
             </div>
@@ -414,12 +423,12 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               type="button"
               onClick={handleOrder}
               disabled={isSubmitting || submitSuccess}
-              className={`relative overflow-hidden w-full rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-white ${
+              className={`relative overflow-hidden w-full rounded-2xl px-6 py-5 text-lg font-bold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-400/30 focus:ring-offset-2 focus:ring-offset-white ${
                 submitSuccess
-                  ? "cursor-default bg-emerald-600 text-white"
+                  ? "cursor-default bg-emerald-600 text-white shadow-xl shadow-emerald-600/40"
                   : isSubmitting
-                  ? "cursor-not-allowed bg-slate-200 text-slate-500"
-                  : "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-600/40 hover:ring-2 hover:ring-emerald-400/50 hover:ring-offset-2 active:scale-[0.98] active:bg-emerald-800"
+                  ? "cursor-not-allowed bg-slate-300 text-slate-500 shadow-md"
+                  : "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-xl shadow-emerald-600/40 hover:from-emerald-700 hover:to-emerald-600 hover:shadow-2xl hover:shadow-emerald-600/50 hover:scale-[1.02] active:scale-[0.98]"
               }`}
             >
               {submitSuccess ? (
