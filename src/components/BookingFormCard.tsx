@@ -1,48 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, CheckCircleIcon, Home, Truck, XCircleIcon } from "lucide-react";
+import { Building2, CheckCircleIcon, Home, XCircleIcon } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-import { ShakeInput } from "@/components/ShakeInput";
-import { LiquidGlassPanel } from "@/components/LiquidGlassPanel";
 
 const bookingTypeOptions = [
-  { id: "business", label: "For my business", icon: Building2 },
-  { id: "residential", label: "For my place", icon: Home },
+  { id: "business", label: "Business", icon: Building2 },
+  { id: "residential", label: "Residential", icon: Home },
 ] as const;
-
-const StepHeading = ({
-  step,
-  title,
-  eyebrow,
-  complete = false,
-  active = false,
-}: {
-  step: string;
-  title: string;
-  eyebrow?: string;
-  complete?: boolean;
-  active?: boolean;
-}) => (
-  <div className="flex items-center justify-between gap-3">
-    <div className="space-y-1.5">
-      <span
-        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200 ${
-          complete ? "bg-emerald-500 text-white" : "bg-slate-100 text-slate-500"
-        }`}
-      >
-        <span className="font-semibold">{step}</span>
-        {eyebrow && <span className="font-normal opacity-80">{eyebrow}</span>}
-      </span>
-      <h3 className={`text-[15px] font-semibold tracking-tight transition-all duration-200 ${
-        active ? "text-slate-900" : "text-slate-600"
-      }`}>{title}</h3>
-    </div>
-  </div>
-);
 
 interface BookingFormCardProps {
   addressPlaceholder?: string;
@@ -69,28 +37,17 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
   const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
   const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
   const phoneDigits = booking.phone.replace(/[^\d]/g, "");
-  const isStep1Complete = booking.contactName.trim().length > 0;
-  const isStep2Complete = Boolean(selectedSize);
-  const isStep3Complete = wasAddressSelected && booking.address.split(',').length >= 2 && booking.address.length > 15;
-  const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
-  const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
-  const ctaLabel = selectedSize ? `Request dumpster • $${basePrice}` : "Request dumpster";
 
   const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email" | "size") => {
     setErrors((prev) => {
-      if (!prev[field]) {
-        return prev;
-      }
+      if (!prev[field]) return prev;
       const { [field]: _, ...rest } = prev; // eslint-disable-line @typescript-eslint/no-unused-vars
       return rest;
     });
   };
 
   const handleBookingTypeChange = (type: BookingData["bookingType"]) => {
-    setBooking((prev) => ({
-      ...prev,
-      bookingType: type,
-    }));
+    setBooking((prev) => ({ ...prev, bookingType: type }));
     clearFieldError("contactName");
   };
 
@@ -111,9 +68,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
     setSubmitSuccess(true);
     setTimeout(() => {
       resetForm();
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 100);
+      setTimeout(() => setSubmitSuccess(false), 100);
     }, 2000);
   };
 
@@ -141,17 +96,16 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
     if (!selectedSize) return;
 
-    // Test mode: Shift+Click to simulate success without sending email
+    // Test mode: Shift+Click to simulate success
     if (event?.shiftKey) {
       setIsSubmitting(true);
       setTimeout(() => {
         setIsSubmitting(false);
         handleSuccessAnimation();
-      }, 2500);
+      }, 1500);
       return;
     }
 
-    // Call order handler and handle success
     handleOrderWithUI(
       booking,
       selectedSize,
@@ -170,338 +124,222 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
   return (
     <>
-      <LiquidGlassPanel variant="accent" className="bg-white/90 text-slate-900">
-        <div className="space-y-8">
-          <div
-            className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
-              currentStep === 1
-                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
-                : isStep1Complete
-                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
-                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
-            }`}
-            style={{
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
-          >
-            <StepHeading
-              step="Step 1"
-              eyebrow="Identity"
-              title="Who are we dropping to?"
-              active={currentStep === 1}
-              complete={isStep1Complete}
-            />
-            <div className="grid gap-3 sm:grid-cols-2">
-              {bookingTypeOptions.map((option) => {
-                const Icon = option.icon;
-                const isActive = booking.bookingType === option.id;
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => handleBookingTypeChange(option.id)}
-                    className={`flex items-center justify-center gap-2.5 rounded-xl border-2 px-5 py-4 text-base font-semibold transition-all duration-200 ${
-                      isActive
-                        ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
-                        : "border-slate-300 bg-white text-slate-700 hover:border-emerald-400 hover:shadow-md hover:shadow-slate-200 hover:scale-[1.02] active:scale-[0.98]"
-                    }`}
-                  >
-                    <Icon className="h-5 w-5" /> {option.label}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="contact-name" className="text-sm font-medium text-slate-700">
-                {booking.bookingType === "business" ? "Business name" : "Contact name"}
-              </label>
-              <ShakeInput isError={!!errors.contactName}>
-                <input
-                  id="contact-name"
-                  type="text"
-                  placeholder={contactPlaceholder}
-                  required
-                  value={booking.contactName}
-                  onChange={(event) => {
-                    setBooking((prev) => ({ ...prev, contactName: event.target.value }));
-                    clearFieldError("contactName");
-                  }}
-                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
-                    errors.contactName
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
-                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
+      <div className="space-y-8">
+        {/* Step 1: Type */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-black">
+            Type
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            {bookingTypeOptions.map((option) => {
+              const Icon = option.icon;
+              const isActive = booking.bookingType === option.id;
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => handleBookingTypeChange(option.id)}
+                  className={`flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "border-black bg-black text-white"
+                      : "border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:text-black"
                   }`}
-                />
-              </ShakeInput>
-              {errors.contactName && (
-                <p className="text-sm text-red-500">{errors.contactName}</p>
-              )}
-            </div>
+                >
+                  <Icon className="h-4 w-4" />
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
-
-          <div
-            className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
-              currentStep === 2
-                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
-                : isStep2Complete
-                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
-                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
-            }`}
-            style={{
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
+          <input
+            type="text"
+            placeholder={contactPlaceholder}
+            value={booking.contactName}
+            onChange={(e) => {
+              setBooking((prev) => ({ ...prev, contactName: e.target.value }));
+              clearFieldError("contactName");
             }}
-          >
-            <StepHeading
-              step="Step 2"
-              eyebrow="Capacity"
-              title="Pick a size"
-              active={currentStep === 2}
-              complete={isStep2Complete}
-            />
-            <div className="grid gap-4 sm:grid-cols-2">
-              {( ["10", "20"] as const).map((size) => {
-                const isActive = selectedSize === size;
-                return (
-                  <button
-                    key={size}
-                    type="button"
-                    onClick={() => {
-                      setSelectedSize(size);
-                      clearFieldError("size");
-                    }}
-                    className={`group relative rounded-2xl border-2 px-6 py-6 text-left transition-all duration-200 ${
-                      isActive
-                        ? "border-emerald-600 bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 scale-[1.02]"
-                        : "border-slate-300 bg-white hover:border-emerald-400 hover:shadow-lg hover:shadow-slate-200 hover:scale-[1.02] active:scale-[0.98]"
-                    }`}
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-lg font-bold">{dumpsters[size].name}</span>
-                        <span className="text-2xl font-bold tabular-nums">${dumpsters[size].base}</span>
-                      </div>
-                      <p className={`text-sm leading-relaxed ${isActive ? "text-white/90" : "text-slate-600"}`}>
-                        {size === "10"
-                          ? "Tight footprint, weekend clean-outs"
-                          : "Roomy for new builds and heavy demos"}
-                      </p>
-                    </div>
-                    {isActive && (
-                      <div className="absolute right-4 top-4">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
-                          <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-            {errors.size && <p className="text-sm text-red-500">{errors.size}</p>}
-          </div>
-
-          <div
-            className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
-              currentStep === 3
-                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
-                : isStep3Complete
-                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
-                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
+            className={`w-full rounded-md border px-4 py-2.5 text-sm transition-colors ${
+              errors.contactName
+                ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                : "border-gray-200 hover:border-gray-300 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
             }`}
-            style={{
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
-          >
-            <StepHeading
-              step="Step 3"
-              eyebrow="Address"
-              title="Drop-off location"
-              active={currentStep === 3}
-              complete={isStep3Complete}
-            />
-            <AddressAutocomplete
-              value={booking.address}
-              onChange={(address) => {
-                setBooking((prev) => ({ ...prev, address }));
-                clearFieldError("address");
-              }}
-              onSelectionChange={setWasAddressSelected}
-              placeholder={addressPlaceholder}
-              className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
-                errors.address
-                  ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
-                  : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
-              }`}
-            />
-            {errors.address && <p className="text-sm text-red-500">{errors.address}</p>}
-          </div>
-
-          <div
-            className={`space-y-4 rounded-2xl border px-5 py-5 transition-all duration-200 ${
-              currentStep === 4
-                ? "border-emerald-500/60 bg-white/80 backdrop-blur-sm shadow-sm shadow-emerald-500/10"
-                : isStep4Complete
-                ? "border-emerald-400/50 bg-white/70 backdrop-blur-sm"
-                : "border-slate-200/50 bg-white/60 backdrop-blur-sm"
-            }`}
-            style={{
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
-          >
-            <StepHeading
-              step="Step 4"
-              eyebrow="Confirm"
-              title="Contact details"
-              active={currentStep === 4}
-              complete={isStep4Complete}
-            />
-            <p className="text-xs text-slate-500">Rental includes seven days on site.</p>
-            <div className="space-y-3">
-              <div className="space-y-2">
-                <input
-                  type="tel"
-                  placeholder="(555) 123-4567"
-                  required
-                  value={booking.phone}
-                  onChange={(event) => {
-                    const formatted = formatPhoneNumber(event.target.value);
-                    setBooking((prev) => ({ ...prev, phone: formatted }));
-                    clearFieldError("phone");
-                  }}
-                  autoComplete="tel"
-                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium tabular-nums transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
-                    errors.phone
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
-                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
-                  }`}
-                />
-                  </div>
-              <div className="space-y-2">
-                <input
-                  type="email"
-                  placeholder="you@email.com"
-                  required
-                  value={booking.email}
-                  onChange={(event) => {
-                    setBooking((prev) => ({ ...prev, email: event.target.value }));
-                    clearFieldError("email");
-                  }}
-                  autoComplete="email"
-                  className={`w-full rounded-xl border-2 px-4 py-3.5 text-base font-medium transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-4 ${
-                    errors.email
-                      ? "border-red-400 bg-red-50/50 focus:border-red-500 focus:bg-white focus:ring-red-500/10 shadow-sm"
-                      : "border-slate-300 bg-white hover:border-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-emerald-500/10 shadow-sm hover:shadow-md"
-                  }`}
-                />
-              </div>
-              <div>
-                <textarea
-                  placeholder="Notes (optional)"
-                  rows={2}
-                  value={booking.notes}
-                  onChange={(event) => setBooking((prev) => ({ ...prev, notes: event.target.value }))}
-                  className="w-full resize-none rounded-xl border-2 border-slate-300 bg-white px-4 py-3.5 text-base font-medium shadow-sm transition-all duration-200 placeholder:text-slate-400 hover:border-slate-400 hover:shadow-md focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-500/10"
-                />
-              </div>
-            </div>
-            {(errors.phone || errors.email) && (
-              <div className="space-y-1 text-sm text-red-500">
-                {errors.phone && <p>{errors.phone}</p>}
-                {errors.email && <p>{errors.email}</p>}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-3">
-            <button
-              type="button"
-              onClick={handleOrder}
-              disabled={isSubmitting || submitSuccess}
-              className={`relative overflow-hidden w-full rounded-2xl px-6 py-5 text-lg font-bold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-400/30 focus:ring-offset-2 focus:ring-offset-white ${
-                submitSuccess
-                  ? "cursor-default bg-emerald-600 text-white shadow-xl shadow-emerald-600/40"
-                  : isSubmitting
-                  ? "cursor-not-allowed bg-slate-300 text-slate-500 shadow-md"
-                  : "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-xl shadow-emerald-600/40 hover:from-emerald-700 hover:to-emerald-600 hover:shadow-2xl hover:shadow-emerald-600/50 hover:scale-[1.02] active:scale-[0.98]"
-              }`}
-            >
-              {submitSuccess ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg
-                    className="h-5 w-5 animate-in zoom-in duration-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Requested!
-                </span>
-              ) : isSubmitting ? (
-                <span className="relative flex items-center justify-center h-6 w-full">
-                  <span className="opacity-0">Scheduling delivery...</span>
-                  <Truck className="absolute left-0 h-5 w-5 animate-[slide_2.5s_ease-in-out_infinite]" />
-                </span>
-              ) : (
-                ctaLabel
-              )}
-            </button>
-          </div>
+          />
+          {errors.contactName && (
+            <p className="text-sm text-red-600">{errors.contactName}</p>
+          )}
         </div>
-      </LiquidGlassPanel>
 
-      <style jsx>{`
-        @keyframes slide {
-          0% {
-            left: -10%;
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            left: 110%;
-            opacity: 0;
-          }
-        }
-      `}</style>
+        {/* Step 2: Size */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-black">
+            Size
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            {(["10", "20"] as const).map((size) => {
+              const isActive = selectedSize === size;
+              return (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => {
+                    setSelectedSize(size);
+                    clearFieldError("size");
+                  }}
+                  className={`rounded-md border p-4 text-left transition-colors ${
+                    isActive
+                      ? "border-black bg-black text-white"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-sm font-semibold">
+                        {dumpsters[size].name}
+                      </span>
+                      <span className="text-lg font-bold">
+                        ${dumpsters[size].base}
+                      </span>
+                    </div>
+                    <p className={`text-xs ${isActive ? "text-white/70" : "text-gray-500"}`}>
+                      {size === "10"
+                        ? "Small projects"
+                        : "Large projects"}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {errors.size && <p className="text-sm text-red-600">{errors.size}</p>}
+        </div>
 
-      {showToast && (
-        <div
-          className={`fixed right-6 top-6 z-50 w-full max-w-sm animate-in slide-in-from-top-2 fade-in duration-300 rounded-2xl border p-4 shadow-lg backdrop-blur ${
-            toastType === "success"
-              ? "border-emerald-200 bg-white/95 shadow-emerald-500/10"
-              : "border-red-200 bg-white/95 shadow-red-500/10"
+        {/* Step 3: Address */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-black">
+            Delivery address
+          </label>
+          <AddressAutocomplete
+            value={booking.address}
+            onChange={(address) => {
+              setBooking((prev) => ({ ...prev, address }));
+              clearFieldError("address");
+            }}
+            onSelectionChange={setWasAddressSelected}
+            placeholder={addressPlaceholder}
+            className={`w-full rounded-md border px-4 py-2.5 text-sm transition-colors ${
+              errors.address
+                ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                : "border-gray-200 hover:border-gray-300 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+            }`}
+          />
+          {errors.address && <p className="text-sm text-red-600">{errors.address}</p>}
+        </div>
+
+        {/* Step 4: Contact */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-black">
+            Contact information
+          </label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <input
+                type="tel"
+                placeholder="(555) 123-4567"
+                value={booking.phone}
+                onChange={(e) => {
+                  const formatted = formatPhoneNumber(e.target.value);
+                  setBooking((prev) => ({ ...prev, phone: formatted }));
+                  clearFieldError("phone");
+                }}
+                autoComplete="tel"
+                className={`w-full rounded-md border px-4 py-2.5 text-sm transition-colors ${
+                  errors.phone
+                    ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                    : "border-gray-200 hover:border-gray-300 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                }`}
+              />
+              {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="you@email.com"
+                value={booking.email}
+                onChange={(e) => {
+                  setBooking((prev) => ({ ...prev, email: e.target.value }));
+                  clearFieldError("email");
+                }}
+                autoComplete="email"
+                className={`w-full rounded-md border px-4 py-2.5 text-sm transition-colors ${
+                  errors.email
+                    ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                    : "border-gray-200 hover:border-gray-300 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                }`}
+              />
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+            </div>
+          </div>
+          <textarea
+            placeholder="Notes (optional)"
+            rows={3}
+            value={booking.notes}
+            onChange={(e) => setBooking((prev) => ({ ...prev, notes: e.target.value }))}
+            className="w-full resize-none rounded-md border border-gray-200 px-4 py-2.5 text-sm transition-colors hover:border-gray-300 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+          />
+        </div>
+
+        {/* Submit */}
+        <button
+          type="button"
+          onClick={handleOrder}
+          disabled={isSubmitting || submitSuccess}
+          className={`w-full rounded-md px-4 py-3 text-sm font-semibold transition-colors ${
+            submitSuccess
+              ? "cursor-default bg-black text-white"
+              : isSubmitting
+              ? "cursor-not-allowed bg-gray-200 text-gray-400"
+              : "bg-black text-white hover:bg-gray-800"
           }`}
         >
-          <div className="flex items-start gap-3 text-slate-900">
+          {submitSuccess ? (
+            <span className="flex items-center justify-center gap-2">
+              <CheckCircleIcon className="h-4 w-4" />
+              Submitted
+            </span>
+          ) : isSubmitting ? (
+            "Submitting..."
+          ) : selectedSize ? (
+            `Request dumpster • $${basePrice}`
+          ) : (
+            "Request dumpster"
+          )}
+        </button>
+      </div>
+
+      {/* Toast */}
+      {showToast && (
+        <div
+          className={`fixed right-6 top-6 z-50 w-full max-w-sm animate-in slide-in-from-top-2 fade-in duration-300 rounded-md border p-4 shadow-lg ${
+            toastType === "success"
+              ? "border-gray-200 bg-white"
+              : "border-red-200 bg-red-50"
+          }`}
+        >
+          <div className="flex items-start gap-3 text-black">
             <div className="mt-0.5">
               {toastType === "success" ? (
-                <CheckCircleIcon className="h-5 w-5 text-emerald-500" />
+                <CheckCircleIcon className="h-5 w-5 text-black" />
               ) : (
-                <XCircleIcon className="h-5 w-5 text-red-500" />
+                <XCircleIcon className="h-5 w-5 text-red-600" />
               )}
             </div>
-            <div className="flex-1 text-sm font-medium leading-relaxed">{toastMessage}</div>
+            <div className="flex-1 text-sm font-medium">{toastMessage}</div>
             <button
               type="button"
               onClick={() => setShowToast(false)}
-              className="text-slate-400 transition-all duration-200 hover:text-slate-600 active:scale-90"
-              aria-label="Dismiss notification"
+              className="text-gray-400 transition-colors hover:text-black"
+              aria-label="Dismiss"
             >
               <XCircleIcon className="h-5 w-5" />
             </button>
