@@ -48,7 +48,10 @@ export async function submitOrder(formData: {
   try {
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.sender = { name: 'Presidential Dumpsters', email: 'contact@digidov.com' };
-    sendSmtpEmail.to = [{ email: 'office@presidentialmgmt.com', name: 'Presidential Management' }];
+    sendSmtpEmail.to = [
+      { email: 'office@presidentialmgmt.com', name: 'Presidential Management' },
+      { email: 'dovindustries@gmail.com', name: 'dovindustries' },
+    ];
     sendSmtpEmail.subject = `New Dumpster Order - ${dumpster.name}${
       trimmedContact ? ` for ${trimmedContact}` : ''
     }`;

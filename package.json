@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:booking": "node scripts/test-booking-form.js"
   },
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",

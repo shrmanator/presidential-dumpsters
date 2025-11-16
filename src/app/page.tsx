@@ -37,12 +37,6 @@ export default function PresidentialDumpsters() {
         <article className="space-y-12">
           <FadeIn>
             <header className="space-y-8">
-              {/* Badge */}
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-300 backdrop-blur-sm">
-                <Truck className="h-4 w-4" aria-hidden="true" />
-                Professional Dumpster Services
-              </span>
-
               {/* Headline */}
               <h1 className="text-7xl font-bold leading-[1.05] tracking-[-0.03em] text-white md:text-8xl lg:text-[96px]">
                 Dumpster rentals in{" "}
