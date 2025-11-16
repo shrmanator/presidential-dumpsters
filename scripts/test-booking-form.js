@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-const { chromium } = require("playwright");
+let chromium;
+
+try {
+  ({ chromium } = require("playwright"));
+} catch (error) {
+  console.error(
+    "Playwright is required to run this script. Install it with `pnpm add -D playwright` and try again.",
+  );
+  process.exit(1);
+}
 
 async function run() {
   const baseUrl = process.env.BOOKING_FORM_URL || "http://localhost:3000";
