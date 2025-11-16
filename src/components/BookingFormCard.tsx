@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Building2, CheckCircleIcon, Home, Truck, XCircleIcon } from "lucide-react";
 import { dumpsters, DumpsterSize } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
@@ -64,6 +64,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
   const [toastType, setToastType] = useState<"success" | "error">("success");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [wasAddressSelected, setWasAddressSelected] = useState(false);
+  const [isAddressAutocompleteReady, setIsAddressAutocompleteReady] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
@@ -71,10 +72,26 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
   const phoneDigits = booking.phone.replace(/[^\d]/g, "");
   const isStep1Complete = booking.contactName.trim().length > 0;
   const isStep2Complete = Boolean(selectedSize);
-  const isStep3Complete = wasAddressSelected && booking.address.split(',').length >= 2 && booking.address.length > 15;
+  const addressLooksComplete =
+    booking.address.split(",").length >= 2 && booking.address.length > 15;
+  const isStep3Complete = isAddressAutocompleteReady
+    ? wasAddressSelected && addressLooksComplete
+    : addressLooksComplete;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
   const ctaLabel = selectedSize ? `Request dumpster • $${basePrice}` : "Request dumpster";
+
+  useEffect(() => {
+    if (isAddressAutocompleteReady) {
+      setWasAddressSelected(false);
+    }
+  }, [isAddressAutocompleteReady]);
+
+  useEffect(() => {
+    if (!isAddressAutocompleteReady) {
+      setWasAddressSelected(addressLooksComplete);
+    }
+  }, [addressLooksComplete, isAddressAutocompleteReady]);
 
   const clearFieldError = (field: keyof BookingData | "address" | "phone" | "email" | "size") => {
     setErrors((prev) => {
@@ -125,7 +142,11 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
 
     if (!selectedSize) validationErrors.size = "Please select a dumpster size";
 
-    const addressError = validateAddress(booking.address, wasAddressSelected);
+    const addressError = validateAddress(
+      booking.address,
+      wasAddressSelected,
+      !isAddressAutocompleteReady,
+    );
     if (addressError) validationErrors.address = addressError;
 
     const phoneError = validatePhone(booking.phone);
@@ -322,6 +343,7 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                 clearFieldError("address");
               }}
               onSelectionChange={setWasAddressSelected}
+              onReadyChange={setIsAddressAutocompleteReady}
               placeholder={addressPlaceholder}
               className={`w-full rounded-xl border px-4 py-3 text-[15px] transition-all duration-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
                 errors.address

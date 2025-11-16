@@ -70,10 +70,21 @@ export const validateContactName = (name: string, bookingType: BookingType): str
   return null;
 };
 
-export const validateAddress = (address: string, wasSelected: boolean): string | null => {
-  if (!wasSelected || address.split(',').length < 2 || address.length < 15) {
+export const validateAddress = (
+  address: string,
+  wasSelected: boolean,
+  allowManualFallback = false,
+): string | null => {
+  const looksComplete = address.split(',').length >= 2 && address.length >= 15;
+
+  if (allowManualFallback && looksComplete) {
+    return null;
+  }
+
+  if (!wasSelected || !looksComplete) {
     return 'Please select a full address from the dropdown';
   }
+
   return null;
 };
 
