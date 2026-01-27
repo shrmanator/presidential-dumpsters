@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
           <a
-            href="https://dovindustries.com"
+            href="https://www.dovindustries.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white/40 hover:text-white/60 transition-colors duration-200"
