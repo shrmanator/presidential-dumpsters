@@ -47,7 +47,7 @@ export default function PresidentialDumpsters() {
 
               {/* Subheadline */}
               <p className="max-w-2xl text-xl leading-relaxed text-white/80 md:text-2xl">
-                10-yard and 20-yard roll-off dumpsters delivered to{" "}
+                10-yard, 15-yard, and 20-yard roll-off dumpsters delivered to{" "}
                 <Link
                   href="/oakville"
                   className="text-emerald-400 underline decoration-emerald-400/30 transition-colors hover:decoration-emerald-400"

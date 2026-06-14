@@ -12,14 +12,14 @@ import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental New Haven CT | Same Day Delivery | Presidential Dumpsters",
-  description: "Professional dumpster rental in New Haven, Connecticut. 10-yard and 20-yard roll-off dumpsters starting at $395. Same-day delivery available. Licensed & insured. Serving downtown New Haven, West End, Parkville, and all New Haven neighborhoods. Call (475) 441-6727.",
+  description: "Professional dumpster rental in New Haven, Connecticut. 10-yard, 15-yard, and 20-yard roll-off dumpsters starting at $475. Same-day delivery available. Licensed & insured. Serving downtown New Haven, West End, Parkville, and all New Haven neighborhoods. Call (475) 441-6727.",
   keywords: "dumpster rental new-haven ct, roll off dumpster new-haven, construction dumpster rental new-haven, 10 yard dumpster new-haven, 20 yard dumpster new-haven, same day dumpster delivery new-haven, residential dumpster rental new-haven, commercial dumpster new-haven, waste management new-haven ct, debris removal new-haven, junk removal new-haven, affordable dumpster new-haven",
   alternates: {
     canonical: 'https://presidentialdumpsters.xyz/new-haven',
   },
   openGraph: {
     title: 'Dumpster Rental New Haven CT | Same Day Delivery',
-    description: 'Professional dumpster rental in New Haven, CT. 10-yard and 20-yard dumpsters starting at $395. Same-day delivery available.',
+    description: 'Professional dumpster rental in New Haven, CT. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same-day delivery available.',
     url: 'https://presidentialdumpsters.xyz/new-haven',
     siteName: 'Presidential Dumpsters',
     locale: 'en_US',
@@ -51,7 +51,16 @@ export default function NewHavenPage() {
           "@type": "Service",
           "name": "10 Yard Dumpster Rental New Haven"
         },
-        "price": "395",
+        "price": "475",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "15 Yard Dumpster Rental New Haven"
+        },
+        "price": "535",
         "priceCurrency": "USD"
       },
       {
@@ -60,7 +69,7 @@ export default function NewHavenPage() {
           "@type": "Service",
           "name": "20 Yard Dumpster Rental New Haven"
         },
-        "price": "695",
+        "price": "575",
         "priceCurrency": "USD"
       }
     ]
@@ -116,7 +125,7 @@ export default function NewHavenPage() {
               {/* Subheadline */}
               <p className="max-w-2xl text-xl leading-relaxed text-white/80 md:text-2xl">
                 Professional roll-off dumpster service for New Haven residents and businesses.
-                10-yard and 20-yard dumpsters for renovations, construction, and cleanouts.
+                10-yard, 15-yard, and 20-yard dumpsters for renovations, construction, and cleanouts.
               </p>
 
               {/* Feature Cards */}

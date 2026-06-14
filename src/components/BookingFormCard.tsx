@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Building2, CheckCircleIcon, Home, Truck, XCircleIcon } from "lucide-react";
-import { dumpsters, DumpsterSize } from "@/utils/pricing";
+import {
+  dumpsters,
+  DumpsterSize,
+  tonsIncluded,
+  overagePerTon,
+  includedRentalDays,
+  extraDayRate,
+} from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
@@ -281,8 +288,8 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               active={currentStep === 2}
               complete={isStep2Complete}
             />
-            <div className="grid gap-3 sm:grid-cols-2">
-              {( ["10", "20"] as const).map((size) => {
+            <div className="grid gap-3 sm:grid-cols-3">
+              {( ["10", "15", "20"] as const).map((size) => {
                 const isActive = selectedSize === size;
                 return (
                   <button
@@ -306,6 +313,8 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
                       <p className={`text-xs leading-relaxed ${isActive ? "text-white/80" : "text-slate-500"}`}>
                         {size === "10"
                           ? "Tight footprint, weekend clean-outs"
+                          : size === "15"
+                          ? "Mid-size jobs and bigger renovations"
                           : "Roomy for new builds and heavy demos"}
                       </p>
                     </div>
@@ -314,6 +323,10 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               })}
             </div>
             {errors.size && <p className="text-sm text-red-500">{errors.size}</p>}
+            <p className="text-xs leading-relaxed text-slate-500">
+              {tonsIncluded} tons included • ${overagePerTon}/ton over • {includedRentalDays}-day
+              rental, +${extraDayRate}/day after • no concrete or hazmat
+            </p>
           </div>
 
           <div
