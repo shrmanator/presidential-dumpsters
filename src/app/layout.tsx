@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Presidential Dumpsters - Dumpster Rental Waterbury CT | Same Day Delivery",
     template: "%s | Presidential Dumpsters"
   },
-  description: "Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured. Call (475) 441-6727.",
+  description: "Professional dumpster rental services in Waterbury, Connecticut. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same/next day delivery. Licensed & insured. Call (475) 441-6727.",
   keywords: "dumpster rental waterbury ct, roll off dumpster rental waterbury, construction dumpster new haven, dumpster rental hartford ct, 10 yard dumpster connecticut, 20 yard dumpster waterbury, same day dumpster delivery ct, weekend dumpster rental, residential dumpster rental waterbury, commercial dumpster rental connecticut, debris removal waterbury ct, construction waste disposal, affordable dumpster rental ct, waste management waterbury, junk removal service connecticut",
   authors: [{ name: "Presidential Management" }],
   creator: "Presidential Management",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     url: 'https://presidentialdumpsters.xyz',
     siteName: 'Presidential Dumpsters',
     title: 'Presidential Dumpsters - Professional Dumpster Rental Waterbury CT',
-    description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
+    description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same/next day delivery. Licensed & insured.',
     images: [
       {
         url: '/logo.png',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Presidential Dumpsters - Professional Dumpster Rental Waterbury CT',
-    description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery.',
+    description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same/next day delivery.',
     images: ['/logo.png'],
     creator: '@presidentialdumpsters',
     site: '@presidentialdumpsters',
@@ -140,8 +140,8 @@ export default function RootLayout({
         image: {
           '@id': 'https://presidentialdumpsters.xyz/#logo'
         },
-        description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard and 20-yard dumpsters starting at $395. Same/next day delivery. Licensed & insured.',
-        priceRange: '$395-$695',
+        description: 'Professional dumpster rental services in Waterbury, Connecticut. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same/next day delivery. Licensed & insured.',
+        priceRange: '$475-$575',
         telephone: '+1-475-441-6727',
         email: 'info@presidentialdumpsters.xyz',
         address: {
@@ -224,11 +224,40 @@ export default function RootLayout({
                 description: 'Perfect for small cleanouts, bathroom renovations, and single room projects. Holds approximately 4 pickup truck loads.',
                 serviceType: 'Dumpster Rental'
               },
-              price: '395',
+              price: '475',
               priceCurrency: 'USD',
               priceSpecification: {
                 '@type': 'UnitPriceSpecification',
-                price: 395,
+                price: 475,
+                priceCurrency: 'USD',
+                unitText: '7-day rental',
+                referenceQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: 1,
+                  unitCode: 'WEE'
+                }
+              },
+              availability: 'https://schema.org/InStock',
+              deliveryLeadTime: {
+                '@type': 'QuantitativeValue',
+                minValue: 0,
+                maxValue: 1,
+                unitCode: 'DAY'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: '15 Yard Dumpster Rental',
+                description: 'Great for whole-home cleanouts, larger renovations, and mid-size construction debris. Holds approximately 6 pickup truck loads.',
+                serviceType: 'Dumpster Rental'
+              },
+              price: '535',
+              priceCurrency: 'USD',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                price: 535,
                 priceCurrency: 'USD',
                 unitText: '7-day rental',
                 referenceQuantity: {
@@ -253,11 +282,11 @@ export default function RootLayout({
                 description: 'Ideal for large projects, kitchen renovations, roofing, and construction work. Holds approximately 8 pickup truck loads.',
                 serviceType: 'Dumpster Rental'
               },
-              price: '695',
+              price: '575',
               priceCurrency: 'USD',
               priceSpecification: {
                 '@type': 'UnitPriceSpecification',
-                price: 695,
+                price: 575,
                 priceCurrency: 'USD',
                 unitText: '7-day rental',
                 referenceQuantity: {

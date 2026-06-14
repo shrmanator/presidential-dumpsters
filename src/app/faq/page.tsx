@@ -28,7 +28,7 @@ export default function FAQPage() {
         "name": "What sizes do you offer?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We offer 10-yard dumpsters ($395) perfect for small cleanouts and 20-yard dumpsters ($550) ideal for larger projects and construction work."
+          "text": "We offer 10-yard ($475), 15-yard ($535), and 20-yard ($575) dumpsters. Each rental includes 2 tons of weight, with overage charged at $145 per ton."
         }
       },
       {
@@ -36,7 +36,7 @@ export default function FAQPage() {
         "name": "How long can I keep the dumpster?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "All rentals include 7 days on-site. Need longer? Just let us know and we can extend your rental period."
+          "text": "All rentals include 7 days on-site. Need longer? Keep it for $10 per day, or just let us know and we can extend your rental period."
         }
       },
       {
@@ -77,11 +77,11 @@ export default function FAQPage() {
   const faqs = [
     {
       q: "What sizes do you offer?",
-      a: "We offer 10-yard dumpsters ($395) perfect for small cleanouts and 20-yard dumpsters ($550) ideal for larger projects and construction work."
+      a: "We offer 10-yard ($475), 15-yard ($535), and 20-yard ($575) dumpsters. Each rental includes 2 tons of weight, with overage charged at $145 per ton."
     },
     {
       q: "How long can I keep the dumpster?",
-      a: "All rentals include 7 days on-site. Need longer? Just let us know and we can extend your rental period."
+      a: "All rentals include 7 days on-site. Need longer? Keep it for $10 per day, or just let us know and we can extend your rental period."
     },
     {
       q: "What areas do you serve?",

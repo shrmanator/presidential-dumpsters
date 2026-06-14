@@ -11,8 +11,8 @@ import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "Dumpster Sizing Guide | Presidential Dumpsters",
-  description: "Choose the right dumpster size for your project. Compare 10-yard and 20-yard dumpsters for Connecticut homes and businesses.",
-  keywords: "dumpster size guide, 10 yard dumpster, 20 yard dumpster, dumpster comparison",
+  description: "Choose the right dumpster size for your project. Compare 10-yard, 15-yard, and 20-yard dumpsters for Connecticut homes and businesses.",
+  keywords: "dumpster size guide, 10 yard dumpster, 15 yard dumpster, 20 yard dumpster, dumpster comparison",
   alternates: {
     canonical: 'https://presidentialdumpsters.xyz/sizing-guide',
   },
@@ -55,13 +55,13 @@ export default function SizingGuidePage() {
             </div>
 
             {/* Size Comparison */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               {/* 10-Yard */}
               <LiquidGlassCard variant="accent">
                 <div className="space-y-6">
                   <div className="flex items-baseline justify-between">
                     <h2 className="text-3xl font-bold text-white">10-Yard</h2>
-                    <span className="text-3xl font-bold text-white">$395</span>
+                    <span className="text-3xl font-bold text-white">$475</span>
                   </div>
                   
                   <div className="space-y-4 text-white/90">
@@ -95,12 +95,51 @@ export default function SizingGuidePage() {
                 </div>
               </LiquidGlassCard>
 
+              {/* 15-Yard */}
+              <LiquidGlassCard variant="accent">
+                <div className="space-y-6">
+                  <div className="flex items-baseline justify-between">
+                    <h2 className="text-3xl font-bold text-white">15-Yard</h2>
+                    <span className="text-3xl font-bold text-white">$535</span>
+                  </div>
+
+                  <div className="space-y-4 text-white/90">
+                    <div>
+                      <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Perfect For:</h3>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-400 mt-1">•</span>
+                          <span>Whole-room remodels</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-400 mt-1">•</span>
+                          <span>Whole-home cleanouts</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-400 mt-1">•</span>
+                          <span>Deck and fence tear-outs</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-400 mt-1">•</span>
+                          <span>Mid-size construction debris</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="pt-4 border-t border-white/20">
+                      <p><span className="font-semibold text-white">Capacity:</span> About 6 pickup truck loads</p>
+                      <p className="mt-2"><span className="font-semibold text-white">Size:</span> 16&apos; long × 8&apos; wide × 4&apos; high</p>
+                    </div>
+                  </div>
+                </div>
+              </LiquidGlassCard>
+
               {/* 20-Yard */}
               <LiquidGlassCard variant="blue">
                 <div className="space-y-6">
                   <div className="flex items-baseline justify-between">
                     <h2 className="text-3xl font-bold text-white">20-Yard</h2>
-                    <span className="text-3xl font-bold text-white">$550</span>
+                    <span className="text-3xl font-bold text-white">$575</span>
                   </div>
                   
                   <div className="space-y-4 text-white/90">
@@ -134,6 +173,11 @@ export default function SizingGuidePage() {
                 </div>
               </LiquidGlassCard>
             </div>
+
+            <p className="text-center text-white/70 max-w-3xl mx-auto">
+              Every size includes 2 tons and a 7-day rental. Additional tonnage is $145 per ton,
+              and extra days are $10 per day. No concrete or hazardous materials.
+            </p>
 
             {/* CTA Card */}
             <LiquidGlassCard variant="accent">

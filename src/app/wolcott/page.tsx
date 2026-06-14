@@ -12,14 +12,14 @@ import { LiquidGlassCard } from "@/components/LiquidGlassCard";
 
 export const metadata: Metadata = {
   title: "Dumpster Rental Wolcott CT | Same Day Delivery | Presidential Dumpsters",
-  description: "Professional dumpster rental in Wolcott, Connecticut. 10-yard and 20-yard roll-off dumpsters starting at $395. Same-day delivery available. Licensed & insured. Serving downtown Wolcott, West End, Parkville, and all Wolcott neighborhoods. Call (475) 441-6727.",
+  description: "Professional dumpster rental in Wolcott, Connecticut. 10-yard, 15-yard, and 20-yard roll-off dumpsters starting at $475. Same-day delivery available. Licensed & insured. Serving downtown Wolcott, West End, Parkville, and all Wolcott neighborhoods. Call (475) 441-6727.",
   keywords: "dumpster rental wolcott ct, roll off dumpster wolcott, construction dumpster rental wolcott, 10 yard dumpster wolcott, 20 yard dumpster wolcott, same day dumpster delivery wolcott, residential dumpster rental wolcott, commercial dumpster wolcott, waste management wolcott ct, debris removal wolcott, junk removal wolcott, affordable dumpster wolcott",
   alternates: {
     canonical: 'https://presidentialdumpsters.xyz/wolcott',
   },
   openGraph: {
     title: 'Dumpster Rental Wolcott CT | Same Day Delivery',
-    description: 'Professional dumpster rental in Wolcott, CT. 10-yard and 20-yard dumpsters starting at $395. Same-day delivery available.',
+    description: 'Professional dumpster rental in Wolcott, CT. 10-yard, 15-yard, and 20-yard dumpsters starting at $475. Same-day delivery available.',
     url: 'https://presidentialdumpsters.xyz/wolcott',
     siteName: 'Presidential Dumpsters',
     locale: 'en_US',
@@ -51,7 +51,16 @@ export default function WolcottPage() {
           "@type": "Service",
           "name": "10 Yard Dumpster Rental Wolcott"
         },
-        "price": "395",
+        "price": "475",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "15 Yard Dumpster Rental Wolcott"
+        },
+        "price": "535",
         "priceCurrency": "USD"
       },
       {
@@ -60,7 +69,7 @@ export default function WolcottPage() {
           "@type": "Service",
           "name": "20 Yard Dumpster Rental Wolcott"
         },
-        "price": "695",
+        "price": "575",
         "priceCurrency": "USD"
       }
     ]
@@ -116,7 +125,7 @@ export default function WolcottPage() {
               {/* Subheadline */}
               <p className="max-w-2xl text-xl leading-relaxed text-white/80 md:text-2xl">
                 Professional roll-off dumpster service for Wolcott residents and businesses.
-                10-yard and 20-yard dumpsters for renovations, construction, and cleanouts.
+                10-yard, 15-yard, and 20-yard dumpsters for renovations, construction, and cleanouts.
               </p>
 
               {/* Feature Cards */}
