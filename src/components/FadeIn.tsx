@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, ReactNode } from "react";
 
 interface FadeInProps {
@@ -20,6 +20,7 @@ export function FadeIn({
 }: FadeInProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldReduceMotion = useReducedMotion();
 
   const directions = {
     up: { y: 40, x: 0 },
@@ -30,16 +31,22 @@ export function FadeIn({
   };
 
   const initialOffset = directions[direction];
+  const visible = { opacity: 1, y: 0, x: 0 };
+
+  // Respect reduced-motion: render content visible immediately, no transform.
+  if (shouldReduceMotion) {
+    return (
+      <motion.div ref={ref} initial={false} animate={visible} className={className}>
+        {children}
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, ...initialOffset }}
-      animate={
-        isInView
-          ? { opacity: 1, y: 0, x: 0 }
-          : { opacity: 0, ...initialOffset }
-      }
+      animate={isInView ? visible : { opacity: 0, ...initialOffset }}
       transition={{
         duration,
         delay,

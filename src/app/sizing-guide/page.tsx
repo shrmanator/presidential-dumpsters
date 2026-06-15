@@ -96,7 +96,7 @@ export default function SizingGuidePage() {
               </LiquidGlassCard>
 
               {/* 15-Yard */}
-              <LiquidGlassCard variant="accent">
+              <LiquidGlassCard variant="teal">
                 <div className="space-y-6">
                   <div className="flex items-baseline justify-between">
                     <h2 className="text-3xl font-bold text-white">15-Yard</h2>
@@ -108,19 +108,19 @@ export default function SizingGuidePage() {
                       <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Perfect For:</h3>
                       <ul className="space-y-2">
                         <li className="flex items-start gap-2">
-                          <span className="text-emerald-400 mt-1">•</span>
+                          <span className="text-teal-300 mt-1">•</span>
                           <span>Whole-room remodels</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-emerald-400 mt-1">•</span>
+                          <span className="text-teal-300 mt-1">•</span>
                           <span>Whole-home cleanouts</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-emerald-400 mt-1">•</span>
+                          <span className="text-teal-300 mt-1">•</span>
                           <span>Deck and fence tear-outs</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-emerald-400 mt-1">•</span>
+                          <span className="text-teal-300 mt-1">•</span>
                           <span>Mid-size construction debris</span>
                         </li>
                       </ul>

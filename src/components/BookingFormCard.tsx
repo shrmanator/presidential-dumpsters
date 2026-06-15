@@ -387,7 +387,6 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
               active={currentStep === 4}
               complete={isStep4Complete}
             />
-            <p className="text-xs text-slate-500">Rental includes seven days on site.</p>
             <div className="space-y-3">
               <div className="space-y-2">
                 <input

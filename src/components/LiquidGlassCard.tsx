@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 interface LiquidGlassCardProps {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "accent" | "blue";
+  variant?: "default" | "accent" | "teal" | "blue";
 }
 
 export function LiquidGlassCard({
@@ -26,6 +26,12 @@ export function LiquidGlassCard({
       background: "rgba(16, 185, 129, 0.15)",
       shadowBase: "0 4px 30px rgba(16, 185, 129, 0.12)",
       shadowHover: "0 8px 40px rgba(16, 185, 129, 0.18)",
+    },
+    teal: {
+      border: "rgba(20, 184, 166, 0.2)",
+      background: "rgba(20, 184, 166, 0.15)",
+      shadowBase: "0 4px 30px rgba(20, 184, 166, 0.12)",
+      shadowHover: "0 8px 40px rgba(20, 184, 166, 0.18)",
     },
     blue: {
       border: "rgba(10, 33, 71, 0.2)",
