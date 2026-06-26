@@ -1,7 +1,7 @@
 'use server';
 
 import * as brevo from '@getbrevo/brevo';
-import { dumpsters, DumpsterSize } from '@/utils/pricing';
+import { dumpsters, DumpsterSize, calculateTax, calculateTotal } from '@/utils/pricing';
 import { BookingType } from '@/utils/validation';
 import {
   buildCustomerConfirmationHtml,
@@ -31,12 +31,16 @@ export async function submitOrder(formData: {
 
   const dumpster = dumpsters[selectedSize];
   const basePrice = dumpster.base;
+  const salesTaxAmount = calculateTax(basePrice);
+  const totalPrice = calculateTotal(basePrice);
   const trimmedContact = contactName.trim();
   const customerEmail = email.trim();
   const bookingDescriptor = bookingType === 'business' ? 'Business' : 'Residential';
   const emailContext = {
     dumpsterName: dumpster.name,
     basePrice,
+    salesTaxAmount,
+    totalPrice,
     bookingDescriptor,
     contactName: trimmedContact,
     address,
