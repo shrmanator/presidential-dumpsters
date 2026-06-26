@@ -9,6 +9,10 @@ import {
   overagePerTon,
   includedRentalDays,
   extraDayRate,
+  salesTaxRate,
+  calculateTax,
+  calculateTotal,
+  formatUsd,
 } from "@/utils/pricing";
 import { formatPhoneNumber, validateContactName, validateAddress, validatePhone, validateEmail } from "@/utils/validation";
 import { handleOrderWithUI, BookingData } from "@/utils/order-handler";
@@ -75,6 +79,9 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const basePrice = selectedSize ? dumpsters[selectedSize].base : 0;
+  const salesTax = calculateTax(basePrice);
+  const totalPrice = calculateTotal(basePrice);
+  const taxRateLabel = `${(salesTaxRate * 100).toFixed(2).replace(/\.?0+$/, "")}%`;
   const contactPlaceholder = booking.bookingType === "business" ? "Acme Builders" : "Alex Johnson";
   const phoneDigits = booking.phone.replace(/[^\d]/g, "");
   const isStep1Complete = booking.contactName.trim().length > 0;
@@ -86,7 +93,9 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
     : addressLooksComplete;
   const isStep4Complete = phoneDigits.length >= 10 && booking.email.trim().length > 0;
   const currentStep = !isStep1Complete ? 1 : !isStep2Complete ? 2 : !isStep3Complete ? 3 : !isStep4Complete ? 4 : 4;
-  const ctaLabel = selectedSize ? `Request dumpster • $${basePrice}` : "Request dumpster";
+  const ctaLabel = selectedSize
+    ? `Request dumpster • ${formatUsd(totalPrice)}`
+    : "Request dumpster";
 
   useEffect(() => {
     if (isAddressAutocompleteReady) {
@@ -445,6 +454,22 @@ export function BookingFormCard({ addressPlaceholder = "123 Main St, Waterbury" 
           </div>
 
           <div className="space-y-3">
+            {selectedSize && (
+              <div className="rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-4 text-sm">
+                <div className="flex items-center justify-between text-slate-600">
+                  <span>Base price</span>
+                  <span className="tabular-nums">{formatUsd(basePrice)}</span>
+                </div>
+                <div className="mt-2 flex items-center justify-between text-slate-600">
+                  <span>CT sales tax ({taxRateLabel})</span>
+                  <span className="tabular-nums">{formatUsd(salesTax)}</span>
+                </div>
+                <div className="mt-3 flex items-center justify-between border-t border-slate-200/70 pt-3 text-base font-semibold text-slate-900">
+                  <span>Total</span>
+                  <span className="tabular-nums">{formatUsd(totalPrice)}</span>
+                </div>
+              </div>
+            )}
             <button
               type="button"
               onClick={handleOrder}

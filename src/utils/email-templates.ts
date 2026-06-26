@@ -1,6 +1,10 @@
+import { salesTaxRate } from "./pricing";
+
 interface OrderEmailContext {
   dumpsterName: string;
   basePrice: number;
+  salesTaxAmount: number;
+  totalPrice: number;
   bookingDescriptor: string;
   contactName: string;
   address: string;
@@ -9,10 +13,17 @@ interface OrderEmailContext {
   notes: string;
 }
 
+const taxRateLabel = `${(salesTaxRate * 100).toFixed(2).replace(/\.?0+$/, "")}%`;
+
+const formatMoney = (amount: number) =>
+  amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
 export const buildInternalOrderHtml = (context: OrderEmailContext) => {
   const {
     dumpsterName,
     basePrice,
+    salesTaxAmount,
+    totalPrice,
     bookingDescriptor,
     contactName,
     address,
@@ -27,7 +38,11 @@ export const buildInternalOrderHtml = (context: OrderEmailContext) => {
 
       <div style="background: #f9f9f9; padding: 15px; margin: 15px 0;">
         <p><strong>Dumpster Size:</strong> ${dumpsterName}</p>
-        <p><strong>Base Price:</strong> $${basePrice}</p>
+        <p><strong>Base Price:</strong> ${formatMoney(basePrice)}</p>
+        <p><strong>CT Sales Tax (${taxRateLabel}):</strong> ${formatMoney(
+    salesTaxAmount,
+  )}</p>
+        <p><strong>Total:</strong> ${formatMoney(totalPrice)}</p>
         <p><strong>Booking Type:</strong> ${bookingDescriptor}${
     contactName ? ` - ${contactName}` : ""
   }</p>
@@ -54,6 +69,8 @@ export const buildCustomerConfirmationHtml = (context: OrderEmailContext) => {
   const {
     dumpsterName,
     basePrice,
+    salesTaxAmount,
+    totalPrice,
     bookingDescriptor,
     contactName,
     address,
@@ -70,7 +87,11 @@ export const buildCustomerConfirmationHtml = (context: OrderEmailContext) => {
     contactName ? ` - ${contactName}` : ""
   }</p>
         <p><strong>Delivery address:</strong> ${address}</p>
-        <p><strong>Base price:</strong> $${basePrice}</p>
+        <p><strong>Base price:</strong> ${formatMoney(basePrice)}</p>
+        <p><strong>CT sales tax (${taxRateLabel}):</strong> ${formatMoney(
+    salesTaxAmount,
+  )}</p>
+        <p><strong>Total:</strong> ${formatMoney(totalPrice)}</p>
         <p><strong>Phone:</strong> ${phone}</p>
         ${notes ? `<p><strong>Notes you shared:</strong> ${notes}</p>` : ""}
       </div>
